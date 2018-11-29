@@ -10,19 +10,19 @@ AFRAME.registerComponent('move', {
 		var target=document.querySelector(`#${data.target}`)
 		el.addEventListener(data.on, function(){
 				var image=document.querySelector(`#${data.target}Img`);
-				if(image.nodeName!="IMG"){	
-					var source = image.innerHTML;
-					parentImage=image.parentNode;
+				if(image.nodeName!="IMG"){
+					var source=image.innerHTML;
+					var parentImage=image.parentNode;
 					parentImage.removeChild(image);
-					image = document.createElement("img");
+					image=document.createElement("img");
 					image.setAttribute("id", `${data.target}Img`);
-					image.setAttribute("crossorigin", "anonymous");					
+					image.setAttribute("crossorigin", "anonymous");
 					image.setAttribute("src", source);
 					parentImage.appendChild(image);
 				}
 				document.querySelector("#background").setAttribute('src', `#${data.target}Img`);
 				target.setAttribute('visible', 'true');
-				el.parentNode.setAttribute('visible','false');
+				el.parentNode.parentNode.setAttribute('visible','false');
 				document.querySelector("#hud").setAttribute('value', target.getAttribute('description'));
 				document.querySelector("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
 			}
@@ -37,12 +37,12 @@ AFRAME.registerComponent('default', {
 	init: function(){
 		var el = this.el;
 		var image=document.querySelector(`#${el.id}Img`);
-		var source = image.innerHTML;
-		parentImage=image.parentNode;
+		var source=image.innerHTML;
+		var parentImage=image.parentNode;
 		parentImage.removeChild(image);
-		image = document.createElement("img");
+		image=document.createElement("img");
 		image.setAttribute("id", `${el.id}Img`);
-		image.setAttribute("crossorigin", "anonymous");					
+		image.setAttribute("crossorigin", "anonymous");
 		image.setAttribute("src", source);
 		parentImage.appendChild(image);
 		document.querySelector("#background").setAttribute('src', `#${el.id}Img`);
@@ -57,6 +57,3 @@ AFRAME.registerComponent('description', {
 	}
 );
 
-function clickSky(){
-	alert("click");
-}

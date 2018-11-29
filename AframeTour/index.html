@@ -5,11 +5,22 @@
 	<title>Projet test</title>
 	<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
-    <script src="move.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@^3.1.1/dist/aframe-template-component.min.js"></script>
+    <script src="360tour.js"></script>   
 </head>
 <body>
 	<a-scene>
 		<a-assets>
+<<<<<<< HEAD
+=======
+			<script id="template" type="text/html">
+				<a-entity 
+				geometry="primitive: sphere; radius: 0.5" 
+				material="color: red"
+				move="on: click; target: ${target}">
+				</a-entity>
+			</script>
+>>>>>>> devenzo
 			<div id="salonImg">img/salon.jpg</div>
 			<div id="entreeImg">img/entree.jpg</div>
 			<div id="salledebainImg">img/salledebain.jpg</div>
@@ -18,16 +29,25 @@
 		<a-sky id="background"></a-sky>
 
 		<a-entity id="salon" description="Salon appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
+<<<<<<< HEAD
 			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: purple" move="on: click; target: entree"></a-entity>
+=======
+			<a-entity template="src: #template" data-target="entree"></a-entity>
+>>>>>>> devenzo
 		</a-entity>
 
-		<a-entity id="entree" description="Entrée appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
-			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: salon"></a-entity>
-			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: salledebain"></a-entity>
+		<a-entity id="entree" description="Entrée appartement" layout="type: circle; radius: 5; plane: xz" visible='false' default>
+			<a-entity template="src: #template" data-target="salon"></a-entity>
+			<a-entity template="src: #template" data-target="salledebain"></a-entity>
 		</a-entity>
 
+<<<<<<< HEAD
 		<a-entity id="salledebain" description="Salle de bain appartement" layout="type: circle; radius: 5; plane: xz" visible='false' default>
 			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: entree"></a-entity>
+=======
+		<a-entity id="salledebain" description="Salle de bain appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
+			<a-entity template="src: #template" data-target="entree"></a-entity>
+>>>>>>> devenzo
 		</a-entity>
 
 		<a-entity camera look-controls>
