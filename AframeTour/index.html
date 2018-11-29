@@ -4,7 +4,8 @@
 	<meta charset="utf-8">
 	<title>Projet test</title>
 	<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script><script src="https://unpkg.com/aframe-event-set-component@^4.1.2/dist/aframe-event-set-component.min.js"></script>
+      <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script> 
     <script src="move.js"></script>
 </head>
 <body>
@@ -18,21 +19,53 @@
 		<a-sky id="background"></a-sky>
 
 		<a-entity id="salon" description="Salon appartement" layout="type: circle; radius: 5; plane: xz" visible='false' default>
-			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: purple" move="on: click; target: entree"></a-entity>
+			<a-entity geometry="primitive: box; width : 0.5; height : 0.5; depth : 0.5" material="color: springgreen" move="on: click; target: entree" event-set__1="_event: mouseenter; scale: 1.2 1.2 1.2; material.color: blue" event-set__2="_event: mouseleave; scale: 1 1 1; material.color: springgreen"
+			  >
+				<a-animation attribute="rotation"
+               		dur="1000"
+               		fill="forwards"
+               		to="0 360 0"
+               		repeat="indefinite">
+               	</a-animation>
+			</a-entity>
 		</a-entity>
 
 		<a-entity id="entree" description="Entrée appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
-			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: salon"></a-entity>
-			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: salledebain"></a-entity>
+			<a-entity geometry="primitive: box; width : 0.5; height : 0.5; depth : 0.5" material="color: springgreen" move="on: click; target: salon">
+				<a-animation attribute="rotation"
+               		dur="1000"
+               		fill="forwards"
+               		to="0 360 0"
+               		repeat="indefinite">
+               	</a-animation>
+			</a-entity>
+			<a-entity geometry="primitive: box; width : 0.5; height : 0.5; depth : 0.5" material="color: springgreen" move="on: click; target: salledebain">
+				<a-animation attribute="rotation"
+               		dur="1000"
+               		fill="forwards"
+               		to="0 360 0"
+               		repeat="indefinite">
+               	</a-animation>
+			</a-entity>
 		</a-entity>
 
 		<a-entity id="salledebain" description="Salle de bain appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
-			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: entree"></a-entity>
+			<a-entity geometry="primitive: box; width : 0.5; height : 0.5; depth : 0.5" material="color: springgreen" move="on: click; target: entree">
+				<a-animation attribute="rotation"
+               		dur="1000"
+               		fill="forwards"
+               		to="0 360 0"
+               		repeat="indefinite">
+               	</a-animation>
+			</a-entity>
 		</a-entity>
 
 		<a-entity camera look-controls>
 			<a-text id="hud" position="-1 0.5 -1"></a-text>
-			<a-cursor id="cursor"></a-cursor>
+			<a-cursor id="cursor" 
+					  color="#ffba70"
+					  event-set__1="_event: mouseenter; color: springgreen"
+					  event-set__2="_event: mouseleave; color: black"></a-cursor>
 		</a-entity>
 	</a-scene>
 </body>
