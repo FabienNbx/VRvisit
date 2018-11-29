@@ -11,9 +11,21 @@
 <body>
 	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
 	<section id="listeImg">
-	
-	
-	
+	<?php
+		$tab=array();
+		$tab[]="salon";
+		$tab["salon"]="images/salon.jpg";
+		$tab[]="salledebain";
+		$tab["salledebain"]="images/salledebain.jpg";
+		foreach($tab as $t => $url){
+			echo "
+			<div class="container-fluid">
+				<p>$t</p>
+				<img src="$url" alt="Désolé notre image a rencontré des problèmes">
+			</div>			
+			"		
+		}
+	?>
 	</section>
 	<footer>
 	<div class="container-fluid">
@@ -22,7 +34,7 @@
 		</button>
 
 		<button class="btn btn-success">
-					<img class="imgBtn" src="images/validation.png" alt="Désolé notre image a rencontré des problèmes">
+			<img class="imgBtn" src="images/validation.png" alt="Désolé notre image a rencontré des problèmes">
 		</button>
 	</div>	
 	</footer>

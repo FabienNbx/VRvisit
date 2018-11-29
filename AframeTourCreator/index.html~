@@ -18,11 +18,11 @@
 	<footer>
 	<div class="container-fluid">
 		<button class="btn btn-primary">
-			<img class="imgBtn" src="images/ajout.jpeg" alt="Désolé notre image a rencontré des problèmes">
+			<img src="images/ajout.jpeg" alt="Désolé notre image a rencontré des problèmes">
 		</button>
 
 		<button class="btn btn-success">
-					<img class="imgBtn" src="images/validation.png" alt="Désolé notre image a rencontré des problèmes">
+					<img src="images/validation.png" alt="Désolé notre image a rencontré des problèmes">
 		</button>
 	</div>	
 	</footer>

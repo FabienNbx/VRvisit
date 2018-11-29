@@ -1,0 +1,25 @@
+
+h1{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+body{
+	background-color: white;
+}
+
+.imgBtn{
+	width: 50px;
+	height: 50px;
+}
+
+footer{
+	position:fixed;
+	bottom:0px;
+	margin-left: 45%;
+}
+
+button{
+	margin-right: 50px;
+	margin-left: 50px;
+}
