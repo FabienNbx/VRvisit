@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Projet test</title>
+	<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="move.js"></script>
+</head>
+<body>
+	<a-scene>
+		<a-assets>
+			<img id="salonImg" crossorigin="anonymous" src="img/salon.jpg"/>
+			<img id="entreeImg" crossorigin="anonymous" src="img/entree.jpg"/>
+			<img id="salledebainImg" crossorigin="anonymous" src="img/salledebain.jpg"/>
+		</a-assets>
+
+		<a-sky id="background"></a-sky>
+
+		<a-entity id="salon" description="Salon appartement" layout="type: circle; radius: 5; plane: xz" visible='false' default>
+			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: purple" move="on: click; target: entree"></a-entity>
+		</a-entity>
+
+		<a-entity id="entree" description="Entrée appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
+			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: salon"></a-entity>
+			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: salledebain"></a-entity>
+		</a-entity>
+
+		<a-entity id="salledebain" description="Salle de bain appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
+			<a-entity geometry="primitive: sphere; radius: 0.5" material="color: red" move="on: click; target: entree"></a-entity>
+		</a-entity>
+
+		<a-entity camera look-controls>
+			<a-text id="hud" position="-1 0.5 -1"></a-text>
+			<a-cursor id="cursor"></a-cursor>
+		</a-entity>
+	</a-scene>
+</body>
+</html>
