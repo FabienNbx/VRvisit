@@ -22,7 +22,7 @@ AFRAME.registerComponent('move', {
 				}
 				document.querySelector("#background").setAttribute('src', `#${data.target}Img`);
 				target.setAttribute('visible', 'true');
-				el.parentNode.setAttribute('visible','false');
+				el.parentNode.parentNode.setAttribute('visible','false');
 				document.querySelector("#hud").setAttribute('value', target.getAttribute('description'));
 				document.querySelector("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
 			}
@@ -57,6 +57,3 @@ AFRAME.registerComponent('description', {
 	}
 );
 
-function clickSky(){
-	alert("click");
-}
