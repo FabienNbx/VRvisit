@@ -1,3 +1,5 @@
+$ = (el) => document.querySelector(el);
+
 AFRAME.registerComponent('move', {
 	schema: {
 		on: {type: 'string'},
@@ -7,9 +9,9 @@ AFRAME.registerComponent('move', {
 	init: function(){
 		var data=this.data;
 		var el=this.el;
-		var target=document.querySelector(`#${data.target}`)
+		var target=$(`#${data.target}`)
 		el.addEventListener(data.on, function(){
-				var image=document.querySelector(`#${data.target}Img`);
+				var image=$(`#${data.target}Img`);
 				if(image.nodeName!="IMG"){
 					var source=image.innerHTML;
 					var parentImage=image.parentNode;
@@ -20,11 +22,11 @@ AFRAME.registerComponent('move', {
 					image.setAttribute("src", source);
 					parentImage.appendChild(image);
 				}
-				document.querySelector("#background").setAttribute('src', `#${data.target}Img`);
+				$("#background").setAttribute('src', `#${data.target}Img`);
 				target.setAttribute('visible', 'true');
 				el.parentNode.parentNode.setAttribute('visible','false');
-				document.querySelector("#hud").setAttribute('value', target.getAttribute('description'));
-				document.querySelector("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
+				$("#hud").setAttribute('value', target.getAttribute('description'));
+				$("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
 			}
 		);
 	}
@@ -36,7 +38,7 @@ AFRAME.registerComponent('default', {
 
 	init: function(){
 		var el = this.el;
-		var image=document.querySelector(`#${el.id}Img`);
+		var image=$(`#${el.id}Img`);
 		var source=image.innerHTML;
 		var parentImage=image.parentNode;
 		parentImage.removeChild(image);
@@ -45,10 +47,10 @@ AFRAME.registerComponent('default', {
 		image.setAttribute("crossorigin", "anonymous");
 		image.setAttribute("src", source);
 		parentImage.appendChild(image);
-		document.querySelector("#background").setAttribute('src', `#${el.id}Img`);
-		document.querySelector("#hud").setAttribute('value', el.getAttribute('description'));
+		$("#background").setAttribute('src', `#${el.id}Img`);
+		$("#hud").setAttribute('value', el.getAttribute('description'));
 		el.setAttribute('visible', 'true');
-		document.querySelector("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
+		$("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
 	}
 });
 
