@@ -1,5 +1,10 @@
 $ = (el) => document.querySelector(el);
 
+function elementWithTarget(place, target){
+	var elements = document.querySelectorAll(`#${place} [data-target="${target}"]`);
+	return elements[0];
+}
+
 AFRAME.registerComponent('move', {
 	schema: {
 		on: {type: 'string'},
@@ -9,7 +14,8 @@ AFRAME.registerComponent('move', {
 	init: function(){
 		var data=this.data;
 		var el=this.el;
-		var target=$(`#${data.target}`)
+		var originPlace = el.parentNode.parentNode.getAttribute('id');
+		var target=$(`#${data.target}`);
 		el.addEventListener(data.on, function(){
 				var image=$(`#${data.target}Img`);
 				if(image.nodeName!="IMG"){
@@ -23,6 +29,10 @@ AFRAME.registerComponent('move', {
 					parentImage.appendChild(image);
 				}
 				$("#background").setAttribute('src', `#${data.target}Img`);
+
+				var targetWorldPos = new THREE.Vector3();
+				targetWorldPos.setFromMatrixPosition(elementWithTarget(data.target, originPlace).object3D.matrixWorld);
+
 				target.setAttribute('visible', 'true');
 				el.parentNode.parentNode.setAttribute('visible','false');
 				$("#hud").setAttribute('value', target.getAttribute('description'));
