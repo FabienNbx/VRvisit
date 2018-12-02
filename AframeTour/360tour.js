@@ -1,6 +1,6 @@
 $ = (el) => document.querySelector(el);
 
-function elementWithTarget(place, target){
+function elementInWithTarget(place, target){
 	var elements = document.querySelectorAll(`#${place} [data-target="${target}"]`);
 	return elements[0];
 }
@@ -14,8 +14,9 @@ AFRAME.registerComponent('move', {
 	init: function(){
 		var data=this.data;
 		var el=this.el;
-		var originPlace = el.parentNode.parentNode.getAttribute('id');
-		var target=$(`#${data.target}`);
+		var originPlaceName = el.parentNode.parentNode.getAttribute('id');
+		var targetElement=$(`#${data.target}`);
+		var targetWorldPos = new THREE.Vector3();
 		el.addEventListener(data.on, function(){
 				var image=$(`#${data.target}Img`);
 				if(image.nodeName!="IMG"){
@@ -30,12 +31,14 @@ AFRAME.registerComponent('move', {
 				}
 				$("#background").setAttribute('src', `#${data.target}Img`);
 
-				var targetWorldPos = new THREE.Vector3();
-				targetWorldPos.setFromMatrixPosition(elementWithTarget(data.target, originPlace).object3D.matrixWorld);
+				var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
 
-				target.setAttribute('visible', 'true');
+				targetWorldPos.setFromMatrixPosition(elementToHaveInTheBack.object3D.matrixWorld);
+				$("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y} 0`);
+				
+				targetElement.setAttribute('visible', 'true');
 				el.parentNode.parentNode.setAttribute('visible','false');
-				$("#hud").setAttribute('value', target.getAttribute('description'));
+				$("#hud").setAttribute('value', targetElement.getAttribute('description'));
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
 			}
 		);

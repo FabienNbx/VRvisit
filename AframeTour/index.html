@@ -2,11 +2,12 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Projet test</title>
+	<title>Projet test</title><!-- 
 	<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@^3.1.1/dist/aframe-template-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@^4.1.2/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.1.2/dist/aframe-event-set-component.min.js"></script> -->
+    <script src="latotale.js"></script>
     <script src="360tour.js"></script>   
 </head>
 <body>
@@ -29,11 +30,11 @@
 
 		<a-sky id="background"></a-sky>
 
-		<a-entity id="salon" description="Salon appartement" layout="type: circle; radius: 5; plane: xz" visible='false' default>
+		<a-entity id="salon" description="Salon appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
 			<a-entity template="src: #template" data-target="entree"></a-entity>
 		</a-entity>
 
-		<a-entity id="entree" description="Entrée appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
+		<a-entity id="entree" description="Entrée appartement" layout="type: circle; radius: 5; plane: xz" visible='false' default>
 			<a-entity template="src: #template" data-target="salon"></a-entity>
 			<a-entity template="src: #template" data-target="salledebain"></a-entity>
 		</a-entity>
@@ -43,7 +44,7 @@
 		</a-entity>
 
 		<a-entity id="cameraRotation">
-			<a-entity camera look-controls>
+			<a-entity id="camera" camera look-controls>
 				<a-text id="hud" position="-1 0.5 -1"></a-text>
 				<a-cursor id="cursor"></a-cursor>
 			</a-entity>
