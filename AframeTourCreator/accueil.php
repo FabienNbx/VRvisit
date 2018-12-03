@@ -15,11 +15,26 @@
 	</section>
 	<footer>
 	<div class="container-fluid">
-		<button class="btn btn-primary" onclick="ajoutImage()">
+		<script type="text/javascript">
+			<?php
+				if($dossier = opendir('./uploads')){
+					while(false !== ($fichier = readdir($dossier)))
+					{
+						if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
+						{
+							$ext = ".".strtolower(pathinfo($fichier,PATHINFO_EXTENSION));
+							echo "ajoutImage('".basename($fichier,$ext)."','uploads/".$fichier."');";
+							
+						}
+					}
+				}
+			?>
+		</script>
+		<button id="Ajout" class="btn btn-primary" onclick="ajoutDossier()">
 			<img class="imgBtn" src="images/ajout.jpeg" alt="Désolé notre image a rencontré des problèmes">
 		</button>
 
-		<button class="btn btn-success" onclick="suppImage()">
+		<button class="btn btn-success">
 			<img class="imgBtn" src="images/validation.png" alt="Désolé notre image a rencontré des problèmes">
 		</button>
 	</div>	
