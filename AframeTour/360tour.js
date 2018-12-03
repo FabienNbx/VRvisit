@@ -38,7 +38,7 @@ AFRAME.registerComponent('move', {
 				
 				targetElement.setAttribute('visible', 'true');
 				el.parentNode.parentNode.setAttribute('visible','false');
-				$("#hud").setAttribute('value', targetElement.getAttribute('description'));
+				$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
 			}
 		);
@@ -61,7 +61,7 @@ AFRAME.registerComponent('default', {
 		image.setAttribute("src", source);
 		parentImage.appendChild(image);
 		$("#background").setAttribute('src', `#${el.id}Img`);
-		$("#hud").setAttribute('value', el.getAttribute('description'));
+		$("#hud").setAttribute('text','value', el.getAttribute('description'));
 		el.setAttribute('visible', 'true');
 		$("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
 	}

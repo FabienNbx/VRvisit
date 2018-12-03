@@ -22,6 +22,7 @@
 				move="on: click; target: ${target}"
 				animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
 				animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+				event-set__mouseleave="scale: 1 1 1; rotation: 0 0 0"
 				>
 				</a-entity>
 			</script>
@@ -45,7 +46,9 @@
 
 		<a-entity id="cameraRotation">
 			<a-entity id="camera" camera look-controls>
-				<a-text id="hud" position="-1 0.5 -1"></a-text>
+				<a-entity id="hud" geometry="primitive: plane; width: 0.5; height: 0.25" material="color: #202020" position="0.75 0.25 -1"
+				text="align: center; wrapCount: 20">
+				</a-entity>
 				<a-cursor id="cursor"
 						color="black"
 					  	event-set__1="_event: mouseenter; color: springgreen"
