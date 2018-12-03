@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/aframe-animation-component@^5.1.2/dist/aframe-animation-component.min.js"></script>  -->
     <script src="latotale.js"></script>
     <script src="360tour.js"></script>   
+
 </head>
 <body>
 	<a-scene>
@@ -30,7 +31,6 @@
 		</a-assets>
 
 		<a-sky id="background"></a-sky>
-
 		<a-entity id="salon" description="Salon appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
 			<a-entity template="src: #template" data-target="entree"></a-entity>
 		</a-entity>
@@ -41,13 +41,15 @@
 		</a-entity>
 		<a-entity id="salledebain" description="Salle de bain appartement" layout="type: circle; radius: 5; plane: xz" visible='false'>
 			<a-entity template="src: #template" data-target="entree"></a-entity>
-
 		</a-entity>
 
 		<a-entity id="cameraRotation">
 			<a-entity id="camera" camera look-controls>
 				<a-text id="hud" position="-1 0.5 -1"></a-text>
-				<a-cursor id="cursor"></a-cursor>
+				<a-cursor id="cursor"
+						color="black"
+					  	event-set__1="_event: mouseenter; color: springgreen"
+					  	event-set__2="_event: mouseleave; color: black"></a-cursor>
 			</a-entity>
 		</a-entity>
 	</a-scene>
