@@ -71,4 +71,3 @@ AFRAME.registerComponent('description', {
 	schema: {type: 'string'}
 	}
 );
-
