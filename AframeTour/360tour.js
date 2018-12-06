@@ -5,6 +5,18 @@ function elementInWithTarget(place, target){
 	return elements[0];
 }
 
+document.addEventListener('keypress', (event) => {
+  const Touche = event.key;
+  if(Touche=='p'){
+  	var dist = 5;
+  	var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
+  	console.log(angle);
+  	var xPos = -dist*Math.sin(angle);
+  	var zPos = -dist*Math.cos(angle);
+  	ajouterPointInteret(`${xPos} 0 ${zPos}`);
+  }
+});
+
 AFRAME.registerComponent('move', {
 	schema: {
 		on: {type: 'string'},
@@ -32,11 +44,15 @@ AFRAME.registerComponent('move', {
 				$("#background").setAttribute('src', `#${data.target}Img`);
 
 				var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
-
-				targetWorldPos.setFromMatrixPosition(elementToHaveInTheBack.object3D.matrixWorld);
-				$("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y} 0`);
+				if (typeof elementToHaveInTheBack !== 'undefined') {
+					targetWorldPos.setFromMatrixPosition(elementToHaveInTheBack.object3D.matrixWorld);
+					$("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y} 0`);
+				}
 				
+				
+				targetElement.setAttribute("current", '');
 				targetElement.setAttribute('visible', 'true');
+				el.parentNode.parentNode.removeAttribute("current");
 				el.parentNode.parentNode.setAttribute('visible','false');
 				$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
@@ -63,6 +79,7 @@ AFRAME.registerComponent('default', {
 		$("#background").setAttribute('src', `#${el.id}Img`);
 		$("#hud").setAttribute('text','value', el.getAttribute('description'));
 		el.setAttribute('visible', 'true');
+		el.setAttribute("current", '');
 		$("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
 	}
 });
@@ -71,3 +88,16 @@ AFRAME.registerComponent('description', {
 	schema: {type: 'string'}
 	}
 );
+
+
+function ajouterPointInteret(pos){
+	var currentPlace = $(".piece[current]");
+	console.log(currentPlace.getAttribute("id"));
+	var point = document.createElement("a-entity");
+	point.setAttribute("template", "src: #template");
+	point.setAttribute("data-target", window.prompt("Vers ou?", "lieu"));
+	point.setAttribute("position", pos);
+	currentPlace.appendChild(point);
+	point.setAttribute("look-at", "#camera");
+	point.removeAttribute("look-at");
+}
