@@ -1,16 +1,26 @@
 $ = (el) => document.querySelector(el);
+$$ = (el) => document.querySelectorAll(el);
+
+var mapPosPoints = new Map();
 
 function elementInWithTarget(place, target){
-	var elements = document.querySelectorAll(`#${place} [data-target="${target}"]`);
-	return elements[0];
+	return $$(`#${place} [data-target="${target}"]`)[0];
 }
+
+document.addEventListener('keypress', (event) => {
+  const Touche = event.key;
+  if(Touche=='s'){
+  	if(confirm("sauvegarder?")){
+  		sauvegarder();
+  	}
+  }
+});
 
 document.addEventListener('keypress', (event) => {
   const Touche = event.key;
   if(Touche=='p'){
   	var dist = 5;
   	var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
-  	console.log(angle);
   	var xPos = -dist*Math.sin(angle);
   	var zPos = -dist*Math.cos(angle);
   	ajouterPointInteret(`${xPos} 0 ${zPos}`);
@@ -50,10 +60,10 @@ AFRAME.registerComponent('move', {
 				}
 				
 				
-				targetElement.setAttribute("current", '');
 				targetElement.setAttribute('visible', 'true');
+				targetElement.setAttribute("current","");
+				el.parentNode.parentNode.setAttribute('visible','false');				
 				el.parentNode.parentNode.removeAttribute("current");
-				el.parentNode.parentNode.setAttribute('visible','false');
 				$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
 			}
@@ -79,7 +89,7 @@ AFRAME.registerComponent('default', {
 		$("#background").setAttribute('src', `#${el.id}Img`);
 		$("#hud").setAttribute('text','value', el.getAttribute('description'));
 		el.setAttribute('visible', 'true');
-		el.setAttribute("current", '');
+		el.setAttribute("current","");
 		$("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
 	}
 });
@@ -92,12 +102,69 @@ AFRAME.registerComponent('description', {
 
 function ajouterPointInteret(pos){
 	var currentPlace = $(".piece[current]");
-	console.log(currentPlace.getAttribute("id"));
 	var point = document.createElement("a-entity");
 	point.setAttribute("template", "src: #template");
 	point.setAttribute("data-target", window.prompt("Vers ou?", "lieu"));
 	point.setAttribute("position", pos);
 	currentPlace.appendChild(point);
-	point.setAttribute("look-at", "#camera");
-	point.removeAttribute("look-at");
+	var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
+	if(lieuPresent === undefined){
+		mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
+		lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
+	}
+	lieuDest = lieuPresent.get(point.getAttribute("data-target"));
+	if(lieuDest === undefined){
+		lieuPresent.set(point.getAttribute("data-target"), pos);
+	}
+}
+
+function sauvegarder(){
+	var docSave = document;
+	docSave.querySelector("a-scene").setAttribute("debug", "");
+
+	var imgAMettreEnDiv = docSave.querySelectorAll("img");
+	imgAMettreEnDiv.forEach(function(el){
+		var source = el.getAttribute("src");
+		var id = el.getAttribute("id");
+		var div = docSave.createElement("div");
+		div.setAttribute("id", id);
+		div.innerHTML=source;
+		el.parentNode.appendChild(div);
+		el.parentNode.removeChild(el);
+	});
+
+	docSave.querySelector("canvas").parentNode.removeChild(docSave.querySelector("canvas"));
+	var templateAEnlever = docSave.querySelectorAll("[template]");
+	templateAEnlever.forEach(function(el){
+		el.removeAttribute("template");
+	});
+	docSave.querySelector("a-scene").removeChild(docSave.querySelector("a-sky"));
+	var sky = docSave.createElement("a-sky");
+	sky.setAttribute("id", "background");
+	docSave.querySelector("a-scene").appendChild(sky);
+
+	docSave.querySelector("a-cursor").removeAttribute("material");
+	docSave.querySelector("a-cursor").removeAttribute("raycaster");
+	docSave.querySelector("a-cursor").removeAttribute("geometry");
+	docSave.querySelector("a-cursor").removeAttribute("position");
+	docSave.querySelector("a-cursor").removeAttribute("cursor");
+
+	docSave.querySelector("#camera").removeAttribute("position");
+	docSave.querySelector("#camera").removeAttribute("rotation");
+
+	docSave.querySelector("#cameraRotation").removeAttribute("rotation");
+
+	mapPosPoints.forEach(function(value, key, map){
+		value.forEach(function(value2, key2, map2){
+			docSave.querySelector(`#${key} > a-entity[data-target=${key2}]`).setAttribute("position",value2);
+		});
+	});
+
+	var element = document.createElement('a');
+  	element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(docSave.documentElement.outerHTML));
+  	element.setAttribute('download', "page.html");
+  	element.style.display = 'none';
+ 	document.body.appendChild(element);
+ 	element.click();
+ 	document.body.removeChild(element);
 }
