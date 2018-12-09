@@ -27,6 +27,18 @@ document.addEventListener('keypress', (event) => {
   }
 });
 
+document.addEventListener('keypress', (event) => {
+  const Touche = event.key;
+  if(Touche=='r'){
+  	var el = $("#cursor").components.raycaster.intersectedEls[0];
+  	if(el !== undefined){
+	  	if(confirm("supprimer?")){
+	  		supprimer(el);
+	  	}
+	  }
+  }
+});
+
 AFRAME.registerComponent('move', {
 	schema: {
 		on: {type: 'string'},
@@ -99,6 +111,17 @@ AFRAME.registerComponent('description', {
 	}
 );
 
+AFRAME.registerComponent('sourceimage', {
+	schema: {type: 'string'},
+
+	init: function(){
+		var div = document.createElement("div");
+		div.setAttribute("id", this.el.getAttribute("id")+"Img");
+		div.innerHTML=this.data;
+		$("a-assets").appendChild(div);
+	}
+});
+
 
 function ajouterPointInteret(pos){
 	var currentPlace = $(".piece[current]");
@@ -118,30 +141,39 @@ function ajouterPointInteret(pos){
 	}
 }
 
+function supprimer(el){
+	var lieuPresent = mapPosPoints.get(el.parentNode.parentNode.getAttribute("id"));
+	if(lieuPresent !== undefined){
+		lieuPresent.delete(el.parentNode.getAttribute("data-target"));
+	}
+	el.parentNode.parentNode.removeChild(el.parentNode);
+}
+
 function sauvegarder(){
 	var docSave = document;
-	docSave.querySelector("a-scene").setAttribute("debug", "");
 
-	var imgAMettreEnDiv = docSave.querySelectorAll("img");
-	imgAMettreEnDiv.forEach(function(el){
-		var source = el.getAttribute("src");
-		var id = el.getAttribute("id");
-		var div = docSave.createElement("div");
-		div.setAttribute("id", id);
-		div.innerHTML=source;
-		el.parentNode.appendChild(div);
+	var imgs = docSave.querySelectorAll("img");
+	imgs.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	var divs = docSave.querySelectorAll("div");
+	divs.forEach(function(el){
 		el.parentNode.removeChild(el);
 	});
 
 	docSave.querySelector("canvas").parentNode.removeChild(docSave.querySelector("canvas"));
+
 	var templateAEnlever = docSave.querySelectorAll("[template]");
 	templateAEnlever.forEach(function(el){
 		el.removeAttribute("template");
 	});
+
 	docSave.querySelector("a-scene").removeChild(docSave.querySelector("a-sky"));
 	var sky = docSave.createElement("a-sky");
 	sky.setAttribute("id", "background");
 	docSave.querySelector("a-scene").appendChild(sky);
+
 
 	docSave.querySelector("a-cursor").removeAttribute("material");
 	docSave.querySelector("a-cursor").removeAttribute("raycaster");
@@ -151,13 +183,20 @@ function sauvegarder(){
 
 	docSave.querySelector("#camera").removeAttribute("position");
 	docSave.querySelector("#camera").removeAttribute("rotation");
-
 	docSave.querySelector("#cameraRotation").removeAttribute("rotation");
 
+
+	docSave.querySelector("a-scene").setAttribute("debug", "");
 	mapPosPoints.forEach(function(value, key, map){
 		value.forEach(function(value2, key2, map2){
 			docSave.querySelector(`#${key} > a-entity[data-target=${key2}]`).setAttribute("position",value2);
 		});
+	});
+	docSave.querySelector("a-scene").removeAttribute("debug", "");
+
+	var pieces = docSave.querySelectorAll(".piece");
+	pieces.forEach(function(el){
+		el.setAttribute("visible", "false");
 	});
 
 	var element = document.createElement('a');
