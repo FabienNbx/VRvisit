@@ -185,6 +185,21 @@ function sauvegarder(){
 	docSave.querySelector("#camera").removeAttribute("rotation");
 	docSave.querySelector("#cameraRotation").removeAttribute("rotation");
 
+ 
+	var metas = docSave.querySelectorAll("meta[aframe-injected]");
+	metas.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	var lights = docSave.querySelectorAll("[light][aframe-injected]");
+	lights.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	var styles = docSave.querySelectorAll("style");
+	styles.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
 
 	docSave.querySelector("a-scene").setAttribute("debug", "");
 	mapPosPoints.forEach(function(value, key, map){
