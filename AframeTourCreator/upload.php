@@ -10,20 +10,15 @@
 </head>
 <body>
 <?php
-foreach ($_FILES as $key => $value) {
-    echo "<p>COUCOU000".$key."</p>";
-}
-$c=count($_FILES["directoryToUpload"]["name"]);
-echo"<p>COUCOU</p>";
+$c=count($_FILES["filesUpload"]["name"]);
 for($i=0;$i<$c;$i++){
-    echo"<p>COUCOU</p>";
     $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["directoryToUpload"]["name"][$i]); // nom sans extension
+    $target_file = $target_dir . basename($_FILES["filesUpload"]["name"][$i]); // nom sans extension
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     // extension de l'image
     if(isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["directoryToUpload"]["tmp_name"][$i]); //retourne false si ce n'est pas une image
+        $check = getimagesize($_FILES["filesUpload"]["tmp_name"][$i]); //retourne false si ce n'est pas une image
         if($check !== false) {
             $uploadOk = 1;
         } else {
@@ -46,10 +41,9 @@ for($i=0;$i<$c;$i++){
         echo "Fichier non upload !</br>";
 
     } else {
-        echo"<p>COUCOU</p>";
-        if (move_uploaded_file($_FILES["directoryToUpload"]["tmp_name"][$i], $target_file)) // réalise l'upload.
+        if (move_uploaded_file($_FILES["filesUpload"]["tmp_name"][$i], $target_file)) // réalise l'upload.
         {
-            echo "Le fichier ". basename( $_FILES["directoryToUpload"]["name"][$i]). " a été upload avec SUCCES</br>";
+            echo "Le fichier ". basename( $_FILES["filesUpload"]["name"][$i]). " a été upload avec SUCCES</br>";
         } else {
             echo "Erreur inconnue au bataillon</br>";
         }
