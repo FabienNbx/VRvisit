@@ -9,25 +9,16 @@
     <link type="text/css" rel="stylesheet" href="css/accueil.css" />
 </head>
 <body class="bg-info">
-	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
+	<div><h1>Image : </h1></div>
 	<section id="listeImg" class="text-center">
-		<?php
-			if($dossier = opendir('./uploads')){
-				while(false !== ($fichier = readdir($dossier)))
-				{
-					if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
-					{
-						echo "<a href=\"pointsI.php?img=".basename($fichier)."\"><img id=\"".basename($fichier)."\" class=\"photos rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
-						
-					}
-				}
-			}
+		<?php 
+			$img=filter_var($_GET['img'],FILTER_SANITIZE_STRING);
+			echo "<h3>".$img."</h3>";
+			echo "<img class='photoSeule' src='uploads/".$img."'></img>";
 		?>
 	</section>
 	<footer>
-	<div class="d-flex justify-content-center">
-		<button class="btn btn-danger">Créer</button>
-	</div>	
+
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

@@ -1,0 +1,22 @@
+.photos{
+  	width: 30%;
+  	margin: 5px;
+}
+
+.photoSeule{
+	width: 80%;
+  	margin: 5px;
+}
+
+h1{
+	text-align: center;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.btn{
+	width:100px;
+	margin: 20px;
+	font-size: 30px;
+	color: white;
+}
