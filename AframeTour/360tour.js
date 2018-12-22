@@ -72,10 +72,10 @@ AFRAME.registerComponent('move', {
 				}
 				
 				
-				targetElement.setAttribute('visible', 'true');
-				targetElement.setAttribute("current","");
 				el.parentNode.parentNode.setAttribute('visible','false');				
 				el.parentNode.parentNode.removeAttribute("current");
+				targetElement.setAttribute('visible', 'true');
+				targetElement.setAttribute("current","");
 				$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
 			}
@@ -127,7 +127,16 @@ function ajouterPointInteret(pos){
 	var currentPlace = $(".piece[current]");
 	var point = document.createElement("a-entity");
 	point.setAttribute("template", "src: #template");
-	point.setAttribute("data-target", window.prompt("Vers ou?", "lieu"));
+	var target = window.prompt("Vers ou?", "lieu");
+	if(target == currentPlace.getAttribute("id")){
+		alert("impossible de mettre un point là ou on est déjà");
+		return;
+	}
+	if($(`.piece[id=${target}]`) === null){
+		alert("piece inexistante");
+		return;
+	}
+	point.setAttribute("data-target", target);
 	point.setAttribute("position", pos);
 	currentPlace.appendChild(point);
 	var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
@@ -151,6 +160,8 @@ function supprimer(el){
 
 function sauvegarder(){
 	var docSave = document;
+
+	docSave.querySelector("a-scene").setAttribute("debug", "");
 
 	var imgs = docSave.querySelectorAll("img");
 	imgs.forEach(function(el){
@@ -201,18 +212,22 @@ function sauvegarder(){
 		el.parentNode.removeChild(el);
 	});
 
-	docSave.querySelector("a-scene").setAttribute("debug", "");
 	mapPosPoints.forEach(function(value, key, map){
 		value.forEach(function(value2, key2, map2){
 			docSave.querySelector(`#${key} > a-entity[data-target=${key2}]`).setAttribute("position",value2);
 		});
 	});
-	docSave.querySelector("a-scene").removeAttribute("debug", "");
 
 	var pieces = docSave.querySelectorAll(".piece");
 	pieces.forEach(function(el){
 		el.setAttribute("visible", "false");
 	});
+
+	docSave.querySelector("[current]").removeAttribute("current");
+
+	docSave.querySelector("a-scene").removeAttribute("debug", "");
+
+
 
 	var element = document.createElement('a');
   	element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(docSave.documentElement.outerHTML));
