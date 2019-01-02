@@ -13,14 +13,30 @@
 	<section id="listeImg" class="text-center">
 		<?php
 			if($dossier = opendir('./uploads')){
+				$listImgs=array();
 				while(false !== ($fichier = readdir($dossier)))
 				{
 					if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
 					{
-						echo "<a href=\"pointsI.php?img=".basename($fichier)."\"><img id=\"".basename($fichier)."\" class=\"photos rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
+						$im = pathinfo($fichier);
+						array_push($listImgs, $im['filename']);
+					}
+				}
+				$l = json_encode(serialize($listImgs));
+				$l=str_replace("\"","'",$l);
+/*				echo "<pre>";
+				print_r ($l);
+				echo "</pre>";*/
+				if($dossier = opendir('./uploads')){
+				while(false !== ($fichier = readdir($dossier)))
+				{
+					if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
+					{
+						echo "<a href=\"pointsI.php?img=".basename($fichier)."&li=".$l."\" ><img id=\"".basename($fichier)."\" class=\"photos rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
 						
 					}
 				}
+			}
 			}
 		?>
 	</section>

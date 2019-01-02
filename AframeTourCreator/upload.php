@@ -10,7 +10,7 @@
 </head>
 <body>
 <?php
-if(count($_FILES)!=0 && $_FILES["filesUpload"]["error"][0]==0){
+if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
     $c=count($_FILES["filesUpload"]["name"]);
     for($i=0;$i<$c;$i++){
         $target_dir = "uploads/";
@@ -50,14 +50,17 @@ if(count($_FILES)!=0 && $_FILES["filesUpload"]["error"][0]==0){
             }
         }
     }
+    echo "<form action=\"accueil.php\">
+          <input type=\"submit\" value=\"Terminer\" />
+          </form>";
 }
-else
-    echo "<h3>Pas d'images sélectionnées !</h3><br/>";
+else{
+    echo "<p>Il faut sélectionner au minimum une image ...</p>";
+    echo "<form action=\"index.php\">
+          <input type=\"submit\" value=\"Retour\" />
+          </form>";
+}
 ?>
-
-<form action="accueil.php">
-    <input type="submit" value="Terminer" />
-</form>
 
 </body>
 </html>
