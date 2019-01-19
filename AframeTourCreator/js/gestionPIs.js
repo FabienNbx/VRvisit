@@ -114,15 +114,38 @@ AFRAME.registerComponent('sourceimage', {
   }
 });
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 function ajouterPointInteret(pos){
+    if(typeof(listImgs)=="undefined"){
+      alert("Erreur");
+      return;
+    }
+    var l = listImgs.split(':');
     var currentPlace = $(".imsky");
-    alert(currentPlace);
     var point = document.createElement("a-entity");
     point.setAttribute("template", "src: #template");
     var target = window.prompt("Destination ( nom de l'image (sans l'extension))?");
     if(target==null){
       return;
+    }
+    while(l.includes(target)==false){
+      alert("Destination incorrect");
+      var target = window.prompt("Destination ( nom de l'image (sans l'extension))?");
     }
     alert(target);
     alert(currentPlace.getAttribute("id"));
@@ -130,10 +153,6 @@ function ajouterPointInteret(pos){
       alert("impossible de mettre un point là ou on est déjà");
       return;
     }
-      /*  if($(`.piece[id=${target}]`) === null){
-      alert("piece inexistante");
-      return;
-    }*/
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
