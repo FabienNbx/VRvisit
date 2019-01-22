@@ -177,7 +177,8 @@ function sauvegarder(){
 
 	var templateAEnlever = docSave.querySelectorAll("[template]");
 	templateAEnlever.forEach(function(el){
-		el.removeAttribute("template");
+		el.setAttribute("template", "src: #template");
+		el.removeChild(el.firstChild);
 	});
 
 	docSave.querySelector("a-scene").removeChild(docSave.querySelector("a-sky"));
