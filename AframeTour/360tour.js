@@ -23,7 +23,9 @@ document.addEventListener('keypress', (event) => {
   	var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
   	var xPos = -dist*Math.sin(angle);
   	var zPos = -dist*Math.cos(angle);
-  	ajouterPointInteret(`${xPos} 0 ${zPos}`);
+  	var angleX = ($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180;
+  	var yPos = dist*Math.tan(angleX);
+  	ajouterPointInteret(`${xPos} ${yPos} ${zPos}`);
   }
 });
 
@@ -32,8 +34,10 @@ document.addEventListener('keypress', (event) => {
   if(Touche=='r'){
   	var el = $("#cursor").components.raycaster.intersectedEls[0];
   	if(el !== undefined){
-	  	if(confirm("supprimer?")){
-	  		supprimer(el);
+  		if(el.getAttribute("id")!="map"){
+	  		if(confirm("supprimer?")){
+	  			supprimer(el);
+	  		}
 	  	}
 	  }
   }
@@ -48,7 +52,7 @@ AFRAME.registerComponent('move', {
 	init: function(){
 		var data=this.data;
 		var el=this.el;
-		var originPlaceName = el.parentNode.parentNode.getAttribute('id');
+		var originPlaceName = $(".piece[current]").getAttribute("id");
 		var targetElement=$(`#${data.target}`);
 		var targetWorldPos = new THREE.Vector3();
 		el.addEventListener(data.on, function(){
@@ -71,13 +75,71 @@ AFRAME.registerComponent('move', {
 					$("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y} 0`);
 				}
 				
-				
-				el.parentNode.parentNode.setAttribute('visible','false');				
-				el.parentNode.parentNode.removeAttribute("current");
+				$(`#${originPlaceName}`).setAttribute('visible','false');				
+				$(`#${originPlaceName}`).removeAttribute("current");
 				targetElement.setAttribute('visible', 'true');
 				targetElement.setAttribute("current","");
-				$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
-				$("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
+				if(targetElement.getAttribute('description') == null){
+					$("#hud").setAttribute('visible', 'false');
+				}
+				else{
+					$("#hud").setAttribute('visible', 'true');
+					$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
+				}
+				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
+			}
+		);
+	}
+});
+
+AFRAME.registerComponent('movetomap', {
+	schema: {
+		on: {type: 'string'}
+	},
+
+	init: function(){
+		var data=this.data;
+		var el=this.el;
+		var targetWorldPos = new THREE.Vector3();
+		el.addEventListener(data.on, function(){
+				var originPlaceName = $(".piece[current]").getAttribute("id");
+				var map = $(`.map a-entity[data-target=${originPlaceName}]`);
+				if(map == null){
+					map = $(".map[defaultmap]").getAttribute("id");
+					$$(`#${map} a-entity a-entity`).forEach(function(el){
+						el.setAttribute("material", "color", "#202020");
+					});
+				}
+				else{
+					map=map.parentNode.getAttribute("id");
+					$$(`#${map} a-entity a-entity`).forEach(function(el){
+						el.setAttribute("material", "color", "#202020");
+					});
+					$(`#${map} a-entity[data-target=${originPlaceName}] a-entity`).setAttribute("material", "color", "red");
+					var elementToFace=$(`#${map} a-entity[data-target=${originPlaceName}] a-entity`);
+					targetWorldPos.setFromMatrixPosition(elementToFace.object3D.matrixWorld);
+					$("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y+180} 0`);
+				}
+				var image=$(`#${map}Img`);
+				if(image.nodeName!="IMG"){
+					var source=image.innerHTML;
+					var parentImage=image.parentNode;
+					parentImage.removeChild(image);
+					image=document.createElement("img");
+					image.setAttribute("id", `${map}Img`);
+					image.setAttribute("crossorigin", "anonymous");
+					image.setAttribute("src", source);
+					parentImage.appendChild(image);
+				}
+				$("#background").setAttribute('src', `#${map}Img`);				
+
+				$(`#${originPlaceName}`).setAttribute('visible','false');				
+				$(`#${originPlaceName}`).removeAttribute("current");
+				$(`#${map}`).setAttribute('visible', 'true');
+				$(`#${map}`).setAttribute("current","");
+				$("#hud").setAttribute('visible', 'false');
+				
+				$("#cursor").setAttribute('raycaster', `objects: #${map}`);
 			}
 		);
 	}
@@ -102,7 +164,7 @@ AFRAME.registerComponent('default', {
 		$("#hud").setAttribute('text','value', el.getAttribute('description'));
 		el.setAttribute('visible', 'true');
 		el.setAttribute("current","");
-		$("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
+		$("#cursor").setAttribute('raycaster', `objects: #${el.id},#mapButton`);
 	}
 });
 
@@ -127,6 +189,9 @@ function ajouterPointInteret(pos){
 	var currentPlace = $(".piece[current]");
 	var point = document.createElement("a-entity");
 	point.setAttribute("template", "src: #template");
+	if(($(".map[current]")!=null)){
+		point.setAttribute("template", "src: #templateMap");
+	}
 	var target = window.prompt("Vers ou?", "lieu");
 	if(target == currentPlace.getAttribute("id")){
 		alert("impossible de mettre un point là ou on est déjà");
