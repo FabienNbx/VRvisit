@@ -3,11 +3,12 @@ $$ = (el) => document.querySelectorAll(el);
 
 var mapPosPoints = new Map();
 var addPoint=true;
+var addPann=true;
 
 document.addEventListener('keypress', (event) => {
   const Touche = event.key;
     if(Touche=='a' && addPoint){
-      addPann = false;
+      addPoint = false;
       var point = document.createElement("a-entity");
       point.setAttribute("template", "src: #template");
       point.setAttribute("data-target", "");
@@ -39,32 +40,51 @@ document.addEventListener('keypress', (event) => {
         }
       });
     }
-  if(Touche=='p' && addPoint){
+  if(Touche=='p' && addPoint && addPann){
+    addPann=false;
     var dist = 5;
+    var pann =  $("#"+idHud);
+    var t = $("#"+idHud).getAttribute('text');
+    $("#camera").appendChild(pann);
+    pann.setAttribute("position", "0 0 -5");
+    pann.setAttribute("text",t);
+    //$("#cameraRotation").removeChild(pann); 
     window.addEventListener('mousewheel', (event) => {
-      if(addPoint){
+      if(!addPann){
         //$("#"+idHud).removeAttribute("look-at");
         var scroll = event.deltaY/100;
+        var pann = $("#"+idHud)
         scrollDown = scroll > 0;
         scrollUp = scroll < 0;
-        if((dist>=-2 && scrollUp) || (dist<=-30 && scrollDown) || (dist<-2 && dist>-30)){
-          dist = dist-scroll;
+        pos = pann.getAttribute("position");
+        if((dist>=2 && scrollUp) || (dist<=30 && scrollDown) || (dist>2 && dist<30)){
+          //dist = dist+scroll;
+          pos.z=pos.z+scroll;
         }
+
+/*        var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
+        pos = $("#"+idHud).getAttribute("position");
+        var xPos = -dist*Math.sin(angle);
+        var zPos = -dist*Math.cos(angle);
+        var yPos = dist*Math.tan(angleX);*/
+        pann.setAttribute('position',pos);
+      }
+    });
+    document.addEventListener('keypress', (event) => {
+      if(event.key=='p'){
+        var dist = -pann.getAttribute("position").z;
         var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
         var xPos = -dist*Math.sin(angle);
         var zPos = -dist*Math.cos(angle);
+        var angleX = (($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180);
         var yPos = dist*Math.tan(angleX);
-        $("#"+idHud).setAttribute('position',`${xPos} ${yPos} ${zPos}`);
+        $("#cameraRotation").appendChild(pann);
+        pann.setAttribute("text",t);
+        //$("#camera").removeChild(pann);
+        pann.setAttribute('position',`${xPos} ${yPos} ${zPos}`);
+        addPann=true;
       }
     });
-    if(Touche=='p'){
-      var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
-      var xPos = -dist*Math.sin(angle);
-      var zPos = -dist*Math.cos(angle);
-      var angleX = (($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180);
-      var yPos = dist*Math.tan(angleX);
-      $("#"+idHud).setAttribute('position',`${xPos} ${yPos} ${zPos}`);
-    }
   }
   if(Touche=='r'){
     var el = $("#cursor").components.raycaster.intersectedEls[0];
