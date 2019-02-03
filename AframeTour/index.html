@@ -38,6 +38,15 @@
 				>
 				</a-entity>
 			</script>
+			<script id="templateMapIcon" type="text/html">
+				<a-entity
+				geometry="primitive: sphere; radius: 1"
+				meterial="color: blue"
+				movetothismap="on: click; target: ${target}"
+				animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+				animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic;"
+				>
+			</script>
 		</a-assets>
 
 		<a-sky id="background"></a-sky>	
@@ -123,7 +132,6 @@
 		<a-entity id="map2" class="piece map" sourceimage="img/map2.JPG" visible='false'>
 		</a-entity>
 
-
 		<a-entity id="mapButton" geometry="primitive: plane; width: 1; height: 1" material="src: img/map_icon" position="0 -2 0" text="align: center; wrapCount: 20" look-at="#camera"
 				  animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 				  movetomap="on: click"
@@ -146,6 +154,12 @@
 					  	animation__scaleReturn="property: scale; to: 2 2 2; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 				></a-cursor>
 			</a-entity>
+		</a-entity>
+
+		<a-entity layout="type: circle; margin: 2">
+
+			
+			
 		</a-entity>
 	</a-scene>
 </body>

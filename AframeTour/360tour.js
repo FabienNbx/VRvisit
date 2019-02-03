@@ -3,6 +3,25 @@ $$ = (el) => document.querySelectorAll(el);
 
 var mapPosPoints = new Map();
 
+window.onload = function(){
+	var layout = document.createElement("a-entity");
+	layout.setAttribute("id", "layoutMapCircle");
+	//layout.setAttribute("visible", "false");
+	layout.setAttribute("layout", "type", "circle");
+	layout.setAttribute("position", "0 -9 0");
+	layout.setAttribute("rotation", "90 0 0");
+	layout.setAttribute("layout", "radius", "8");
+	var maps = $$(".map");
+	maps.forEach(function(el){
+		var entityToAdd = document.createElement("a-entity");
+		entityToAdd.setAttribute("template", "src: #templateMapIcon");
+		entityToAdd.setAttribute("data-target", el.getAttribute("id"));
+		layout.appendChild(entityToAdd);
+	});
+	$("#mapButton").parentNode.appendChild(layout);
+
+}
+
 function elementInWithTarget(place, target){
 	return $$(`#${place} [data-target="${target}"]`)[0];
 }
@@ -92,6 +111,41 @@ AFRAME.registerComponent('move', {
 	}
 });
 
+AFRAME.registerComponent('movetothismap', {
+	schema: {
+		on: {type: 'string'},
+		target: {type: 'string'}
+	},
+
+	init: function(){
+		var data=this.data;
+		var el=this.el;
+		el.addEventListener(data.on, function(){
+				var image=$(`#${data.target}Img`);
+				if(image.nodeName!="IMG"){
+					var source=image.innerHTML;
+					var parentImage=image.parentNode;
+					parentImage.removeChild(image);
+					image=document.createElement("img");
+					image.setAttribute("id", `${data.target}Img`);
+					image.setAttribute("crossorigin", "anonymous");
+					image.setAttribute("src", source);
+					parentImage.appendChild(image);
+				}
+				$("#background").setAttribute('src', `#${data.target}Img`);				
+
+				$(`.piece[current]`).setAttribute('visible','false');				
+				$(`.piece[current]`).removeAttribute("current");
+				$(`#${data.target}`).setAttribute('visible', 'true');
+				$(`#${data.target}`).setAttribute("current","");
+				$("#hud").setAttribute('visible', 'false');
+				
+				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#layoutMapCircle`);
+			}
+		);
+	}
+});
+
 AFRAME.registerComponent('movetomap', {
 	schema: {
 		on: {type: 'string'}
@@ -139,7 +193,7 @@ AFRAME.registerComponent('movetomap', {
 				$(`#${map}`).setAttribute("current","");
 				$("#hud").setAttribute('visible', 'false');
 				
-				$("#cursor").setAttribute('raycaster', `objects: #${map}`);
+				$("#cursor").setAttribute('raycaster', `objects: #${map},#layoutMapCircle`);
 			}
 		);
 	}
