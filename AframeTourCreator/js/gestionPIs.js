@@ -2,76 +2,89 @@ $ = (el) => document.querySelector(el);
 $$ = (el) => document.querySelectorAll(el);
 
 var mapPosPoints = new Map();
-var addPoint=true;
-var addPann=true;
+var addEnCours=false;
+var lieu="";
+
+function placementPoint(point){
+  if(lieu=="point"){
+    var scroll = event.deltaY/100;
+    scrollDown = scroll > 0;
+    scrollUp = scroll < 0;
+    pos = point.getAttribute("position");
+    if((pos.z>=-2 && scrollUp) || (pos.z<=-30 && scrollDown) || (pos.z<-2 && pos.z>-30)){
+      pos.z = pos.z+scroll;
+    }
+    point.setAttribute("position",pos);
+  }
+}
+
+function placementPann(pann){
+  if(lieu=="pann"){
+    var scroll = event.deltaY/100;
+    scrollDown = scroll > 0;
+    scrollUp = scroll < 0;
+    posPan = pann.getAttribute("position");
+    //alert(pos.z);
+    if((posPan.z>=-2 && scrollUp) || (posPan.z<=-15 && scrollDown) || (posPan.z<-2 && posPan.z>-15)){
+      //dist = dist+scroll;
+      posPan.z=posPan.z+scroll;
+    }
+
+  /*        var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
+    posPan = $("#"+idHud).getAttribute("position");
+    var xPos = -dist*Math.sin(angle);
+    var zPos = -dist*Math.cos(angle);
+    var yPos = dist*Math.tan(angleX);*/
+    pann.setAttribute('position',posPan);
+  }
+}
 
 document.addEventListener('keypress', (event) => {
   const Touche = event.key;
-    if(Touche=='a' && addPoint){
-      addPoint = false;
-      var point = document.createElement("a-entity");
-      point.setAttribute("template", "src: #template");
-      point.setAttribute("data-target", "");
-      point.setAttribute("position", "0 0 -5");
-      $("#camera").appendChild(point);
+  if(Touche=='a' && !addEnCours){
+    alert("Appuyez sur entré, une fois le point placé, pour valider");
+    addEnCours = true;
+    lieu="point";
+    var point = document.createElement("a-entity");
+    point.setAttribute("template", "src: #template");
+    point.setAttribute("data-target", "");
+    point.setAttribute("position", "0 0 -5");
+    $("#camera").appendChild(point);
 
-      window.addEventListener('mousewheel', (event) => {
-            var scroll = event.deltaY/100;
-            scrollDown = scroll > 0;
-            scrollUp = scroll < 0;
-            pos = point.getAttribute("position");
-            if((pos.z>=-2 && scrollUp) || (pos.z<=-30 && scrollDown) || (pos.z<-2 && pos.z>-30)){
-              pos.z = pos.z+scroll;
-            }
-            point.setAttribute("position",pos);
-          });
+    document.addEventListener('mousewheel', () => { placementPoint(point); });
 
-      document.addEventListener('keypress', (event) => {
-        if(event.key=='a'){
-          var dist = -point.getAttribute("position").z;
-          var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
-          var xPos = -dist*Math.sin(angle);
-          var zPos = -dist*Math.cos(angle);
-          var angleX = ($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180;
-          var yPos = dist*Math.tan(angleX);
-          $("#camera").removeChild(point);
-          ajouterPointInteret(`${xPos} ${yPos} ${zPos}`);
-          addPoint = true;
-        }
-      });
-    }
-  if(Touche=='p' && addPoint && addPann){
-    addPann=false;
+    document.addEventListener('keypress', (event) => {
+      if(event.keyCode==13 && lieu=="point"){
+        var dist = -point.getAttribute("position").z;
+        var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
+        var xPos = -dist*Math.sin(angle);
+        var zPos = -dist*Math.cos(angle);
+        var angleX = ($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180;
+        var yPos = dist*Math.tan(angleX);
+        $("#camera").removeChild(point);
+        ajouterPointInteret(`${xPos} ${yPos} ${zPos}`);
+        document.removeEventListener('mousewheel', placementPoint);
+        lieu="";
+        addEnCours = false;
+      }
+    });
+  }
+  if(Touche=='p' && !addEnCours){
+    alert("Appuyez sur entré, une fois le point placé, pour valider");
+    addEnCours = true;
+    lieu="pann";
     var dist = 5;
     var pann =  $("#"+idHud);
     var t = $("#"+idHud).getAttribute('text');
     $("#camera").appendChild(pann);
-    pann.setAttribute("position", "0 0 -5");
+    pann.setAttribute("position", "0 0 -"+dist);
     pann.setAttribute("text",t);
     //$("#cameraRotation").removeChild(pann); 
-    window.addEventListener('mousewheel', (event) => {
-      if(!addPann){
-        //$("#"+idHud).removeAttribute("look-at");
-        var scroll = event.deltaY/100;
-        var pann = $("#"+idHud)
-        scrollDown = scroll > 0;
-        scrollUp = scroll < 0;
-        pos = pann.getAttribute("position");
-        if((dist>=2 && scrollUp) || (dist<=30 && scrollDown) || (dist>2 && dist<30)){
-          //dist = dist+scroll;
-          pos.z=pos.z+scroll;
-        }
 
-/*        var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
-        pos = $("#"+idHud).getAttribute("position");
-        var xPos = -dist*Math.sin(angle);
-        var zPos = -dist*Math.cos(angle);
-        var yPos = dist*Math.tan(angleX);*/
-        pann.setAttribute('position',pos);
-      }
-    });
+    document.addEventListener('mousewheel', () => { placementPann(pann); });
+
     document.addEventListener('keypress', (event) => {
-      if(event.key=='p'){
+      if(event.keyCode==13 && lieu=="pann"){
         var dist = -pann.getAttribute("position").z;
         var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
         var xPos = -dist*Math.sin(angle);
@@ -82,9 +95,12 @@ document.addEventListener('keypress', (event) => {
         pann.setAttribute("text",t);
         //$("#camera").removeChild(pann);
         pann.setAttribute('position',`${xPos} ${yPos} ${zPos}`);
-        addPann=true;
+        addEnCours = false;
+        lieu="";
+        document.removeEventListener('mousewheel', placementPann);
       }
-    });
+      });
+
   }
   if(Touche=='r'){
     var el = $("#cursor").components.raycaster.intersectedEls[0];
@@ -215,6 +231,9 @@ function ajouterPointInteret(pos){
     while(l.includes(target)==false){
       alert("Destination incorrect");
       var target = window.prompt("Destination ( nom de l'image (sans l'extension))?");
+      if(target==null){
+        return;
+      }
     }
     //alert(target);
     //alert(currentPlace.getAttribute("id"));
