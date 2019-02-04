@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	 <meta charset="utf-8">																
+	 <meta charset="utf-8">			
     <title>Aframe Tour Creator</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/accueil.css" />
@@ -11,8 +11,6 @@
 	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
-			//setcookie("testcook","", time()-3600);
-			//$cpt=0;
 			if($dossier = opendir('./uploads')){
 				while(false !== ($fichier = readdir($dossier)))
 				{
@@ -25,33 +23,15 @@
 						else{
 							$nomIm=$nomIm.":".$im['filename'];
 						}
-						//array_push($listImgs, $nomIm);
-						// if($cpt>0){
-						// 	$cook=$_COOKIE["testcook"];
-						// 	$new=$cook."et".$nomIm;
-						// 	echo "<p>".$new."</p><br/>";
-						// 	setcookie("testcook",$new,time()+3600);
-						// }
-						// else{
-						// 	$cpt++;
-						// 	setcookie("testcook",$nomIm,time()+3600);
-						// }
 					}
 				}
-				/*echo "<pre>";
-				print_r ($listImgs);
-				echo "</pre>";*/
-				//$l = json_encode(serialize($listImgs));
-				//$l=str_replace("\"","'",$l);
-				/*echo "<pre>";
-				print_r ($l);
-				echo "</pre>";*/
-				if($dossier = opendir('./uploads')){
+				if($dossier = opendir('./uploads'))
+				{
 					while(false !== ($fichier = readdir($dossier)))
 					{
 						if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
 						{
-							echo "<a onClick='sendData(this,\"pointsI.php?img=".basename($fichier)."&li=".$nomIm."\")'><img id=\"".basename($fichier)."\" class=\"photos rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
+							echo "<a class=\"clickable\" onClick='sendData(this,\"pointsI.php?img=".basename($fichier)."&li=".$nomIm."\")'><img id=\"".basename($fichier)."\" class=\"photos rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
 							
 						}
 					}
@@ -71,13 +51,12 @@
 		?>
 	</form>
 	<footer>
-	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php?li=".$nomIm."\")"?>' >Créer</a>
-	</div>	
+		<div class="d-flex justify-content-center">
+			<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"default.php?li=".$nomIm."\")"?>' >Suivant</a>
+		</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/java.js"></script>
 </body>
 </html>
-

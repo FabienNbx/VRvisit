@@ -1,8 +1,8 @@
 $ = (el) => document.querySelector(el);
 $$ = (el) => document.querySelectorAll(el);
 
-/*var mapPosPoints = new Map();
-*/var addEnCours=false;
+var mapPosPoints = new Map();
+var addEnCours=false;
 var lieu="";
 
 function placementPoint(point){
@@ -246,7 +246,7 @@ function ajouterPointInteret(pos){
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
-/*    var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
+    var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
     if(lieuPresent === undefined){
       mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
       lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
@@ -254,7 +254,7 @@ function ajouterPointInteret(pos){
     lieuDest = lieuPresent.get(point.getAttribute("data-target"));
     if(lieuDest === undefined){
       lieuPresent.set(point.getAttribute("data-target"), pos);
-    }*/
+    }
 
 
     var form = $("#pointsForm");
@@ -275,7 +275,7 @@ function ajouterPointInteret(pos){
 }
 
 function ajouterPointInteretDebut(pos,target){              
-        var currentPlace = $(".imsky");
+    var currentPlace = $(".imsky");
     var point = document.createElement("a-entity");
     point.setAttribute("template", "src: #template");
     point.setAttribute("data-target", target);
@@ -291,13 +291,6 @@ function placerPannDebut(pos){
 function supprimer(el){
   var currentPlace = $(".imsky");
   var posP = el.getAttribute("id");
-  alert("mmmaaaajjjjj");
-  alert(posP);
-/*  var lieuPresent = mapPosPoints.get(el.parentNode.parentNode.getAttribute("id"));
-  alert(lieuPresent);
-  if(lieuPresent !== undefined){
-    lieuPresent.delete(el.parentNode.getAttribute("data-target"));
-  }*/
   el.parentNode.parentNode.removeChild(el.parentNode);
   var form = $("#pointsForm");
   var p = document.getElementsByName("pointsPos["+currentPlace.getAttribute('id')+"][]");

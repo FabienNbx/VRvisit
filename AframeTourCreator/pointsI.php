@@ -124,7 +124,7 @@
 		</form>
 		<?php
 		foreach ($_POST['pointsPos'][$im['filename']] as $num => $pos) {
-			echo "<script>ajouterPointInteretDebut('".$pos."','".$_POST['pointsTarget'][$im['filename']][$num]."')</script>";
+				echo "<script>ajouterPointInteretDebut('".$pos."','".$_POST['pointsTarget'][$im['filename']][$num]."')</script>";
 		}
 		foreach ($_POST['listPanns'][$im['filename']] as $pos){
 			echo "<script>placerPannDebut('".$pos."')</script>";
