@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	 <meta charset="utf-8">																						
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <meta charset="utf-8">																
     <title>Aframe Tour Creator</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/accueil.css" />
@@ -74,7 +72,7 @@
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<button class="btn btn-danger">Créer</button>
+		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php?li=".$nomIm."\")"?>' >Créer</a>
 	</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

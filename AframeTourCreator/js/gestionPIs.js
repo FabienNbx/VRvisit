@@ -121,7 +121,6 @@ document.addEventListener('keypress', (event) => {
   }
   if(Touche=='r' && !addEnCours){
     var el = $("#cursor").components.raycaster.intersectedEls[0];
-    alert(el);
     if(el !== undefined){
       if(confirm("supprimer?")){
         supprimer(el);
@@ -276,57 +275,12 @@ function ajouterPointInteret(pos){
 }
 
 function ajouterPointInteretDebut(pos,target){              
-    var currentPlace = $(".imsky");
+        var currentPlace = $(".imsky");
     var point = document.createElement("a-entity");
     point.setAttribute("template", "src: #template");
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
-    //point.setAttribute('bmfont-text','text: HELLO!; color: #333');
     currentPlace.appendChild(point);
-/*    var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    if(lieuPresent === undefined){
-      mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
-      lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    }
-<<<<<<< HEAD
-=======
-
-
-    var form = $("#pointsForm");
-    var inputPos = document.createElement("input");
-    inputPos.setAttribute("type", "text");
-    inputPos.setAttribute("name", "pointsPos["+currentPlace.getAttribute('id')+"][]");
-    inputPos.setAttribute("hidden", "");
-    inputPos.setAttribute("value", pos);
-
-    var inputTarget = document.createElement("input");
-    inputTarget.setAttribute("type", "text");
-    inputTarget.setAttribute("name", "pointsTarget["+currentPlace.getAttribute('id')+"][]");
-    inputTarget.setAttribute("hidden", "");
-    inputTarget.setAttribute("value", target);
-
-    form.appendChild(inputPos);
-    form.appendChild(inputTarget);
-}
-
-function ajouterPointInteretDebut(pos,target){              
-    var currentPlace = $(".imsky");
-    var point = document.createElement("a-entity");
-    point.setAttribute("template", "src: #template");
-    point.setAttribute("data-target", target);
-    point.setAttribute("position", pos);
-    //point.setAttribute('bmfont-text','text: HELLO!; color: #333');
-    currentPlace.appendChild(point);
-/*    var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    if(lieuPresent === undefined){
-      mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
-      lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    }
->>>>>>> 16cadb816fdf9dfc887f1d001f12ea0aa3c027d1
-    lieuDest = lieuPresent.get(point.getAttribute("data-target"));
-    if(lieuDest === undefined){
-      lieuPresent.set(point.getAttribute("data-target"), pos);
-    }*/
 }
 
 function placerPannDebut(pos){              
@@ -353,10 +307,6 @@ function supprimer(el){
     if(point==posP)
       form.removeChild(el);
   });
-}
-
-function sauvegarder(){
-  document.getElementById("pointsForm").submit();
 }
 
 function sauvegarder(){
