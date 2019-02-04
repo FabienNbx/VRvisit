@@ -33,19 +33,30 @@
 				material="color: #202020"
 				move="on: click; target: ${target}"
 				look-at="#camera"
-				text="align: center; wrapCount: 20; value: ${target}"
+				text="align: center; wrapCount: 10; value: ${target}"
 			    animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 				>
 				</a-entity>
 			</script>
 			<script id="templateMapIcon" type="text/html">
 				<a-entity
-				geometry="primitive: sphere; radius: 1"
-				meterial="color: blue"
-				movetothismap="on: click; target: ${target}"
-				animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
-				animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic;"
+					display-label="${target}"
+					geometry="primitive: sphere; radius: 0.5" 
+					material="color: #202020"
+					position="0 0 -3"
+					animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 				>
+				</a-entity>
+				<a-entity
+					display-label="${target}"
+					geometry="primitive: sphere; radius: 1"
+					material="color: #5a92ae"
+					movetothismap="on: click; target: ${target}"
+					animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
 			</script>
 		</a-assets>
 
@@ -128,7 +139,6 @@
 
 		<a-entity id="map1" class="piece map" sourceimage="img/map1.JPG" visible='false' defaultmap>
 		</a-entity>
-
 		<a-entity id="map2" class="piece map" sourceimage="img/map2.JPG" visible='false'>
 		</a-entity>
 
@@ -154,13 +164,7 @@
 					  	animation__scaleReturn="property: scale; to: 2 2 2; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 				></a-cursor>
 			</a-entity>
-		</a-entity>
-
-		<a-entity layout="type: circle; margin: 2">
-
-			
-			
-		</a-entity>
+		</a-entity>	
 	</a-scene>
 </body>
 </html>

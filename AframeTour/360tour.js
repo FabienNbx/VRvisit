@@ -6,19 +6,20 @@ var mapPosPoints = new Map();
 window.onload = function(){
 	var layout = document.createElement("a-entity");
 	layout.setAttribute("id", "layoutMapCircle");
-	//layout.setAttribute("visible", "false");
+	layout.setAttribute("visible", "false");
 	layout.setAttribute("layout", "type", "circle");
 	layout.setAttribute("position", "0 -9 0");
 	layout.setAttribute("rotation", "90 0 0");
 	layout.setAttribute("layout", "radius", "8");
+	$("#mapButton").parentNode.appendChild(layout);
 	var maps = $$(".map");
-	maps.forEach(function(el){
+	var nbMaps = maps.lenght;
+	maps.forEach(function(el, index){
 		var entityToAdd = document.createElement("a-entity");
 		entityToAdd.setAttribute("template", "src: #templateMapIcon");
 		entityToAdd.setAttribute("data-target", el.getAttribute("id"));
 		layout.appendChild(entityToAdd);
 	});
-	$("#mapButton").parentNode.appendChild(layout);
 
 }
 
@@ -62,6 +63,29 @@ document.addEventListener('keypress', (event) => {
   }
 });
 
+AFRAME.registerComponent('display-label', {
+	schema: { type: 'string' },
+
+	init: function(){
+		var el=this.el;
+		var data=this.data;
+		el.addEventListener("mouseenter", function(){
+			var label = document.createElement("a-entity");
+			label.setAttribute("id", "labelMap");
+			label.setAttribute("geometry", "primitive: plane; height: 0.5; width: 0.5");
+			label.setAttribute("material", "color: #202020");
+			label.setAttribute("text", `align: center; wrapCount: 10; value: ${data}`);
+			label.setAttribute("position", "0 0.35 -1");
+			$("#camera").appendChild(label);
+		});
+
+		el.addEventListener("mouseleave", function(){
+			$("#camera").removeChild($("#labelMap"));
+		});
+
+	}
+});
+
 AFRAME.registerComponent('move', {
 	schema: {
 		on: {type: 'string'},
@@ -71,21 +95,32 @@ AFRAME.registerComponent('move', {
 	init: function(){
 		var data=this.data;
 		var el=this.el;
-		var originPlaceName = $(".piece[current]").getAttribute("id");
 		var targetElement=$(`#${data.target}`);
 		var targetWorldPos = new THREE.Vector3();
 		el.addEventListener(data.on, function(){
-				var image=$(`#${data.target}Img`);
-				if(image.nodeName!="IMG"){
-					var source=image.innerHTML;
-					var parentImage=image.parentNode;
-					parentImage.removeChild(image);
-					image=document.createElement("img");
-					image.setAttribute("id", `${data.target}Img`);
-					image.setAttribute("crossorigin", "anonymous");
-					image.setAttribute("src", source);
-					parentImage.appendChild(image);
-				}
+				var originPlaceName = $(".piece[current]").getAttribute("id");
+				var points=$$(`#${data.target}>a-entity`);
+				var pointsArray = [];
+				points.forEach(function(el){
+					pointsArray.push(el);
+				});
+				var pieceActuelle = document.createElement("a-entity");
+				pieceActuelle.setAttribute("data-target", data.target);
+				pointsArray.push(pieceActuelle);
+				pointsArray.forEach(function(point){
+					var image=$(`#${point.getAttribute("data-target")}Img`);
+					if(image.nodeName!="IMG"){
+						var source=image.innerHTML;
+						var parentImage=image.parentNode;
+						parentImage.removeChild(image);
+						image=document.createElement("img");
+						image.setAttribute("id", `${point.getAttribute("data-target")}Img`);
+						image.setAttribute("crossorigin", "anonymous");
+						image.setAttribute("src", source);
+						parentImage.appendChild(image);
+					}
+				});
+				
 				$("#background").setAttribute('src', `#${data.target}Img`);
 
 				var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
@@ -105,6 +140,7 @@ AFRAME.registerComponent('move', {
 					$("#hud").setAttribute('visible', 'true');
 					$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
 				}
+				$("#layoutMapCircle").setAttribute('visible', 'false');
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
 			}
 		);
@@ -133,7 +169,9 @@ AFRAME.registerComponent('movetothismap', {
 					parentImage.appendChild(image);
 				}
 				$("#background").setAttribute('src', `#${data.target}Img`);				
-
+				$$(`#${data.target} a-entity a-entity`).forEach(function(el){
+					el.setAttribute("material", "color", "#202020");
+				});
 				$(`.piece[current]`).setAttribute('visible','false');				
 				$(`.piece[current]`).removeAttribute("current");
 				$(`#${data.target}`).setAttribute('visible', 'true');
@@ -192,7 +230,8 @@ AFRAME.registerComponent('movetomap', {
 				$(`#${map}`).setAttribute('visible', 'true');
 				$(`#${map}`).setAttribute("current","");
 				$("#hud").setAttribute('visible', 'false');
-				
+				$("#layoutMapCircle").setAttribute('visible', 'true');
+
 				$("#cursor").setAttribute('raycaster', `objects: #${map},#layoutMapCircle`);
 			}
 		);
@@ -222,10 +261,6 @@ AFRAME.registerComponent('default', {
 	}
 });
 
-AFRAME.registerComponent('description', {
-	schema: {type: 'string'}
-	}
-);
 
 AFRAME.registerComponent('sourceimage', {
 	schema: {type: 'string'},
@@ -294,11 +329,19 @@ function sauvegarder(){
 
 	docSave.querySelector("canvas").parentNode.removeChild(docSave.querySelector("canvas"));
 
-	var templateAEnlever = docSave.querySelectorAll("[template]");
+	var templateAEnlever = docSave.querySelectorAll(".piece:not(.map) a-entity[template]");
 	templateAEnlever.forEach(function(el){
 		el.setAttribute("template", "src: #template");
 		el.removeChild(el.firstChild);
 	});
+
+	templateAEnlever = docSave.querySelectorAll(".map a-entity[template]");
+	templateAEnlever.forEach(function(el){
+		el.setAttribute("template", "src: #templateMap");
+		el.removeChild(el.firstChild);
+	});
+
+	docSave.querySelector("a-scene").removeChild(docSave.querySelector("#layoutMapCircle"));
 
 	docSave.querySelector("a-scene").removeChild(docSave.querySelector("a-sky"));
 	var sky = docSave.createElement("a-sky");
@@ -315,6 +358,10 @@ function sauvegarder(){
 	docSave.querySelector("#camera").removeAttribute("position");
 	docSave.querySelector("#camera").removeAttribute("rotation");
 	docSave.querySelector("#cameraRotation").removeAttribute("rotation");
+	try{
+		docSave.querySelector("#camera").removeChild(docSave.querySelector("#labelMap"));
+	}
+	catch{}
 
  
 	var metas = docSave.querySelectorAll("meta[aframe-injected]");
@@ -343,9 +390,12 @@ function sauvegarder(){
 		el.setAttribute("visible", "false");
 	});
 
+	docSave.querySelector("#cursor").setAttribute("color", "black");
+	docSave.querySelector("#cursor").setAttribute("fuse-timeout", 2500);
+
 	docSave.querySelector("[current]").removeAttribute("current");
 
-	docSave.querySelector("a-scene").removeAttribute("debug", "");
+	docSave.querySelector("a-scene").removeAttribute("debug");
 
 
 
