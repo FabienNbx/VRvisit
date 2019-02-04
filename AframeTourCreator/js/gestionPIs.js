@@ -42,11 +42,11 @@ function placementPann(pann){
 document.addEventListener('keypress', (event) => {
   const Touche = event.key;
   if(Touche=='a' && !addEnCours){
-    alert("Appuyez sur entré, une fois le point placé, pour valider");
+    alert("Appuyez sur entrée pour valider");
     addEnCours = true;
     lieu="point";
     var point = document.createElement("a-entity");
-    point.setAttribute("template", "src: #template");
+    point.setAttribute("template", "src: #templateUpdate");
     point.setAttribute("data-target", "");
     point.setAttribute("position", "0 0 -5");
     $("#camera").appendChild(point);
@@ -70,7 +70,7 @@ document.addEventListener('keypress', (event) => {
     });
   }
   if(Touche=='p' && !addEnCours){
-    alert("Appuyez sur entré, une fois le point placé, pour valider");
+    alert("Appuyez sur entrée pour valider");
     addEnCours = true;
     lieu="pann";
     var dist = 5;
@@ -102,12 +102,17 @@ document.addEventListener('keypress', (event) => {
       });
 
   }
-  if(Touche=='r'){
+  if(Touche=='r' && !addEnCours){
     var el = $("#cursor").components.raycaster.intersectedEls[0];
     if(el !== undefined){
       if(confirm("supprimer?")){
         supprimer(el);
       }
+    }
+  }
+  if(Touche=='s' && !addEnCours){
+    if(confirm("Voulez-vous sauvegarder cette pièce ?")){
+      sauvegarder();
     }
   }
 });
@@ -182,11 +187,6 @@ AFRAME.registerComponent('default', {
   }
 });
 
-AFRAME.registerComponent('description', {
-  schema: {type: 'string'}
-  }
-);
-
 AFRAME.registerComponent('sourceimage', {
   schema: {type: 'string'},
 
@@ -199,23 +199,8 @@ AFRAME.registerComponent('sourceimage', {
   }
 });
 
-/*function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}*/
 
-function ajouterPointInteret(pos){
+function ajouterPointInteret(pos){              
     if(typeof(listImgs)=="undefined"){
       alert("Erreur");
       return;
@@ -253,7 +238,44 @@ function ajouterPointInteret(pos){
     if(lieuDest === undefined){
       lieuPresent.set(point.getAttribute("data-target"), pos);
     }
+
+
+    var form = $("#pointsForm");
+    var inputPos = document.createElement("input");
+    inputPos.setAttribute("type", "text");
+    inputPos.setAttribute("name", "pointsPos["+currentPlace.getAttribute('id')+"][]");
+    inputPos.setAttribute("hidden", "");
+    inputPos.setAttribute("value", pos);
+
+    var inputTarget = document.createElement("input");
+    inputTarget.setAttribute("type", "text");
+    inputTarget.setAttribute("name", "pointsTarget["+currentPlace.getAttribute('id')+"][]");
+    inputTarget.setAttribute("hidden", "");
+    inputTarget.setAttribute("value", target);
+
+    form.appendChild(inputPos);
+    form.appendChild(inputTarget);
 }
+
+function ajouterPointInteretDebut(pos,target){              
+    var currentPlace = $(".imsky");
+    var point = document.createElement("a-entity");
+    point.setAttribute("template", "src: #template");
+    point.setAttribute("data-target", target);
+    point.setAttribute("position", pos);
+    //point.setAttribute('bmfont-text','text: HELLO!; color: #333');
+    currentPlace.appendChild(point);
+/*    var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
+    if(lieuPresent === undefined){
+      mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
+      lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
+    }
+    lieuDest = lieuPresent.get(point.getAttribute("data-target"));
+    if(lieuDest === undefined){
+      lieuPresent.set(point.getAttribute("data-target"), pos);
+    }*/
+}
+
 
 function supprimer(el){
   var lieuPresent = mapPosPoints.get(el.parentNode.parentNode.getAttribute("id"));
@@ -261,4 +283,8 @@ function supprimer(el){
     lieuPresent.delete(el.parentNode.getAttribute("data-target"));
   }
   el.parentNode.parentNode.removeChild(el.parentNode);
+}
+
+function sauvegarder(){
+  document.getElementById("pointsForm").submit();
 }
