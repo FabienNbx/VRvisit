@@ -50,13 +50,17 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             }
         }
     }
-    echo "<form action=\"accueil.php\">
-          <input type=\"submit\" value=\"Terminer\" />
+    
+    echo "<form action=\"";
+    if($_GET['new']=='true') echo "accueil.php";
+    else if($_GET['new']=='false') echo "existant.php";
+    echo "\">
+          <input type=\"submit\" value=\"Suivant\" />
           </form>";
 }
 else{
     echo "<p>Il faut sélectionner au minimum une image ...</p>";
-    echo "<form action=\"index.php\">
+    echo "<form action=\"images.php?new=".$_GET['new']."\" method=\"post\">
           <input type=\"submit\" value=\"Retour\" />
           </form>";
 }
