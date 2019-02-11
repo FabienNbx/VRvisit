@@ -1,0 +1,154 @@
+<html class="a-html"><head>
+	<meta charset="utf-8">
+	<title>Projet test</title><!-- 
+	<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@^3.1.1/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.1.2/dist/aframe-event-set-component.min.js"></script> 
+    <script src="https://unpkg.com/aframe-animation-component@^5.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.7.0/dist/aframe-look-at-component.min.js"></script> -->
+    <script src="latotale.js"></script>
+    <script src="360tour.js"></script>   
+
+</head>
+<body class="a-body">
+	<a-scene class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
+		<a-assets>
+			<script id="template" type="text/html">
+				<a-entity 
+				geometry="primitive: octahedron; radius: 0.5" 
+				material="color: #5a92ae"
+				move="on: click; target: ${target}"
+				animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+				animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				animation__rotationReturn="property: rotation; to: 0 0 0; dur: 1000; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+			</script>
+			<script id="templateMap" type="text/html">
+				<a-entity 
+				geometry="primitive: plane; height: 1; width: 1" 
+				material="color: #202020"
+				move="on: click; target: ${target}"
+				look-at="#camera"
+				text="align: center; wrapCount: 10; value: ${target}"
+			    animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+			</script>
+			<script id="templateMapIcon" type="text/html">
+				<a-entity
+					display-label="${target}"
+					geometry="primitive: sphere; radius: 0.5" 
+					material="color: #202020"
+					position="0 0 -3"
+					animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+				<a-entity
+					display-label="${target}"
+					geometry="primitive: sphere; radius: 1"
+					material="color: #5a92ae"
+					movetothismap="on: click; target: ${target}"
+					animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+			</script>
+		</a-assets>
+
+			
+
+		<a-entity id="A12" class="piece" sourceimage="img/A12.JPG" description="A12" visible="false">
+		<a-entity template="src:#template" data-target="couloirA12" position="-4.982718114386219 -0.32043762368329615 -0.4153555014291255"></a-entity></a-entity>
+		<a-entity id="A18" class="piece" sourceimage="img/A18.JPG" description="A18" visible="false">
+		<a-entity template="src:#template" data-target="couloirA18A19" position="4.963296902353141 -0.2903256248344635 -0.6047179996425759"></a-entity></a-entity>
+		<a-entity id="A19" class="piece" sourceimage="img/A19.JPG" description="A19" visible="false">
+		<a-entity template="src:#template" data-target="couloirA18A19" position="4.331206201256153 -0.29032562483446367 2.4981298689620295"></a-entity></a-entity>
+		<a-entity id="A21" class="piece" sourceimage="img/A21.JPG" description="A21" visible="false">
+		<a-entity template="src:#template" data-target="couloirA21A22" position="4.580756069778657 -0.26023460041374147 -2.004164122317829"></a-entity></a-entity>
+		<a-entity id="A22" class="piece" sourceimage="img/A22.JPG" description="A22" visible="false">
+		<a-entity template="src:#template" data-target="couloirA21A22" position="-4.996979730549688 -0.2702627464717403 -0.1737629778622786"></a-entity></a-entity>
+		<a-entity id="A23" class="piece" sourceimage="img/A23.JPG" description="A23" visible="false">
+		<a-entity template="src:#template" data-target="gaucheA" position="3.534911158136915 -0.34052502443992416 3.536156544057281"></a-entity><a-entity template="src:#template" data-target="couloirA23" position="-2.956935752704177 -0.27026274647174076 4.0319388579664475"></a-entity></a-entity>
+		<a-entity id="B10" class="piece" sourceimage="img/B10.JPG" description="B10" visible="false">
+		<a-entity template="src:#template" data-target="milieuB" position="3.099994215581627 -0.4109214250107476 -3.9230136200834753"></a-entity></a-entity>
+		<a-entity id="B12" class="piece" sourceimage="img/B12.JPG" description="B12" visible="false">
+		<a-entity template="src:#template" data-target="couloirB12" position="-4.733531427469217 -0.3204376236832922 -1.6104906783838384"></a-entity></a-entity>
+		<a-entity id="B14" class="piece" sourceimage="img/B14.JPG" description="B14" visible="false">
+		<a-entity template="src:#template" data-target="couloirB14B17" position="3.120868477939338 -0.3204376236832926 3.906428028698929"></a-entity></a-entity>
+		<a-entity id="B17" class="piece" sourceimage="img/B17.JPG" description="B17" visible="false">
+		<a-entity template="src:#template" data-target="couloirB14B17" position="4.068475450503394 -0.32043762368329254 2.906459617584804"></a-entity></a-entity>
+		<a-entity id="B18" class="piece" sourceimage="img/B18.JPG" description="B18" visible="false">
+		<a-entity template="src:#template" data-target="couloirB18B19" position="3.540797902026598 -0.23016236409301424 3.530262060669723"></a-entity></a-entity>
+		<a-entity id="B19" class="piece" sourceimage="img/B19.JPG" description="B19" visible="false">
+		<a-entity template="src:#template" data-target="couloirB18B19" position="3.726923867391662 -0.4008555235403572 -3.3331724357834207"></a-entity></a-entity>
+		<a-entity id="B20" class="piece" sourceimage="img/B20.JPG" description="B20" visible="false">
+		<a-entity template="src:#template" data-target="couloirB20B21B22B23" position="-4.354149839217422 -0.3204376236832884 -2.4579217191853155"></a-entity></a-entity>
+		<a-entity id="B21" class="piece" sourceimage="img/B21.JPG" description="B21" visible="false">
+		<a-entity template="src:#template" data-target="couloirB20B21B22B23" position="3.5689263923353476 -0.1700655369711214 3.5018230118171587"></a-entity></a-entity>
+		<a-entity id="B22" class="piece" sourceimage="img/B22.JPG" description="B22" visible="false">
+		<a-entity template="src:#template" data-target="couloirB20B21B22B23" position="3.4056155927124463 -0.4411393159419066 3.6608444974723864"></a-entity></a-entity>
+		<a-entity id="B23" class="piece" sourceimage="img/B23.JPG" description="B23" visible="false">
+		<a-entity template="src:#template" data-target="couloirB20B21B22B23" position="3.2860529597935697 -0.32043762368328893 -3.7685349866270212"></a-entity><a-entity template="src:#template" data-target="gaucheB" position="-4.329353325999135 -0.3405250244399149 -2.5013395968281142"></a-entity></a-entity>
+		<a-entity id="coinGauche" class="piece" sourceimage="img/coinGauche.JPG" description="coinGauche" visible="false">
+		<a-entity template="src:#template" data-target="croisementChemin" position="0.7393158690215684 0.06000288016589769 4.945039134912168"></a-entity><a-entity template="src:#template" data-target="exterieurGauche" position="4.9513510041650175 -0.030000360005184058 -0.6957896474898702"></a-entity></a-entity>
+		<a-entity id="couloirA12" class="piece" sourceimage="img/couloirA12.JPG" description="couloirA12" visible="false">
+		<a-entity template="src:#template" data-target="milieuA" position="-0.7750095447178447 -0.3003605191564863 -4.939570852371311"></a-entity><a-entity template="src:#template" data-target="couloirA18A19" position="0.7671415398704229 -0.08000682736578904 4.940798908861322"></a-entity><a-entity template="src:#template" data-target="A12" position="-4.997873374627581 -0.29032562483446317 -0.14581402946464883"></a-entity></a-entity>
+		<a-entity id="couloirA18A19" class="piece" sourceimage="img/couloirA18A19.JPG" description="couloirA18A19" visible="false">
+		<a-entity template="src:#template" data-target="A19" position="4.51699101573398 -0.5319939889302525 2.1440130978560994"></a-entity><a-entity template="src:#template" data-target="couloirA21A22" position="0.3877571959581266 -0.21012356718974134 4.98494176064101"></a-entity><a-entity template="src:#template" data-target="A18" position="-4.707783336052543 0.010000013333354808 -1.6842731550392838"></a-entity><a-entity template="src:#template" data-target="couloirA12" position="-0.427623896498845 -0.31039782504031366 -4.9816802188762725"></a-entity></a-entity>
+		<a-entity id="couloirA21A22" class="piece" sourceimage="img/couloirA21A22.JPG" description="couloirA21A22" visible="false">
+		<a-entity template="src:#template" data-target="couloirA23" position="0.1601562608528391 -0.3405250244399238 4.997434338949301"></a-entity><a-entity template="src:#template" data-target="A21" position="4.239566726004477 -0.5016733604272524 2.6506742492723765"></a-entity><a-entity template="src:#template" data-target="A22" position="-4.12338074284352 -0.15004501620590335 -2.828026034099972"></a-entity><a-entity template="src:#template" data-target="couloirA18A19" position="-0.05814561755621991 -0.22014208336370428 -4.999661897284556"></a-entity></a-entity>
+		<a-entity id="couloirA23" class="piece" sourceimage="img/couloirA23.JPG" description="couloirA23" visible="false">
+		<a-entity template="src:#template" data-target="gaucheA" position="0.03610988224903665 -0.27026274647174064 4.999869605940135"></a-entity><a-entity template="src:#template" data-target="A23" position="4.988299371034669 -0.4209906360652043 -0.34186164589659385"></a-entity><a-entity template="src:#template" data-target="couloirA21A22" position="0.1918059975854839 -0.3304799963630143 -4.99631969146193"></a-entity></a-entity>
+		<a-entity id="couloirB12" class="piece" sourceimage="img/couloirB12.JPG" description="couloirB12" visible="false">
+		<a-entity template="src:#template" data-target="milieuB" position="-4.770651371540792 -0.5016733604272485 1.4969587473327253"></a-entity><a-entity template="src:#template" data-target="B12" position="1.2914840592484502 -0.5421093619861832 4.830328034896507"></a-entity><a-entity template="src:#template" data-target="secretariat" position="-1.291484059248432 -0.3204376236832922 -4.830328034896511"></a-entity><a-entity template="src:#template" data-target="couloirB14B17" position="4.767033853043739 -0.13002930125641424 -1.5084390090205693"></a-entity></a-entity>
+		<a-entity id="couloirB14B17" class="piece" sourceimage="img/couloirB14B17.JPG" description="couloirB14B17" visible="false">
+		<a-entity template="src:#template" data-target="couloirB12" position="4.895022654336285 -0.12002304530964941 -1.0191924320434063"></a-entity><a-entity template="src:#template" data-target="B14" position="0.715135005385687 -0.41092142501074647 -4.94859393404551"></a-entity><a-entity template="src:#template" data-target="B17" position="2.7236765999242074 -0.3807333209780622 4.193040159481579"></a-entity><a-entity template="src:#template" data-target="couloirB18B19" position="-4.884586150787263 -0.3505727893600086 1.0680908835568594"></a-entity></a-entity>
+		<a-entity id="couloirB18B19" class="piece" sourceimage="img/couloirB18B19.JPG" description="couloirB18B19" visible="false">
+		<a-entity template="src:#template" data-target="couloirB14B17" position="0.3920013582959524 -0.07000457369190607 4.984609807707533"></a-entity><a-entity template="src:#template" data-target="B18" position="4.6939688730962885 -0.4512189495489217 -1.7223983913146101"></a-entity><a-entity template="src:#template" data-target="B19" position="-4.913843953019741 -0.562353355569302 -0.9241956531878542"></a-entity><a-entity template="src:#template" data-target="couloirB20B21B22B23" position="-0.541340835410883 -0.34052502443991856 -4.970608624697447"></a-entity></a-entity>
+		<a-entity id="couloirB20B21B22B23" class="piece" sourceimage="img/couloirB20B21B22B23.JPG" description="couloirB20B21B22B23" visible="false">
+		<a-entity template="src:#template" data-target="couloirB18B19" position="-1.034869227886583 -0.2702627464717343 -4.891732380371337"></a-entity><a-entity template="src:#template" data-target="B20" position="-3.8679304279283993 -0.39079284953453564 -3.168456123209793"></a-entity><a-entity template="src:#template" data-target="B22" position="-3.541587484183233 -0.31039782504030755 3.529469944889272"></a-entity><a-entity template="src:#template" data-target="B21" position="4.949609647322672 -0.684223677879594 -0.7080708574220045"></a-entity><a-entity template="src:#template" data-target="B23" position="3.9193934389918357 -0.290325624834457 3.10457002987334"></a-entity><a-entity template="src:#template" data-target="gaucheB" position="1.0544278262869649 -0.0400008533551708 4.887553780691497"></a-entity></a-entity>
+		<a-entity id="croisementChemin" class="piece" sourceimage="img/croisementChemin.JPG" description="croisementChemin" visible="false">
+		<a-entity template="src:#template" data-target="exterieurMilieu" position="-0.24786163901055205 -0.28029306095448536 4.993852681838643"></a-entity><a-entity template="src:#template" data-target="coinGauche" position="0.3356738717290775 -0.12002304530965395 -4.988719580397199"></a-entity></a-entity>
+		<a-entity id="escalierGaucheA" class="piece" sourceimage="img/escalierGaucheA.JPG" description="escalierGaucheA" visible="false">
+		<a-entity template="src:#template" data-target="escalierGaucheB" position="-4.640534518737577 0.6435183127480131 -1.8615690640975444"></a-entity><a-entity template="src:#template" data-target="gaucheA" position="1.0457443378900615 -0.5421093619861777 -4.889419063628202"></a-entity></a-entity>
+		<a-entity id="escalierGaucheB" class="piece" sourceimage="img/escalierGaucheB.JPG" description="escalierGaucheB" visible="false">
+		<a-entity template="src:#template" data-target="gaucheB" position="0.6525737696739841 -0.5623533555692969 4.957231835927535"></a-entity><a-entity template="src:#template" data-target="escalierGaucheA" position="4.720253933534126 -2.2208791481325045 -1.6490005466814175"></a-entity></a-entity>
+		<a-entity id="escalierMilieuA" class="piece" sourceimage="img/escalierMilieuA.JPG" description="escalierMilieuA" visible="false">
+		<a-entity template="src:#template" data-target="milieuA" position="-0.1762573311519765 -0.4512189495489256 -4.996892369584838"></a-entity><a-entity template="src:#template" data-target="escalierMilieuB" position="-4.989910842462159 0.8995202608746783 -0.31747406867111627"></a-entity></a-entity>
+		<a-entity id="escalierMilieuB" class="piece" sourceimage="img/escalierMilieuB.JPG" description="escalierMilieuB" visible="false">
+		<a-entity template="src:#template" data-target="escalierMilieuA" position="3.032559672203347 -2.2568943277782276 3.975371911472677"></a-entity><a-entity template="src:#template" data-target="milieuB" position="-4.675132656725175 -0.8068973036760512 1.7728887844480854"></a-entity></a-entity>
+		<a-entity id="exterieurGauche" class="piece" sourceimage="img/exterieurGauche.JPG" description="exterieurGauche" visible="false">
+		<a-entity template="src:#template" data-target="coinGauche" position="-1.2447339333657843 -0.2702627464717412 4.842585821142228"></a-entity><a-entity template="src:#template" data-target="gaucheA" position="4.812954692322858 -0.030000360005184246 1.3547941281417555"></a-entity></a-entity>
+		<a-entity id="exterieurMilieu" class="piece" sourceimage="img/exterieurMilieu.JPG" description="exterieurMilieu" visible="false" default="">
+		<a-entity template="src:#template" data-target="milieuA" position="-4.981000842921566 -0.3304799963630144 0.43546596056941894"></a-entity><a-entity template="src:#template" data-target="croisementChemin" position="0.7492044620668039 0.1300293012564185 4.9435506140849"></a-entity></a-entity>
+		<a-entity id="gaucheA" class="piece" sourceimage="img/gaucheA.JPG" description="gaucheA" visible="false">
+		<a-entity template="src:#template" data-target="exterieurGauche" position="-1.987609891647272 -1.1707168117573268 -4.587963264742419"></a-entity><a-entity template="src:#template" data-target="A23" position="-4.378244872545659 -0.7250182676328709 2.414740531822756"></a-entity><a-entity template="src:#template" data-target="escalierGaucheA" position="4.764063197912195 -0.8685823207436079 -1.5177950607043835"></a-entity><a-entity template="src:#template" data-target="couloirA23" position="1.6448942895316692 -0.31039782504031443 4.721686433496628"></a-entity></a-entity>
+		<a-entity id="gaucheB" class="piece" sourceimage="img/gaucheB.JPG" description="gaucheB" visible="false">
+		<a-entity template="src:#template" data-target="couloirB20B21B22B23" position="4.915309643829245 -0.18007780033193185 0.9163684331529676"></a-entity><a-entity template="src:#template" data-target="B23" position="2.3816709844311594 -0.10001333546700296 4.39632156716484"></a-entity><a-entity template="src:#template" data-target="escalierGaucheB" position="0.566377668417472 -0.9512332918916087 -4.9678180659840985"></a-entity></a-entity>
+		<a-entity id="milieuA" class="piece" sourceimage="img/milieuA.JPG" description="milieuA" visible="false">
+		<a-entity template="src:#template" data-target="couloirA12" position="0.6801055472246156 -0.02000010666734793 4.953529695543805"></a-entity><a-entity template="src:#template" data-target="exterieurMilieu" position="4.91592046630694 -0.41092142501074963 -0.9130859592308689"></a-entity><a-entity template="src:#template" data-target="escalierMilieuA" position="4.597588069689215 -0.2502085418776923 1.9652439903104644"></a-entity></a-entity>
+		<a-entity id="milieuB" class="piece" sourceimage="img/milieuB.JPG" description="milieuB" visible="false">
+		<a-entity template="src:#template" data-target="escalierMilieuB" position="2.7848839355642596 -0.25020854187769037 -4.152640300511967"></a-entity><a-entity template="src:#template" data-target="B10" position="-4.941181232336239 -0.5421093619861845 -0.7646751135012317"></a-entity><a-entity template="src:#template" data-target="couloirB12" position="3.9390917901347122 -0.21012356718973763 3.079538255793116"></a-entity></a-entity>
+		<a-entity id="secretariat" class="piece" sourceimage="img/secretariat.JPG" description="secretariat" visible="false">
+		<a-entity template="src:#template" data-target="couloirB12" position="3.5402791687438078 -0.2903256248344594 -3.5307822656401022"></a-entity></a-entity>
+
+		<a-entity id="map1" class="piece map" sourceimage="img/map1.JPG" visible="false" defaultmap="">
+		<a-entity template="src:#templateMap" data-target="exterieurMilieu" position="-4.643493466674688 -4.109896412170519 -1.8541759422852775"></a-entity><a-entity template="src:#templateMap" data-target="coinGauche" position="4.991736415484277 -2.3906559229643047 0.2873457122147243"></a-entity><a-entity template="src:#templateMap" data-target="exterieurGauche" position="4.997194499468758 0.37067685595730676 0.1674727872795684"></a-entity><a-entity template="src:#templateMap" data-target="gaucheA" position="4.837684219591665 0.5522291229102179 1.2636500273073157"></a-entity><a-entity template="src:#templateMap" data-target="A23" position="4.520556922770154 -0.7761454110850845 2.1364842868588667"></a-entity><a-entity template="src:#templateMap" data-target="A21" position="1.8513306813975947 -0.7148109536233875 4.644628586670405"></a-entity><a-entity template="src:#templateMap" data-target="A19" position="-0.8986132177181215 -0.6536865900222849 4.91858661456137"></a-entity><a-entity template="src:#templateMap" data-target="escalierGaucheA" position="4.868900373618973 1.5686222920146258 1.1374573186599255"></a-entity><a-entity template="src:#templateMap" data-target="A22" position="2.862818237197246 2.055274575761092 4.099301372279288"></a-entity><a-entity template="src:#templateMap" data-target="A18" position="-0.867441652031974 2.0319335062552217 4.924179625107114"></a-entity><a-entity template="src:#templateMap" data-target="A12" position="-4.831402240899783 2.1257636263125725 1.287459664078279"></a-entity><a-entity template="src:#templateMap" data-target="couloirA23" position="3.921693558548246 0.6333552689116883 3.101664010308208"></a-entity><a-entity template="src:#templateMap" data-target="couloirA21A22" position="2.155129425987783 0.6028966860565487 4.511697813156547"></a-entity><a-entity template="src:#templateMap" data-target="couloirA18A19" position="-0.8082904596351591 0.6231973732318604 4.934234138431494"></a-entity><a-entity template="src:#templateMap" data-target="couloirA12" position="-4.612235003309022 0.6028966860565487 1.9306186247550374"></a-entity><a-entity template="src:#templateMap" data-target="milieuA" position="-4.697593017909858 0.2502085418777159 -1.7124893687508118"></a-entity><a-entity template="src:#templateMap" data-target="escalierMilieuA" position="-4.971097320137345 -1.2980354913480296 -0.5368346428122011"></a-entity><a-entity template="src:#templateMap" data-target="croisementChemin" position="-2.4198480406490415 -3.6516754939070535 4.37542403204158"></a-entity></a-entity>
+		<a-entity id="map2" class="piece map" sourceimage="img/map2.JPG" visible="false">
+		<a-entity template="src:#templateMap" data-target="escalierMilieuB" position="-4.959367156722524 -1.448604748277338 -0.6361425978677657"></a-entity><a-entity template="src:#templateMap" data-target="milieuB" position="-4.980839110904571 0.44113931594193734 -0.4373119610568187"></a-entity><a-entity template="src:#templateMap" data-target="B10" position="-4.868816798199683 2.232862731423004 -1.1378150049848101"></a-entity><a-entity template="src:#templateMap" data-target="B12" position="-4.844035054866213 2.173156022999475 1.2390820744516005"></a-entity><a-entity template="src:#templateMap" data-target="secretariat" position="-4.27193653411409 -0.6638601861876199 2.5981836441062627"></a-entity><a-entity template="src:#templateMap" data-target="B14" position="-3.358016446626744 2.1969756467248556 3.7045547025498617"></a-entity><a-entity template="src:#templateMap" data-target="B17" position="-2.8740445896904627 -0.8274315350117094 4.0914383407881125"></a-entity><a-entity template="src:#templateMap" data-target="B19" position="-0.9853608068474734 -0.7659076151623477 4.901944928324767"></a-entity><a-entity template="src:#templateMap" data-target="B18" position="-0.9755549528057359 2.1139660936908364 4.90390584473807"></a-entity><a-entity template="src:#templateMap" data-target="B20" position="1.1575491255072774 2.055274575761095 4.864162828487276"></a-entity><a-entity template="src:#templateMap" data-target="B21" position="1.5615770385463268 -0.7250182676328476 4.749892330641283"></a-entity><a-entity template="src:#templateMap" data-target="B22" position="3.0403585430683657 2.161277290057057 3.9694105267144146"></a-entity><a-entity template="src:#templateMap" data-target="B23" position="4.249062299522308 -0.8068973036760306 2.6354258811012308"></a-entity><a-entity template="src:#templateMap" data-target="escalierGaucheB" position="4.878210618976356 1.5576449347510744 1.0968414456548983"></a-entity><a-entity template="src:#templateMap" data-target="gaucheB" position="4.903127429398985 0.5927537248300598 0.979459754699138"></a-entity><a-entity template="src:#templateMap" data-target="couloirB20B21B22B23" position="2.517432698946927 0.6130445405957992 4.320015347920976"></a-entity><a-entity template="src:#templateMap" data-target="couloirB18B19" position="-1.5365769638935889 0.572482143976254 4.758038591061611"></a-entity><a-entity template="src:#templateMap" data-target="couloirB14B17" position="-3.460414168650435 0.5623533555693316 3.6090904368557064"></a-entity><a-entity template="src:#templateMap" data-target="couloirB12" position="-4.588736058890757 0.613044540595799 1.985825113607873"></a-entity></a-entity>
+
+		<a-entity id="mapButton" geometry="primitive: plane; width: 1; height: 1" material="src: img/map_icon" position="0 -2 0" text="align: center; wrapCount: 20" look-at="#camera" animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave" animation__scalereturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave" movetomap="on: click"></a-entity>
+
+		<a-entity id="cameraRotation">
+			<a-entity id="hud" geometry="primitive: plane; width: 2; height: 1" material="color: #202020" position="0 -2 -1" text="align: center; wrapCount: 20" look-at="#camera" visible="">
+			</a-entity>
+			<a-entity id="camera" camera="" look-controls="">
+				<a-cursor id="cursor" scale="2 2 2" color="black" event-set__1="_event: mouseenter; color: springgreen" event-set__2="_event: mouseleave; color: black" fuse-timeout="2500" animation__scale="property: scale; from: 2 2 2; to: 0.1 0.1 0.1; dur: 2500; easing: easeInCubic; startEvents: fusing; pauseEvents: mouseleave" animation__scalereturn="property: scale; to: 2 2 2; dur: 500; easing: easeOutElastic; startEvents: mouseleave"></a-cursor>
+			</a-entity>
+		</a-entity>	
+	<a-sky id="background"></a-sky></a-scene>
+
+</body></html>

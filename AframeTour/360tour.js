@@ -86,6 +86,39 @@ AFRAME.registerComponent('display-label', {
 	}
 });
 
+function loadImageOf(point){
+	var image=$(`#${point.getAttribute("data-target")}Img`);
+	if(image.nodeName!="IMG"){
+		var source=image.innerHTML;
+		var parentImage=image.parentNode;
+		parentImage.removeChild(image);
+		image=document.createElement("img");
+		image.setAttribute("id", `${point.getAttribute("data-target")}Img`);
+		image.setAttribute("crossorigin", "anonymous");
+		image.setAttribute("src", source);
+		parentImage.appendChild(image);
+	}
+}
+
+function priorityLoadImageOf(point){
+	return new Promise(resolve => {
+		var image=$(`#${point.getAttribute("data-target")}Img`);
+		if(image.nodeName!="IMG"){
+			var source=image.innerHTML;
+			var parentImage=image.parentNode;
+			parentImage.removeChild(image);
+			image=document.createElement("img");
+			image.setAttribute("id", `${point.getAttribute("data-target")}Img`);
+			image.setAttribute("crossorigin", "anonymous");
+			image.setAttribute("src", source);
+			parentImage.appendChild(image);
+		}
+		image.addEventListener("load", function(){
+			resolve("loaded");
+		});
+	});
+}
+
 AFRAME.registerComponent('move', {
 	schema: {
 		on: {type: 'string'},
@@ -101,26 +134,21 @@ AFRAME.registerComponent('move', {
 				var originPlaceName = $(".piece[current]").getAttribute("id");
 				var points=$$(`#${data.target}>a-entity`);
 				var pointsArray = [];
-				points.forEach(function(el){
-					pointsArray.push(el);
-				});
 				var pieceActuelle = document.createElement("a-entity");
 				pieceActuelle.setAttribute("data-target", data.target);
 				pointsArray.push(pieceActuelle);
-				pointsArray.forEach(function(point){
-					var image=$(`#${point.getAttribute("data-target")}Img`);
-					if(image.nodeName!="IMG"){
-						var source=image.innerHTML;
-						var parentImage=image.parentNode;
-						parentImage.removeChild(image);
-						image=document.createElement("img");
-						image.setAttribute("id", `${point.getAttribute("data-target")}Img`);
-						image.setAttribute("crossorigin", "anonymous");
-						image.setAttribute("src", source);
-						parentImage.appendChild(image);
+				points.forEach(function(el){
+					pointsArray.push(el);
+				});
+				pointsArray.forEach(async function(point, index){
+					if(index==0){
+						await priorityLoadImageOf(point);
+					}
+					else{
+						loadImageOf(point);
 					}
 				});
-				
+								
 				$("#background").setAttribute('src', `#${data.target}Img`);
 
 				var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
