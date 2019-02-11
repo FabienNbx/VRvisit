@@ -18,26 +18,6 @@ function placementPoint(point){
   }
 }
 
-function placementPann(pann){
-  if(lieu=="pann"){
-    var scroll = event.deltaY/100;
-    scrollDown = scroll > 0;
-    scrollUp = scroll < 0;
-    posPan = pann.getAttribute("position");
-    //alert(pos.z);
-    if((posPan.z>=-2 && scrollUp) || (posPan.z<=-15 && scrollDown) || (posPan.z<-2 && posPan.z>-15)){
-      //dist = dist+scroll;
-      posPan.z=posPan.z+scroll;
-    }
-
-  /*        var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
-    posPan = $("#"+idHud).getAttribute("position");
-    var xPos = -dist*Math.sin(angle);
-    var zPos = -dist*Math.cos(angle);
-    var yPos = dist*Math.tan(angleX);*/
-    pann.setAttribute('position',posPan);
-  }
-}
 
 document.addEventListener('keypress', (event) => {
   const Touche = event.key;
@@ -68,56 +48,6 @@ document.addEventListener('keypress', (event) => {
         addEnCours = false;
       }
     });
-  }
-  if(Touche=='p' && !addEnCours){
-    alert("Appuyez sur entrée pour valider");
-    addEnCours = true;
-    lieu="pann";
-    var dist = 5;
-    var pann =  $("#"+idHud);
-    var t = $("#"+idHud).getAttribute('text');
-    $("#camera").appendChild(pann);
-    pann.setAttribute("position", "0 0 -"+dist);
-    pann.setAttribute("text",t);
-    //$("#cameraRotation").removeChild(pann); 
-
-    document.addEventListener('mousewheel', () => { placementPann(pann); });
-
-    document.addEventListener('keypress', (event) => {
-      if(event.keyCode==13 && lieu=="pann"){
-        var dist = -pann.getAttribute("position").z;
-        var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
-        var xPos = -dist*Math.sin(angle);
-        var zPos = -dist*Math.cos(angle);
-        var angleX = (($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180);
-        var yPos = dist*Math.tan(angleX);
-        $("#cameraRotation").appendChild(pann);
-        pann.setAttribute("text",t);
-        //$("#camera").removeChild(pann);
-        pann.setAttribute('position',`${xPos} ${yPos} ${zPos}`);
-
-        var form = $("#pointsForm");
-        var currentPlace = $(".imsky");
-        var inputPann = $("#inputPann"+currentPlace.getAttribute('id'));
-        if(inputPann==null){
-          var inputPos = document.createElement("input");
-          inputPos.setAttribute("type", "text");
-          inputPos.setAttribute("id", "inputPann"+currentPlace.getAttribute('id'));
-          inputPos.setAttribute("name", "listPanns["+currentPlace.getAttribute('id')+"][]");
-          inputPos.setAttribute("hidden", "");
-          inputPos.setAttribute("value", `${xPos} ${yPos} ${zPos}`);
-          form.appendChild(inputPos);
-        }
-        else{
-          inputPann.setAttribute("value", `${xPos} ${yPos} ${zPos}`);
-        }
-
-        addEnCours = false;
-        lieu="";
-        document.removeEventListener('mousewheel', placementPann);
-      }
-      });
-
   }
   if(Touche=='r' && !addEnCours){
     var el = $("#cursor").components.raycaster.intersectedEls[0];
@@ -173,7 +103,6 @@ AFRAME.registerComponent('move', {
         el.parentNode.parentNode.removeAttribute("current");
         targetElement.setAttribute('visible', 'true');
         targetElement.setAttribute("current","");
-        $("#"+idHud).setAttribute('text','value', targetElement.getAttribute('description'));
         $("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
       }
     );
@@ -197,7 +126,6 @@ AFRAME.registerComponent('default', {
     image.setAttribute("src", source);
     parentImage.appendChild(image);
     $("#background").setAttribute('src', `#${el.id}Img`);
-    $("#"+idHud).setAttribute('text','value', el.getAttribute('description'));
     el.setAttribute('visible', 'true');
     el.setAttribute("current","");
     $("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
@@ -272,19 +200,6 @@ function ajouterPointInteret(pos){
 
     form.appendChild(inputPos);
     form.appendChild(inputTarget);
-}
-
-function ajouterPointInteretDebut(pos,target){              
-    var currentPlace = $(".imsky");
-    var point = document.createElement("a-entity");
-    point.setAttribute("template", "src: #template");
-    point.setAttribute("data-target", target);
-    point.setAttribute("position", pos);
-    currentPlace.appendChild(point);
-}
-
-function placerPannDebut(pos){              
-    $("#"+idHud).setAttribute('position',pos);
 }
 
 
