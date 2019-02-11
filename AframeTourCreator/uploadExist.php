@@ -54,7 +54,7 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
             echo "Erreur inconnue au bataillon</br>";
         }
     }
-    echo "<form action=\"accueil.php\">
+    echo "<form action=\"createXML.php\">
           <input type=\"submit\" value=\"Terminer\" />
           </form>";
 }

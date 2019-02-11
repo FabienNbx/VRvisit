@@ -237,8 +237,6 @@ function ajouterPointInteret(pos){
         return;
       }
     }
-    //alert(target);
-    //alert(currentPlace.getAttribute("id"));
     if(target == currentPlace.getAttribute("id")){
       alert("impossible de mettre un point là ou on est déjà");
       return;
@@ -246,32 +244,6 @@ function ajouterPointInteret(pos){
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
-    var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    if(lieuPresent === undefined){
-      mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
-      lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    }
-    lieuDest = lieuPresent.get(point.getAttribute("data-target"));
-    if(lieuDest === undefined){
-      lieuPresent.set(point.getAttribute("data-target"), pos);
-    }
-
-
-    var form = $("#pointsForm");
-    var inputPos = document.createElement("input");
-    inputPos.setAttribute("type", "text");
-    inputPos.setAttribute("name", "pointsPos["+currentPlace.getAttribute('id')+"][]");
-    inputPos.setAttribute("hidden", "");
-    inputPos.setAttribute("value", pos);
-
-    var inputTarget = document.createElement("input");
-    inputTarget.setAttribute("type", "text");
-    inputTarget.setAttribute("name", "pointsTarget["+currentPlace.getAttribute('id')+"][]");
-    inputTarget.setAttribute("hidden", "");
-    inputTarget.setAttribute("value", target);
-
-    form.appendChild(inputPos);
-    form.appendChild(inputTarget);
 }
 
 function ajouterPointInteretDebut(pos,target){              
@@ -289,23 +261,7 @@ function placerPannDebut(pos){
 
 
 function supprimer(el){
-  elmt = el.parentNode;
-  var currentPlace = $(".imsky");
-  var posP = elmt.getAttribute("position");
-  var form = $("#pointsForm");
-  var p = document.getElementsByName("pointsPos["+currentPlace.getAttribute('id')+"][]");
-  var d = document.getElementsByName("pointsTarget["+currentPlace.getAttribute('id')+"][]");
-  i=0;
-  p.forEach(function(pF, index){
-    var point = pF.getAttribute("value");
-    if(point==posP.x+" "+posP.y+" "+posP.z){
-      i = index;
-      alert(i);
-      form.removeChild(pF);
-    }
-  });
-  form.removeChild(d[i]);
-  elmt.parentNode.removeChild(elmt);
+  el.parentNode.parentNode.removeChild(elmt);
 }
 
 function sauvegarder(){

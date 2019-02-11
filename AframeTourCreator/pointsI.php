@@ -53,35 +53,11 @@
 				$img=filter_var($_REQUEST['img'],FILTER_SANITIZE_STRING);
 				$im = pathinfo($img);
 				$l=filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING);
-				?>
-<!-- 					<input type="texte" id=listeIm value=<?php $l ?>/>;
--->					
-					<script> var listImgs = '<?php echo $l; ?>'; var idHud = '<?php echo "hud".$im['filename'].""; ?>'; </script>
-					<?php
-				//$listImgs=array();	
-				// $l=str_replace("'","\"",$_REQUEST['li']);
+				?>	
 
-				// //$l=filter_var($l,FILTER_SANITIZE_STRING);
-				// $listImgs = unserialize(json_decode($l));
-				// echo gettype($listImgs);
-/*					$cpt=0;
-*//*					setcookie("listImgs","", time()-3600);
-*//*					foreach ($listImgs as $val) {
-					if(isset($_COOKIE["listImgs"])==true){
-					$cpt++;
-						echo "<p>".$val."</p><br/>";
-						echo "<p>".$cpt."</p><br/>";
-						$cook=filter_var($_COOKIE["listImgs"],FILTER_SANITIZE_STRING);
-						echo "<p>".$val."</p><br/>";
-						echo "<p>".$cook."</p><br/>";
-						setcookie("listImgs",$cook."+".$val,time()+3600);
-					}
-					else{
-						setcookie("listImgs", $val, time()+3600);
-						echo "coucou";
-						echo "<p>".$_COOKIE["listImgs"]."</p><br/>";
-					}
-				}*/					
+			<script> var listImgs = '<?php echo $l; ?>'; var idHud = '<?php echo "hud".$im['filename'].""; ?>'; </script>
+
+			<?php
 				echo "
 						<a-sky id=\"background\"></a-sky>
 						<a-entity id=\"".$im['filename']."\" class=\"imsky\" sourceimage=\"uploads/".$img."\" description=\"".$im['filename']."\" visible=\"false\" default=\"\">

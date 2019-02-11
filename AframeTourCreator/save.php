@@ -1,6 +1,19 @@
 <?php
 
-$listImgs = explode(':',$_GET['li']);
+$listImgs = [];
+
+if($dossier = opendir('./uploads')){
+	while(false !== ($fichier = readdir($dossier)))
+	{
+		$fic=pathinfo($fichier);
+		$ext=strtolower($fic['extension']);
+		if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
+		{
+			$listImgs[]=$fic;
+		}
+	}
+}
+
 if(isset($_POST['pointsPos']))
 	$pointsPos = $_POST['pointsPos'];
 else
@@ -22,7 +35,7 @@ else
 	$def = $listImgs[0];
 
 
-$file = 'people.php';
+$file = 'download/index.html';
 
 $current = '<html class="a-html"><head>
 	<meta charset="utf-8">
@@ -31,7 +44,7 @@ $current = '<html class="a-html"><head>
     <script src="360tour.js"></script>   
 </head>
 <body class="a-body">
-	<a-scene class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="" debug="true">
+	<a-scene class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
 		<a-assets>
 			<script id="template" type="text/html">
 				<a-entity 
@@ -47,22 +60,22 @@ $current = '<html class="a-html"><head>
 		</a-assets>'."\r";
 
 foreach ($listImgs as $img) {
-	$current .= "\t\t".'<a-entity id="'.$img.'" class="piece" sourceimage="uploads/'.$img.'.jpg" description="'.$img.'" visible="false" ';
-	if($img==$def){
+	$current .= "\t\t".'<a-entity id="'.$img["filename"].'" class="piece" sourceimage="imgs/'.$img['basename'].'" description="'.$img["filename"].'" visible="false" ';
+	if($img['filename']==$def){
 		$current .= 'default posHud="';
 	}
 	else{
 		$current .= 'posHud="';
 	}
 
-	if(!isset($panns[$img])){
+	if(!isset($panns[$img['filename']])){
 		$current .= '0 -2 -1">'."\r";
 	}
 	else{
-		$current .= $panns[$img][0].'">'."\r";
+		$current .= $panns[$img['filename']][0].'">'."\r";
 	}
 	foreach ($pointsPos as $key => $value) {
-		if($key===$img){
+		if($key===$img['filename']){
 			foreach ($value as $num => $pos) {
 				$current .="\t\t\t".'<a-entity template="src:#template" data-target="'.$pointsTarget[$key][$num].'" position="'.$pos.'"></a-entity>'."\r";
 			}
@@ -88,4 +101,79 @@ $current .= '
 ';
 // Écrit le résultat dans le fichier
 file_put_contents($file, $current);
-header('Location: confirmation.php');
+
+
+
+
+
+$c=count($listImgs);
+for($i=0;$i<$c;$i++){
+    $target_dir = "download/imgs/";
+    $target_file = $target_dir . $listImgs[$i]['basename']; // nom sans extension
+    if (copy("uploads/".$listImgs[$i]['basename'], $target_file)) // réalise l'upload.
+    {
+        echo "SUCCES</br>";
+    } else {
+        echo "Erreur inconnue au bataillon</br>";
+    }
+}
+
+
+
+$archive_name = "visite.zip"; // name of zip file
+$archive_folder = "download"; // the folder which you archivate
+
+$zip = new ZipArchive; 
+if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE) 
+{ 
+    $dir = preg_replace('/[\/]{2,}/', '/', $archive_folder."/"); 
+    var_dump($dir);
+    $dirs = array($dir); 
+    echo "COUCOU<br/><br/>";
+    var_dump($dirs);
+
+    while (count($dirs)) 
+    { 
+        $dir = current($dirs); 
+        $zip -> addEmptyDir($dir); 
+        
+        $dh = opendir($dir); 
+        while($file = readdir($dh)) 
+        { 
+            if ($file != '.' && $file != '..') 
+            { 
+                if (is_file($dir.$file)) {
+                    $zip -> addFile($dir.$file, $dir.$file); 
+                }
+                elseif (is_dir($dir.$file)) {
+                    $dirs[] = $dir.$file."/";
+                }
+            } 
+        } 
+        closedir($dh); 
+        array_shift($dirs); 
+        echo "COUZIP<br/><br/>";
+        var_dump($zip);
+    } 
+    
+    $zip -> close(); 
+
+
+
+    unlink('download/index.html');
+    $c=count($listImgs);
+	for($i=0;$i<$c;$i++){
+	    if (unlink("download/imgs/".$listImgs[$i]['basename'])) // réalise l'upload.
+	    {
+	        echo "SUCCES</br>";
+	    } else {
+	        echo "Erreur inconnue au bataillon</br>";
+	    }
+	}
+	
+	header('Location: confirmation.php');
+} 
+else 
+{ 
+    echo 'Error, can\'t create a zip file!'; 
+} 

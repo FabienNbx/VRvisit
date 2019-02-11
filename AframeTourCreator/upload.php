@@ -52,7 +52,7 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
     }
     
     echo "<form action=\"";
-    if($_GET['new']=='true') echo "accueil.php";
+    if($_GET['new']=='true') echo "createXML.php";
     else if($_GET['new']=='false') echo "existant.php";
     echo "\">
           <input type=\"submit\" value=\"Suivant\" />
