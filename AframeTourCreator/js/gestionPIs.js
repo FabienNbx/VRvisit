@@ -289,17 +289,23 @@ function placerPannDebut(pos){
 
 
 function supprimer(el){
+  elmt = el.parentNode;
   var currentPlace = $(".imsky");
-  var posP = el.getAttribute("id");
-  el.parentNode.parentNode.removeChild(el.parentNode);
+  var posP = elmt.getAttribute("position");
   var form = $("#pointsForm");
   var p = document.getElementsByName("pointsPos["+currentPlace.getAttribute('id')+"][]");
-  p.forEach(function(el){
-    var point = el.getAttribute("value");
-    alert(point);
-    if(point==posP)
-      form.removeChild(el);
+  var d = document.getElementsByName("pointsTarget["+currentPlace.getAttribute('id')+"][]");
+  i=0;
+  p.forEach(function(pF, index){
+    var point = pF.getAttribute("value");
+    if(point==posP.x+" "+posP.y+" "+posP.z){
+      i = index;
+      alert(i);
+      form.removeChild(pF);
+    }
   });
+  form.removeChild(d[i]);
+  elmt.parentNode.removeChild(elmt);
 }
 
 function sauvegarder(){

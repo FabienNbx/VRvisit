@@ -14,14 +14,15 @@
 			if($dossier = opendir('./uploads')){
 				while(false !== ($fichier = readdir($dossier)))
 				{
-					if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
+					$fic=pathinfo($fichier);
+					$ext=strtolower($fic['extension']);
+					if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
 					{
-						$im = pathinfo($fichier);
 						if(!isset($nomIm)){
-							$nomIm=$im['filename'];
+							$nomIm=$fic['filename'];
 						}
 						else{
-							$nomIm=$nomIm.":".$im['filename'];
+							$nomIm=$nomIm.":".$fic['filename'];
 						}
 					}
 				}
@@ -29,9 +30,11 @@
 				{
 					while(false !== ($fichier = readdir($dossier)))
 					{
-						if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
+						$fic=pathinfo($fichier);
+						$ext=strtolower($fic['extension']);
+						if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
 						{
-							echo "<a class=\"clickable\" onClick='sendData(this,\"pointsI.php?img=".basename($fichier)."&li=".$nomIm."\")'><img id=\"".basename($fichier)."\" class=\"photos rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
+							echo "<a class=\"clickable\" onClick='sendData(this,\"pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"photos rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
 							
 						}
 					}
