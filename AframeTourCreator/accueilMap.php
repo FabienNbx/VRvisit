@@ -11,7 +11,7 @@
 	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
-			if($dossier = opendir('./uploads')){
+			if($dossier = opendir('./maps')){
 				while(false !== ($fichier = readdir($dossier)))
 				{
 					$fic=pathinfo($fichier);
@@ -28,7 +28,7 @@
 				}
 				$tabImgs=explode(":",$nomIm);
 				$cpt=0;
-				if($dossier = opendir('./uploads'))
+				if($dossier = opendir('./maps'))
 				{
 					while(false !== ($fichier = readdir($dossier)))
 					{
@@ -38,7 +38,7 @@
 						{
 							echo "
 							<figure class=\"photos\">
-							<a class=\"clickable\" onClick='sendData(this,\"pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
+							<a class=\"clickable\" href=ajoutPointsMaps.php?img=".$fic['basename']."&li=".filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING)."\"><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
 							<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
 							</figure>
 							";
@@ -64,10 +64,7 @@
 	<footer>
 		<div class="d-flex justify-content-center">
 			<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"default.php?li=".$nomIm."\")"?>' >Suivant</a>
-		</div>
-		<div class="d-flex justify-content-center">
-			<a class="btn btn-success clickable" onClick='<?php echo "sendData(this,\"ajouterMap.php?li=".$nomIm."\")"?>' >Ajouter une map</a>
-		</div>		
+		</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

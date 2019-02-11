@@ -1,9 +1,15 @@
-.photos{
-  	width: 30%;
+figure{
+	display: inline-block;
+	width: 30%;
   	margin: 5px;
 }
 
-.photoSeule{
+figcaption{
+	font-size: 30px;
+	margin-bottom: 50px;
+}
+
+/*.photoSeule{
 	width: 80%;
   	margin: 5px;
 }
@@ -11,7 +17,7 @@
 .photosDefault{
 	width: 15%;
   	margin: 5px;
-}
+}*/
 
 h1{
 	text-align: center;
@@ -20,7 +26,6 @@ h1{
 }
 
 .btn{
-	width:130px;
 	margin: 20px;
 	font-size: 30px;
 	color: white;
@@ -30,10 +35,9 @@ h1{
 	cursor: pointer;
 }
 
-#def img{
+/*#def img{
 	border-width: 4px;
 	border-color: red;
 	border-style: solid;
 	border-radius: 4px;
-}
-
+}*/
