@@ -38,7 +38,11 @@
 						{
 							echo "
 							<figure class=\"photos\">
+<<<<<<< HEAD
 							<a href='pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
+=======
+							<a class=\"clickable\" onClick='sendData(this,\"pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
+>>>>>>> 8bf5d2ded82a132b6010906dcebb201012c38e03
 							<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
 							</figure>
 							";

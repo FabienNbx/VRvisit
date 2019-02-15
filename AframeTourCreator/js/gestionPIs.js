@@ -264,6 +264,7 @@ function ajouterPointInteret(pos){
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
+<<<<<<< HEAD
 
 
     var form = $("#pointsForm");
@@ -281,6 +282,8 @@ function ajouterPointInteret(pos){
 
     form.appendChild(inputPos);
     form.appendChild(inputTarget);
+=======
+>>>>>>> 8bf5d2ded82a132b6010906dcebb201012c38e03
 }
 
 function ajouterPointInteretDebut(pos,target){              
@@ -309,6 +312,7 @@ function placerPannDebut(pos,text){
 
 
 function supprimer(el){
+<<<<<<< HEAD
     elmt = el.parentNode;
     var currentPlace = $(".imsky");
     var posP = elmt.getAttribute("position");
@@ -352,6 +356,9 @@ function supprimer(el){
 
     }
     elmt.parentNode.removeChild(elmt);
+=======
+  el.parentNode.parentNode.removeChild(elmt);
+>>>>>>> 8bf5d2ded82a132b6010906dcebb201012c38e03
 }
 
 function sauvegarder(){
