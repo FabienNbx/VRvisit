@@ -4,12 +4,13 @@
 	 <meta charset="utf-8">			
     <title>Aframe Tour Creator</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/accueil.css" />
+    <link type="text/css" rel="stylesheet" href="css/default.css" />
     <script src="js/accueil.js"></script>
 </head>
 <body class="bg-info">
 	<div><h1>Choisissez quel endroit sera le point de départ :</h1></div>
 	<section id="listeImg" class="text-center">
+		<p id="err">Il faut choisir un point de départ !</p>
 		<?php
 			if($dossier = opendir('./uploads')){
 				while(false !== ($fichier = readdir($dossier)))

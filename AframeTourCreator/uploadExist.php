@@ -8,7 +8,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/tourCreator.css" />
 </head>
-<body>
+<body onload="load()">
 <?php
 var_dump($_FILES);
 if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
@@ -27,30 +27,34 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
         if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) // réalise l'upload.
         {
             echo "Importation du fichier effectué</br>";
-/*            $ch = curl_init("http://buzut.fr/extraire-des-informations-du-dom-en-php/");
+            //$s = file_get_contents("index.html");
+            //var_dump($s);
+
+
+/*          $ch = curl_init("http://buzut.fr/extraire-des-informations-du-dom-en-php/");
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
             $raw = curl_exec($ch);
             curl_close($ch);*/
 
-            $html = new DOMDocument();
-            $html->loadHTML("http://buzut.fr/extraire-des-informations-du-dom-en-php/");
+            /*$html = new DOMDocument();
+            $html->loadHTMLFile("index.html");
             /*$xpath = new DOMXPath($html);
-            $domExemple = $xpath->query("//body");*/
-            $domExemple = $html->getElementsByTagName("p");
-
+            $domExemple = $xpath->query("//body");
+            $domExemple = $html->getElementsByTagName('a-sky');
             $i = 0;
+            echo "COUCOU";
             foreach ($domExemple as $exemple) {
                 var_dump($exemple);
-                echo "COUCOU";
-                $result[$i++] = $exemple->nodeValue;
+                echo $exemple->getAttribute('id');
+                //$result[$i++] = $exemple->nodeValue;
                 //echo $exemple->nodeValue;
-            }
+            }*/
         } else {
             echo "Erreur inconnue au bataillon</br>";
         }
     }
-    echo "<form action=\"accueil.php\">
+    echo "<form action=\"createXML.php\">
           <input type=\"submit\" value=\"Terminer\" />
           </form>";
 }
