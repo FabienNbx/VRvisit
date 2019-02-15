@@ -4,6 +4,8 @@ $$ = (el) => document.querySelectorAll(el);
 var mapPosPoints = new Map();
 var addEnCours=false;
 var lieu="";
+var defhud = true;
+var nbHud = 1;
 
 function placementPoint(point){
   if(lieu=="point"){
@@ -29,7 +31,6 @@ function placementPann(pann){
       //dist = dist+scroll;
       posPan.z=posPan.z+scroll;
     }
-
   /*        var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
     posPan = $("#"+idHud).getAttribute("position");
     var xPos = -dist*Math.sin(angle);
@@ -63,7 +64,7 @@ document.addEventListener('keypress', (event) => {
         var yPos = dist*Math.tan(angleX);
         $("#camera").removeChild(point);
         ajouterPointInteret(`${xPos} ${yPos} ${zPos}`);
-        document.removeEventListener('mousewheel', placementPoint);
+        document.removeEventListener('mousewheel',  () => { placementPoint(point); });
         lieu="";
         addEnCours = false;
       }
@@ -74,47 +75,40 @@ document.addEventListener('keypress', (event) => {
     addEnCours = true;
     lieu="pann";
     var dist = 5;
-    var pann =  $("#"+idHud);
-    var t = $("#"+idHud).getAttribute('text');
-    $("#camera").appendChild(pann);
-    pann.setAttribute("position", "0 0 -"+dist);
-    pann.setAttribute("text",t);
+    //var pann =  creerHud("0 0 -"+dist,"");
+    var panneau = document.createElement("a-entity");
+    panneau.setAttribute("class",idHud);
+    panneau.setAttribute("template","src: #templateHud");
+    panneau.setAttribute("position","0 0 -"+dist);
+    panneau.setAttribute("data-text","");
+    //var t = $("#"+idHud).getAttribute('text');
+    $("#camera").appendChild(panneau);
+/*    pann.setAttribute("position", "0 0 -"+dist);*/
+    //pann.setAttribute("text",t);
     //$("#cameraRotation").removeChild(pann); 
 
-    document.addEventListener('mousewheel', () => { placementPann(pann); });
+    document.addEventListener('mousewheel', () => { placementPann(panneau); });
 
     document.addEventListener('keypress', (event) => {
       if(event.keyCode==13 && lieu=="pann"){
-        var dist = -pann.getAttribute("position").z;
+        var dist = -panneau.getAttribute("position").z;
         var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
         var xPos = -dist*Math.sin(angle);
         var zPos = -dist*Math.cos(angle);
         var angleX = (($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180);
         var yPos = dist*Math.tan(angleX);
-        $("#cameraRotation").appendChild(pann);
-        pann.setAttribute("text",t);
-        //$("#camera").removeChild(pann);
-        pann.setAttribute('position',`${xPos} ${yPos} ${zPos}`);
-
-        var form = $("#pointsForm");
-        var currentPlace = $(".imsky");
-        var inputPann = $("#inputPann"+currentPlace.getAttribute('id'));
-        if(inputPann==null){
-          var inputPos = document.createElement("input");
-          inputPos.setAttribute("type", "text");
-          inputPos.setAttribute("id", "inputPann"+currentPlace.getAttribute('id'));
-          inputPos.setAttribute("name", "listPanns["+currentPlace.getAttribute('id')+"][]");
-          inputPos.setAttribute("hidden", "");
-          inputPos.setAttribute("value", `${xPos} ${yPos} ${zPos}`);
-          form.appendChild(inputPos);
-        }
-        else{
-          inputPann.setAttribute("value", `${xPos} ${yPos} ${zPos}`);
-        }
-
+        $("#camera").removeChild(panneau);
+        ajouterPann(`${xPos} ${yPos} ${zPos}`);
         addEnCours = false;
         lieu="";
-        document.removeEventListener('mousewheel', placementPann);
+        document.removeEventListener('mousewheel', () => { placementPann(pannure); });
+        /*pannure2 = creerHud(`${xPos} ${yPos} ${zPos}`,target);
+        $(".imsky").appendChild(pannure2);*/
+        nbHud++;
+        if(defhud){
+            $("#cameraRotation").removeChild($("#hudDef"));
+            defhud=false;
+        }
       }
       });
 
@@ -142,7 +136,6 @@ AFRAME.registerComponent('move', {
   },
 
   init: function(){
-    //alert("coucou move");
     var data=this.data;
     var el=this.el;
     var originPlaceName = el.parentNode.parentNode.getAttribute('id');
@@ -173,7 +166,7 @@ AFRAME.registerComponent('move', {
         el.parentNode.parentNode.removeAttribute("current");
         targetElement.setAttribute('visible', 'true');
         targetElement.setAttribute("current","");
-        $("#"+idHud).setAttribute('text','value', targetElement.getAttribute('description'));
+        //$("#"+idHud).setAttribute('text','value', targetElement.getAttribute('description'));
         $("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
       }
     );
@@ -185,7 +178,6 @@ AFRAME.registerComponent('default', {
   },
 
   init: function(){
-    //alert("coucou default");
     var el = this.el;
     var image=$(`#${el.id}Img`);
     var source=image.innerHTML;
@@ -197,7 +189,7 @@ AFRAME.registerComponent('default', {
     image.setAttribute("src", source);
     parentImage.appendChild(image);
     $("#background").setAttribute('src', `#${el.id}Img`);
-    $("#"+idHud).setAttribute('text','value', el.getAttribute('description'));
+    //$("#"+idHud).setAttribute('text','value', el.getAttribute('description'));
     el.setAttribute('visible', 'true');
     el.setAttribute("current","");
     $("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
@@ -208,7 +200,6 @@ AFRAME.registerComponent('sourceimage', {
   schema: {type: 'string'},
 
   init: function(){
-    //alert("coucou source");
     var div = document.createElement("div");
     div.setAttribute("id", this.el.getAttribute("id")+"Img");
     div.innerHTML=this.data;
@@ -216,6 +207,35 @@ AFRAME.registerComponent('sourceimage', {
   }
 });
 
+function ajouterPann(pos){
+    var target = window.prompt("Description :");
+    while(target==""){
+        var target = window.prompt("Description :");
+    }
+    var currentPlace = $(".imsky");
+
+    var pann = document.createElement("a-entity");
+    pann.setAttribute("class",idHud);
+    pann.setAttribute("template","src: #templateHud");
+    pann.setAttribute("position",pos);
+    pann.setAttribute("data-text",target);
+    currentPlace.appendChild(pann);
+
+    var form = $("#pointsForm");
+    var inputPos = document.createElement("input");
+    inputPos.setAttribute("type", "text");
+    inputPos.setAttribute("name", "listPanns["+currentPlace.getAttribute('id')+"][]");
+    inputPos.setAttribute("hidden", "");
+    inputPos.setAttribute("value", pos);
+    form.appendChild(inputPos);
+
+    var inputText = document.createElement("input");
+    inputText.setAttribute("type", "text");
+    inputText.setAttribute("name", "listTextPanns["+currentPlace.getAttribute('id')+"][]");
+    inputText.setAttribute("hidden", "");
+    inputText.setAttribute("value", target);
+    form.appendChild(inputText);
+}
 
 function ajouterPointInteret(pos){              
     if(typeof(listImgs)=="undefined"){
@@ -231,7 +251,7 @@ function ajouterPointInteret(pos){
       return;
     }
     while(l.includes(target)==false){
-      alert("Destination incorrect");
+      alert("Destination incorrecte");
       var target = window.prompt("Destination ( nom de l'image (sans l'extension))?");
       if(target==null){
         return;
@@ -244,6 +264,23 @@ function ajouterPointInteret(pos){
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
+
+
+    var form = $("#pointsForm");
+    var inputPos = document.createElement("input");
+    inputPos.setAttribute("type", "text");
+    inputPos.setAttribute("name", "pointsPos["+currentPlace.getAttribute('id')+"][]");
+    inputPos.setAttribute("hidden", "");
+    inputPos.setAttribute("value", pos);
+
+    var inputTarget = document.createElement("input");
+    inputTarget.setAttribute("type", "text");
+    inputTarget.setAttribute("name", "pointsTarget["+currentPlace.getAttribute('id')+"][]");
+    inputTarget.setAttribute("hidden", "");
+    inputTarget.setAttribute("value", target);
+
+    form.appendChild(inputPos);
+    form.appendChild(inputTarget);
 }
 
 function ajouterPointInteretDebut(pos,target){              
@@ -255,15 +292,78 @@ function ajouterPointInteretDebut(pos,target){
     currentPlace.appendChild(point);
 }
 
-function placerPannDebut(pos){              
-    $("#"+idHud).setAttribute('position',pos);
+function placerPannDebut(pos,text){
+    if(defhud){
+        $("#cameraRotation").removeChild($("#hudDef"));
+        defhud=false;
+        nbHud--;
+    }
+    var pann = document.createElement("a-entity");
+    pann.setAttribute("class",idHud);
+    pann.setAttribute("template","src: #templateHud");
+    pann.setAttribute("position",pos);
+    pann.setAttribute("data-text",text);
+    $(".imsky").appendChild(pann);
+    nbHud++;
 }
 
 
 function supprimer(el){
-  el.parentNode.parentNode.removeChild(elmt);
+    elmt = el.parentNode;
+    var currentPlace = $(".imsky");
+    var posP = elmt.getAttribute("position");
+    var form = $("#pointsForm");
+    if(elmt.getAttribute("class")==null){
+        var p = document.getElementsByName("pointsPos["+currentPlace.getAttribute('id')+"][]");
+        var d = document.getElementsByName("pointsTarget["+currentPlace.getAttribute('id')+"][]");
+        i=0;
+        p.forEach(function(pF, index){
+            var point = pF.getAttribute("value");
+            if(point==posP.x+" "+posP.y+" "+posP.z){
+              i = index;
+              form.removeChild(pF);
+            }
+        });
+        form.removeChild(d[i]);
+    }
+    else{
+        var panns = document.getElementsByName("listPanns["+currentPlace.getAttribute('id')+"][]");
+        var t = document.getElementsByName("listTextPanns["+currentPlace.getAttribute('id')+"][]");
+        i=0;
+        panns.forEach(function(pa, index){
+            var pann = pa.getAttribute("value");
+            if(pann==posP.x+" "+posP.y+" "+posP.z){
+                i = index;
+              form.removeChild(pa);
+            }
+        });
+        form.removeChild(t[i]);
+        nbHud--;
+        if(nbHud==0){
+            var pannDef = document.createElement("a-entity");
+            pannDef.setAttribute("class",idHud);
+            pannDef.setAttribute("id","hudDef");
+            pannDef.setAttribute("template","src: #templateHud");
+            pannDef.setAttribute("position","0 -2 -1");
+            pannDef.setAttribute("data-text",$(".imsky").getAttribute('id'));
+            $("#cameraRotation").appendChild(pannDef);
+            defhud=true;
+        }
+
+    }
+    elmt.parentNode.removeChild(elmt);
 }
 
 function sauvegarder(){
-  document.getElementById("pointsForm").submit();
+    document.getElementById("pointsForm").submit();
+}
+
+
+function creerHud(pos,text){
+    var pann = document.createElement("a-entity");
+    pann.setAttribute("class",idHud);
+    pann.setAttribute("template","src: #templateHud");
+    pann.setAttribute("position",pos);
+    pann.setAttribute("data-text",text);
+    return pann;
 }

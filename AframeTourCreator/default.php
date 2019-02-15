@@ -40,19 +40,10 @@
 		?>
 	</section>
 	<form id="pointsForm" action="" method="POST">
-		<?php 
-			foreach ($_POST as $tableaux => $contenuTab) {
-				foreach ($contenuTab as $piece => $contenu) {
-					foreach ($contenu as $key) {
-						echo "<input type='text' name='".$tableaux."[".$piece."][]' hidden value='".$key."'/>";
-					}
-				}
-			}
-		?>
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php?li=".$nomIm."\")"?>' >Créer</a>
+		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php\")"?>' >Créer</a>
 	</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
