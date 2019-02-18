@@ -177,12 +177,53 @@ function ajouterPointInteret(pos){
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
     imgdispo.splice(imgdispo.indexOf(target),1);
+
+
+    var form = $("#pointsForm");
+    var inputPos = document.createElement("input");
+    inputPos.setAttribute("type", "text");
+    inputPos.setAttribute("name", "pointsPos["+currentPlace.getAttribute('id')+"][]");
+    inputPos.setAttribute("hidden", "");
+    inputPos.setAttribute("value", pos);
+
+    var inputTarget = document.createElement("input");
+    inputTarget.setAttribute("type", "text");
+    inputTarget.setAttribute("name", "pointsTarget["+currentPlace.getAttribute('id')+"][]");
+    inputTarget.setAttribute("hidden", "");
+    inputTarget.setAttribute("value", target);
+
+    form.appendChild(inputPos);
+    form.appendChild(inputTarget);
 }
 
+function ajouterPointInteretDebut(pos,target){              
+    var currentPlace = $(".imsky");
+    var point = document.createElement("a-entity");
+    point.setAttribute("template", "src: #template");
+    point.setAttribute("data-target", target);
+    point.setAttribute("position", pos);
+    currentPlace.appendChild(point);
+}
 
 function supprimer(el){
   elmt = el.parentNode;
   imgdispo.push(elmt.getAttribute("data-target"));
+
+  var currentPlace = $(".imsky");
+  var posP = elmt.getAttribute("position");
+  var form = $("#pointsForm");
+  var p = document.getElementsByName("pointsPos["+currentPlace.getAttribute('id')+"][]");
+  var d = document.getElementsByName("pointsTarget["+currentPlace.getAttribute('id')+"][]");
+  i=0;
+  p.forEach(function(pF, index){
+      var point = pF.getAttribute("value");
+      if(point==posP.x+" "+posP.y+" "+posP.z){
+        i = index;
+        form.removeChild(pF);
+      }
+  });
+  form.removeChild(d[i]);
+
   elmt.parentNode.removeChild(elmt);
 }
 

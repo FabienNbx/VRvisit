@@ -50,9 +50,76 @@
 			}
 		?>
 	</section>
+	<?php
+		if(isset($_POST['nomMap'])){
+			$dom = new DomDocument();
+			$dom->load('download/save.xml');
+			/*if(!$dom->load('download/save.xml')){
+				header('Location: erreur.php');
+			}*/
+			$dom->preserveWhiteSpace = false;
+			$dom->formatOutput = true;
+			$nomM = $_POST['nomMap'];
+			$map = $dom->getElementById($nomM);
+
+			if(isset($_POST['pointsPos'])){
+				$newPositions = $_POST['pointsPos'][$nomM];
+				$newTargets = $_POST['pointsTarget'][$nomM];
+			}
+			else{
+				$newPositions = [];
+				$newTargets = [];
+			}
+
+
+			$posTag = $map->getElementsByTagName("positions")->item(0);
+			$positions = $posTag->getElementsByTagName("value");
+			$targetTag = $map->getElementsByTagName("targets")->item(0);
+			$targets = $targetTag->getElementsByTagName("value");
+			$nbP = $positions->count();
+			foreach ($newPositions as $key => $value) {
+				if($key < $nbP){
+					if($value != $positions->item($key)->nodeValue){
+						$point = $dom->createElement("value");
+						$point->setAttribute("num",$key);
+						$point->nodeValue = $value;
+						$posTag->replaceChild($point,$positions->item($key));
+						$tar = $dom->createElement("value");
+						$tar->setAttribute("num",$key);
+						$tar->nodeValue = $newTargets[$key];
+						$targetTag->replaceChild($tar,$targets->item($key));
+					}
+				}
+				else{
+					$point = $dom->createElement("value");
+					$point->setAttribute("num",$key);
+					$point->nodeValue = $value;
+					$posTag->appendChild($point);
+					$tar = $dom->createElement("value");
+					$tar->setAttribute("num",$key);
+					$tar->nodeValue = $newTargets[$key];
+					$targetTag->appendChild($tar);
+				}
+			}
+			if($key<$nbP-1){
+				for($i=$key+1;$i<$nbP;$i++){
+					$posTag->removeChild($positions->item($i));
+					$targetTag->removeChild($targets->item($i));
+				}
+			}
+
+			$dom->save("download/save.xml");
+
+
+		}
+		else{
+			//require "erreur.php";
+		}
+	?>
+
 	<footer>
 		<div class="d-flex justify-content-center">
-			<a class="btn btn-danger clickable" href="default.php?li=<?php echo $nomIm; ?>">Suivant</a>
+			<a class="btn btn-danger clickable" href="default.php">Suivant</a>
 		</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

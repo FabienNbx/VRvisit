@@ -80,7 +80,30 @@
 			</a-entity>
 			</a-entity>
 		</a-scene>
-		?>
+		<form id="pointsForm" action="accueilMap.php?li=<?php echo $l; ?>" method="POST">
+			<?php 
+				$dom = new DomDocument();
+				$dom->load('download/save.xml');
+				/*if(!$dom->load('download/save.xml')){
+					header('Location: erreur.php');
+				}*/
+				$map = $dom->getElementById($im['filename']);
+				echo "<input type='text' name='nomMap' hidden value='".$im['filename']."'/>";
+				$positions = $map->getElementsByTagName("positions")->item(0)->getElementsByTagName("value");
+				$targets = $map->getElementsByTagName("targets")->item(0)->getElementsByTagName("value");
+
+				$nbP = $positions->count();
+				for($i = 0;$i<$nbP;$i++){
+					$pos = $positions->item($i)->nodeValue;
+					$tar = $targets->item($i)->nodeValue;
+					echo "<input type='text' name='pointsPos[".$im['filename']."][]' hidden value='".$pos."'/>";
+					echo "<input type='text' name='pointsTarget[".$im['filename']."][]' hidden value='".$tar."'/>";
+
+					echo "<script>ajouterPointInteretDebut('".$pos."','".$tar."')</script>";
+				}
+
+			?>
+		</form>
 </body>
 </html>
 

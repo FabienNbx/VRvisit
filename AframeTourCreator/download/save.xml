@@ -1,9 +1,16 @@
 <?xml version="1.0"?>
 <visit>
   <piece xml:id="A12">
-    <positions/>
-    <targets/>
-    <panns/>
+    <positions>
+      <value num="0">-8.956112501359359 -0.8485005904589373 -0.8877211628628776</value>
+    </positions>
+    <targets>
+      <value num="0">A18</value>
+    </targets>
+    <panns>
+      <value text="COUCOU">-5.22679352076209 0.2080468820102699 -6.056453540754642</value>
+      <value text="A12">-1.9612365794102395 -1.1664671121897192 0.3918559423860035</value>
+    </panns>
   </piece>
   <piece xml:id="A18">
     <positions/>
@@ -130,6 +137,11 @@
     <targets/>
     <panns/>
   </piece>
+  <piece xml:id="entree">
+    <positions/>
+    <targets/>
+    <panns/>
+  </piece>
   <piece xml:id="escalierGaucheA">
     <positions/>
     <targets/>
@@ -180,9 +192,27 @@
     <targets/>
     <panns/>
   </piece>
+  <piece xml:id="salledebain">
+    <positions/>
+    <targets/>
+    <panns/>
+  </piece>
+  <piece xml:id="salon">
+    <positions/>
+    <targets/>
+    <panns/>
+  </piece>
   <piece xml:id="secretariat">
     <positions/>
     <targets/>
     <panns/>
   </piece>
+  <map xml:id="map1">
+    <positions><value num="0">-0.3297604721751121 -0.4209906360652043 -4.989113952496059</value></positions>
+    <targets><value num="0">A18</value></targets>
+  </map>
+  <map xml:id="map2">
+    <positions><value num="0">-3.5867804544976147 2.1612772900570287 -3.4835335467358264</value></positions>
+    <targets><value num="0">B19</value></targets>
+  </map>
 </visit>
