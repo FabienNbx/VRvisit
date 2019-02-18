@@ -26,20 +26,6 @@
             </div>
         </form>
     </section>
-
-
-
-	<form id="pointsForm" action="" method="POST">
-		<?php 
-			foreach ($_POST as $tableaux => $contenuTab) {
-				foreach ($contenuTab as $piece => $contenu) {
-					foreach ($contenu as $key) {
-						echo "<input type='text' name='".$tableaux."[".$piece."][]' hidden value='".$key."'/>";
-					}
-				}
-			}
-		?>
-	</form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/java.js"></script>

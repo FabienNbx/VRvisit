@@ -4,6 +4,7 @@ $$ = (el) => document.querySelectorAll(el);
 var mapPosPoints = new Map();
 var addEnCours=false;
 var lieu="";
+var imgdispo=new Array();
 
 function placementPoint(point){
   if(lieu=="point"){
@@ -26,7 +27,7 @@ document.addEventListener('keypress', (event) => {
     addEnCours = true;
     lieu="point";
     var point = document.createElement("a-entity");
-    point.setAttribute("template", "src: #templateUpdate");
+    point.setAttribute("template", "src: #template");
     point.setAttribute("data-target", "");
     point.setAttribute("position", "0 0 -5");
     $("#camera").appendChild(point);
@@ -129,6 +130,7 @@ AFRAME.registerComponent('default', {
     el.setAttribute('visible', 'true');
     el.setAttribute("current","");
     $("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
+    imgdispo=listImgs.split(":");
   }
 });
 
@@ -145,12 +147,12 @@ AFRAME.registerComponent('sourceimage', {
 });
 
 
+
 function ajouterPointInteret(pos){              
     if(typeof(listImgs)=="undefined"){
       alert("Erreur");
       return;
     }
-    var l = listImgs.split(':');
     var currentPlace = $(".imsky");
     var point = document.createElement("a-entity");
     point.setAttribute("template", "src: #template");
@@ -158,7 +160,7 @@ function ajouterPointInteret(pos){
     if(target==null){
       return;
     }
-    while(l.includes(target)==false){
+    while(imgdispo.includes(target)==false){
       alert("Destination incorrect");
       var target = window.prompt("Destination ( nom de l'image (sans l'extension))?");
       if(target==null){
@@ -174,51 +176,13 @@ function ajouterPointInteret(pos){
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
-    var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    if(lieuPresent === undefined){
-      mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
-      lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
-    }
-    lieuDest = lieuPresent.get(point.getAttribute("data-target"));
-    if(lieuDest === undefined){
-      lieuPresent.set(point.getAttribute("data-target"), pos);
-    }
-
-
-    var form = $("#pointsForm");
-    var inputPos = document.createElement("input");
-    inputPos.setAttribute("type", "text");
-    inputPos.setAttribute("name", "pointsPos["+currentPlace.getAttribute('id')+"][]");
-    inputPos.setAttribute("hidden", "");
-    inputPos.setAttribute("value", pos);
-
-    var inputTarget = document.createElement("input");
-    inputTarget.setAttribute("type", "text");
-    inputTarget.setAttribute("name", "pointsTarget["+currentPlace.getAttribute('id')+"][]");
-    inputTarget.setAttribute("hidden", "");
-    inputTarget.setAttribute("value", target);
-
-    form.appendChild(inputPos);
-    form.appendChild(inputTarget);
+    imgdispo.splice(imgdispo.indexOf(target),1);
 }
 
 
 function supprimer(el){
   elmt = el.parentNode;
-  var currentPlace = $(".imsky");
-  var posP = elmt.getAttribute("position");
-  var form = $("#pointsForm");
-  var p = document.getElementsByName("pointsPos["+currentPlace.getAttribute('id')+"][]");
-  var d = document.getElementsByName("pointsTarget["+currentPlace.getAttribute('id')+"][]");
-  i=0;
-  p.forEach(function(pF, index){
-    var point = pF.getAttribute("value");
-    if(point==posP.x+" "+posP.y+" "+posP.z){
-      i = index;
-      form.removeChild(pF);
-    }
-  });
-  form.removeChild(d[i]);
+  imgdispo.push(elmt.getAttribute("data-target"));
   elmt.parentNode.removeChild(elmt);
 }
 
