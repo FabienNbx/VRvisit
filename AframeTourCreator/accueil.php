@@ -157,7 +157,7 @@
 			<a class="btn btn-danger" href='default.php' >Suivant</a>
 		</div>
 		<div class="d-flex justify-content-center">
-			<a class="btn btn-success" href='ajouterMap.php' >Ajouter une map</a>
+			<a class="btn btn-success" href="ajouterMap.php?li=<?php echo $nomIm; ?>" >Ajouter une map</a>
 		</div>	
 	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

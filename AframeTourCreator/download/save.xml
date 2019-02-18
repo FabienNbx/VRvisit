@@ -1,30 +1,14 @@
 <?xml version="1.0"?>
 <visit>
   <piece xml:id="A12">
-    <positions>
-      <value num="0">-9.686139263717498 -0.460324728186039 2.4857003366999484</value>
-      <value num="1">-4.938344643918038 -1.723805244884378 0.7827848860868646</value>
-    </positions>
-    <targets>
-      <value num="0">A21</value>
-      <value num="1">A18</value>
-    </targets>
-    <panns>
-      <value text="AAAAAAAAAAAA">-3.772758144110811 -2.299611085201878 -4.665436312505568</value>
-      <value text="BBBBBBBBBBBB">-3.3343481750184893 0.663860186187643 -3.725872011724352</value>
-    </panns>
+    <positions/>
+    <targets/>
+    <panns/>
   </piece>
   <piece xml:id="A18">
-    <positions>
-      <value num="0">7.947345076283749 -0.641368837664579 -0.9163548649232184</value>
-    </positions>
-    <targets>
-      <value num="0">exterieurGauche</value>
-    </targets>
-    <panns>
-      <value text="A18">3.765007105369264 0.17602840016495216 -7.058662868880972</value>
-      <value text="Entr&#xE9;e">4.804175321030365 -3.8805245642183195 -1.385604375282785</value>
-    </panns>
+    <positions/>
+    <targets/>
+    <panns/>
   </piece>
   <piece xml:id="A19">
     <positions/>

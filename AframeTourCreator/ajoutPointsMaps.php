@@ -16,33 +16,33 @@
 			<a-assets>
 				<script id="template" type="text/html">
 					<a-entity 
-					geometry="primitive: octahedron; radius: 0.5" 
-					material="color: #5a92ae"
-					move="on: click; target: ${target}"
-					animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
-					animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
-					animation__rotationReturn="property: rotation; to: 0 0 0; dur: 1000; easing: easeOutElastic; startEvents: mouseleave"
-					>
-						<a-text 
-						value="--> ${target}\n\n\n"
-						width="18"
-						align="center"
-						baseline="center"
-						color="red"
+						geometry="primitive: plane; height: 1; width: 1" 
+						material="color: #202020"
+						move="on: click; target: ${target}"
 						look-at="#camera"
+						text="align: center; wrapCount: 10; value: ${target}"
+					    animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 						>
-							
-						</a-text>
+						</a-entity>
 					</a-entity>
 				</script>
-				<script id="templateUpdate" type="text/html">
-					<a-entity 
-					geometry="primitive: octahedron; radius: 0.5" 
-					material="color: #5a92ae"
-					move="on: click; target: ${target}"
-					animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
-					animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
-					animation__rotationReturn="property: rotation; to: 0 0 0; dur: 1000; easing: easeOutElastic; startEvents: mouseleave"
+				<script id="templateMapIcon" type="text/html">
+					<a-entity
+						display-label="${target}"
+						geometry="primitive: sphere; radius: 0.5" 
+						material="color: #202020"
+						position="0 0 -3"
+						animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+						animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+					>
+					</a-entity>
+					<a-entity
+						display-label="${target}"
+						geometry="primitive: sphere; radius: 1"
+						material="color: #5a92ae"
+						movetothismap="on: click; target: ${target}"
+						animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+						animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 					>
 					</a-entity>
 				</script>
@@ -54,11 +54,11 @@
 				$im = pathinfo($img);
 				$l=filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING);
 				?>				
-					<script> var listImgs = '<?php echo $l; ?>'; var idHud = '<?php echo "hud".$im['filename'].""; ?>'; </script>
+					<script> var listImgs = '<?php echo $l; ?>'; </script>
 					<?php			
 				echo "
 						<a-sky id=\"background\"></a-sky>
-						<a-entity id=\"".$im['filename']."\" class=\"imsky\" sourceimage=\"uploads/".$img."\" description=\"".$im['filename']."\" visible=\"false\" default=\"\">
+						<a-entity id=\"".$im['filename']."\" class=\"imsky\" sourceimage=\"maps/".$img."\" description=\"".$im['filename']."\" visible=\"false\" default=\"\">
 				  		</a-entity>";
 			?>
 
