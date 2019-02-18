@@ -103,7 +103,7 @@
 					}
 				}*/
 				$dom = new DomDocument();
-				$dom->load('save.xml');
+				$dom->load('download/save.xml');
 				//$visit = $dom->getElementsByTagName("visit")->item(0);
 				$piece = $dom->getElementById($im['filename']);
 				echo "<input type='text' name='nomPiece' hidden value='".$im['filename']."'/>";

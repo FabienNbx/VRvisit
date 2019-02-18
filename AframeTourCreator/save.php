@@ -14,20 +14,34 @@ if($dossier = opendir('./uploads')){
 	}
 }
 
-if(isset($_POST['pointsPos']))
-	$pointsPos = $_POST['pointsPos'];
-else
-	$pointsPos = [];
 
-if(isset($_POST['pointsTarget']))
-	$pointsTarget = $_POST['pointsTarget'];
-else
-	$pointsTarget = [];
 
-if(isset($_POST['listPanns']))
-	$panns = $_POST['listPanns'];
-else
-	$panns = [];
+$dom = new DomDocument();
+$dom->load('download/save.xml');
+$visit = $dom->getElementsByTagName("visit")->item(0);
+$pieces = $visit->getElementsByTagName("piece");
+foreach ($pieces as $piece) {
+	$nomP = $piece->getAttribute("xml:id");
+	$pointsPos[$nomP] = [];
+	$pointsTarget[$nomP] = [];
+	$panns[$nomP] = [];
+	$pannsText[$nomP] = [];
+	$positions = $piece->getElementsByTagName("positions")->item(0)->getElementsByTagName("value");
+	$targets = $piece->getElementsByTagName("targets")->item(0)->getElementsByTagName("value");
+	$pannsList = $piece->getElementsByTagName("panns")->item(0)->getElementsByTagName("value");
+
+	foreach ($positions as $value) {
+		$pointsPos[$nomP][] = $value->nodeValue;
+	}
+	foreach ($targets as $value) {
+		$pointsTarget[$nomP][] = $value->nodeValue;
+	}
+	foreach ($pannsList as $value) {
+		$panns[$nomP][] = $value->nodeValue;
+		$pannsText[$nomP][] = $value->getAttribute("text");
+	}
+
+}
 
 if(isset($_POST['default']))
 	$def = $_POST['default'];
@@ -57,27 +71,33 @@ $current = '<html class="a-html"><head>
 				>
 				</a-entity>
 			</script>
+			<script id="templateHud" type="text/html">
+					<a-entity 
+					geometry="primitive: plane; width: 2; height: 1" material="color: #202020"
+					text="align: center; wrapCount: 20; value: ${text}"
+					look-at="#camera"
+					>
+					</a-entity>
+				</script>
 		</a-assets>'."\r";
 
 foreach ($listImgs as $img) {
 	$current .= "\t\t".'<a-entity id="'.$img["filename"].'" class="piece" sourceimage="imgs/'.$img['basename'].'" description="'.$img["filename"].'" visible="false" ';
-	if($img['filename']==$def){
-		$current .= 'default posHud="';
-	}
-	else{
-		$current .= 'posHud="';
-	}
 
-	if(!isset($panns[$img['filename']])){
-		$current .= '0 -2 -1">'."\r";
-	}
-	else{
-		$current .= $panns[$img['filename']][0].'">'."\r";
-	}
+	if($img['filename']==$def)
+		$current .= 'default';
+	$current .= '>';
 	foreach ($pointsPos as $key => $value) {
 		if($key===$img['filename']){
 			foreach ($value as $num => $pos) {
 				$current .="\t\t\t".'<a-entity template="src:#template" data-target="'.$pointsTarget[$key][$num].'" position="'.$pos.'"></a-entity>'."\r";
+			}
+		}
+	}
+	foreach ($panns as $key => $value) {
+		if($key===$img['filename']){
+			foreach ($value as $num => $pos) {
+				$current .="\t\t\t".'<a-entity class="hud'.$key.'" template="src:#templateHud" position="'.$pos.'" data-text="'.$pannsText[$key][$num].'"></a-entity>'."\r";
 			}
 		}
 	}
@@ -88,8 +108,6 @@ foreach ($listImgs as $img) {
 
 $current .= '
 		<a-entity id="cameraRotation">
-			<a-entity id="hud" geometry="primitive: plane; width: 2; height: 1" material="color: #202020" position="0 -2 -1" text="align: center; wrapCount: 20" look-at="#camera">
-			</a-entity>
 			<a-entity id="camera" camera="" look-controls="">
 				<a-cursor id="cursor" scale="2 2 2" color="black" event-set__1="_event: mouseenter; color: springgreen" event-set__2="_event: mouseleave; color: black" fuse-timeout="2500" animation__scale="property: scale; from: 2 2 2; to: 0.1 0.1 0.1; dur: 2500; easing: easeInCubic; startEvents: fusing; pauseEvents: mouseleave" animation__scalereturn="property: scale; to: 2 2 2; dur: 500; easing: easeOutElastic; startEvents: mouseleave"></a-cursor>
 			</a-entity>

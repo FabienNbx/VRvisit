@@ -5,8 +5,8 @@
     <title>Aframe Tour Creator</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/accueil.css" />
-    <script src="js/accueil.js"></script>
-</head>
+<!--     <script src="js/accueil.js"></script>
+ --></head>
 <body class="bg-info">
 	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
 	<section id="listeImg" class="text-center">
@@ -38,11 +38,7 @@
 						{
 							echo "
 							<figure class=\"photos\">
-<<<<<<< HEAD
 							<a href='pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
-=======
-							<a class=\"clickable\" onClick='sendData(this,\"pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
->>>>>>> 8bf5d2ded82a132b6010906dcebb201012c38e03
 							<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
 							</figure>
 							";
@@ -59,7 +55,7 @@
 			$dom = new DomDocument();
 			$dom->preserveWhiteSpace = false;
 			$dom->formatOutput = true;
-			$dom->load('save.xml');
+			$dom->load('download/save.xml');
 			$nomP = $_POST['nomPiece'];
 			$piece = $dom->getElementById($nomP);
 
@@ -143,7 +139,7 @@
 			}
 
 
-			$dom->save("save.xml");
+			$dom->save("download/save.xml");
 
 
 		}
@@ -151,11 +147,11 @@
 	?>
 	<footer>
 		<div class="d-flex justify-content-center">
-			<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"default.php?li=".$nomIm."\")"?>' >Suivant</a>
+			<a class="btn btn-danger" href='default.php' >Suivant</a>
 		</div>
 		<div class="d-flex justify-content-center">
-			<a class="btn btn-success clickable" onClick='<?php echo "sendData(this,\"ajouterMap.php?li=".$nomIm."\")"?>' >Ajouter une map</a>
-		</div>		
+			<a class="btn btn-success" href='ajouterMap.php' >Ajouter une map</a>
+		</div>	
 	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

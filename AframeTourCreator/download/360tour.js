@@ -3,7 +3,13 @@ $$ = (el) => document.querySelectorAll(el);
 
 var mapPosPoints = new Map();
 
-window.onload = function(){
+var hudDefON = false;
+var hudDef = document.createElement("a-entity");
+hudDef.setAttribute("id","hudDef");
+hudDef.setAttribute("template","src: #templateHud");
+hudDef.setAttribute("position","0 -2 -1");
+hudDef.setAttribute("data-text","");
+/*window.onload = function(){
 	var layout = document.createElement("a-entity");
 	layout.setAttribute("id", "layoutMapCircle");
 	//layout.setAttribute("visible", "false");
@@ -20,7 +26,7 @@ window.onload = function(){
 	});
 	$("#mapButton").parentNode.appendChild(layout);
 
-}
+}*/
 
 function elementInWithTarget(place, target){
 	return $$(`#${place} [data-target="${target}"]`)[0];
@@ -35,44 +41,45 @@ AFRAME.registerComponent('move', {
 	init: function(){
 		var data=this.data;
 		var el=this.el;
-		var originPlaceName = $(".piece[current]").getAttribute("id");
+		//var originPlaceName = $(".piece[current]").getAttribute("id");
 		var targetElement=$(`#${data.target}`);
 		var targetWorldPos = new THREE.Vector3();
 		el.addEventListener(data.on, function(){
-				var image=$(`#${data.target}Img`);
-				if(image.nodeName!="IMG"){
-					var source=image.innerHTML;
-					var parentImage=image.parentNode;
-					parentImage.removeChild(image);
-					image=document.createElement("img");
-					image.setAttribute("id", `${data.target}Img`);
-					image.setAttribute("crossorigin", "anonymous");
-					image.setAttribute("src", source);
-					parentImage.appendChild(image);
-				}
-				$("#background").setAttribute('src', `#${data.target}Img`);
-
-				var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
-				if (typeof elementToHaveInTheBack !== 'undefined') {
-					targetWorldPos.setFromMatrixPosition(elementToHaveInTheBack.object3D.matrixWorld);
-					$("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y} 0`);
-				}
-				
-				$(`#${originPlaceName}`).setAttribute('visible','false');				
-				$(`#${originPlaceName}`).removeAttribute("current");
-				targetElement.setAttribute('visible', 'true');
-				targetElement.setAttribute("current","");
-				if(targetElement.getAttribute('description') == null){
-					$("#hud").setAttribute('visible', 'false');
-				}
-				else{
-					$("#hud").setAttribute('visible', 'true');
-					$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
-					$("#hud").setAttribute('position',targetElement.getAttribute('posHud'));
-				}
-				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
+			var originPlaceName = $(".piece[current]").getAttribute("id");
+			var image=$(`#${data.target}Img`);
+			if(image.nodeName!="IMG"){
+				var source=image.innerHTML;
+				var parentImage=image.parentNode;
+				parentImage.removeChild(image);
+				image=document.createElement("img");
+				image.setAttribute("id", `${data.target}Img`);
+				image.setAttribute("crossorigin", "anonymous");
+				image.setAttribute("src", source);
+				parentImage.appendChild(image);
 			}
-		);
+			$("#background").setAttribute('src', `#${data.target}Img`);
+
+			var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
+			if (typeof elementToHaveInTheBack !== 'undefined') {
+				targetWorldPos.setFromMatrixPosition(elementToHaveInTheBack.object3D.matrixWorld);
+				$("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y} 0`);
+			}
+			
+			$(`#${originPlaceName}`).setAttribute('visible','false');	
+			$(`#${originPlaceName}`).removeAttribute("current");
+			targetElement.setAttribute('visible', 'true');
+			targetElement.setAttribute("current","");
+			/*if(targetElement.getAttribute('description') == null){
+				$("#hud").setAttribute('visible', 'false');
+			}
+			else{
+				$("#hud").setAttribute('visible', 'true');
+				$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
+				$("#hud").setAttribute('position',targetElement.getAttribute('posHud'));
+			}*/
+			HudVerif(data.target);
+			$("#cursor").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
+		});
 	}
 });
 
@@ -103,7 +110,7 @@ AFRAME.registerComponent('movetothismap', {
 				$(`.piece[current]`).removeAttribute("current");
 				$(`#${data.target}`).setAttribute('visible', 'true');
 				$(`#${data.target}`).setAttribute("current","");
-				$("#hud").setAttribute('visible', 'false');
+				//$("#hud").setAttribute('visible', 'false');
 				
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#layoutMapCircle`);
 			}
@@ -156,7 +163,7 @@ AFRAME.registerComponent('movetomap', {
 				$(`#${originPlaceName}`).removeAttribute("current");
 				$(`#${map}`).setAttribute('visible', 'true');
 				$(`#${map}`).setAttribute("current","");
-				$("#hud").setAttribute('visible', 'false');
+				//$("#hud").setAttribute('visible', 'false');
 				
 				$("#cursor").setAttribute('raycaster', `objects: #${map},#layoutMapCircle`);
 			}
@@ -180,8 +187,9 @@ AFRAME.registerComponent('default', {
 		image.setAttribute("src", source);
 		parentImage.appendChild(image);
 		$("#background").setAttribute('src', `#${el.id}Img`);
-		$("#hud").setAttribute('text','value', el.getAttribute('description'));
-		$("#hud").setAttribute('position',el.getAttribute('posHud'));
+		/*$("#hud").setAttribute('text','value', el.getAttribute('description'));
+		$("#hud").setAttribute('position',el.getAttribute('posHud'));*/
+		HudVerif(el.id);
 		el.setAttribute('visible', 'true');
 		el.setAttribute("current","");
 		$("#cursor").setAttribute('raycaster', `objects: #${el.id},#mapButton`);
@@ -203,3 +211,16 @@ AFRAME.registerComponent('sourceimage', {
 		$("a-assets").appendChild(div);
 	}
 });
+
+function HudVerif(id){
+	var huds = $("#"+id).getElementsByClassName("hud"+id);
+	if(!hudDefON && huds.length==0){
+		hudDef.setAttribute("data-text",$("#"+id).getAttribute("description"));
+		$("#cameraRotation").appendChild(hudDef);
+		hudDefON = true;
+	}
+	else if(hudDefON && huds.length!=0){
+		$("#cameraRotation").removeChild(hudDef);
+		hudDefON = false;
+	}
+}

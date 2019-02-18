@@ -21,7 +21,10 @@
     <targets>
       <value num="0">exterieurGauche</value>
     </targets>
-    <panns/>
+    <panns>
+      <value text="A18">3.765007105369264 0.17602840016495216 -7.058662868880972</value>
+      <value text="Entr&#xE9;e">4.804175321030365 -3.8805245642183195 -1.385604375282785</value>
+    </panns>
   </piece>
   <piece xml:id="A19">
     <positions/>

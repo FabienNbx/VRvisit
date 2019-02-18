@@ -1,7 +1,6 @@
 <?php
 
 $dom = new DomDocument();
-<<<<<<< HEAD
 $dom->preserveWhiteSpace = false;
 $dom->formatOutput = true;
 $visit = $dom->createElement("visit");
@@ -35,10 +34,6 @@ if($dossier = opendir('./uploads')){
 	}
 }
 $dom->appendChild($visit);
-$dom->save('save.xml');
-=======
-$dom->save('save.xml');
-
->>>>>>> 8bf5d2ded82a132b6010906dcebb201012c38e03
+$dom->save('download/save.xml');
 header('Location: accueil.php');
 ?>
