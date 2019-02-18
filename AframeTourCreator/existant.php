@@ -16,7 +16,7 @@
         <h2 class="text-center">Ajouter le tour existant</h2>
     	<form action="uploadExist.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <h4>Fichier :</h4>
+                <h4>Fichier XML du projet :</h4>
                 <input type="file" class="form-control-file" name="fileUpload"><br/>
                 <input class="btn btn-success" type="submit" value="Upload" name="submit">
             </div>

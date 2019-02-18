@@ -179,6 +179,7 @@ if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE)
 
 
     unlink('download/index.html');
+    unlink('download/save.xml');
     $c=count($listImgs);
 	for($i=0;$i<$c;$i++){
 	    if (unlink("download/imgs/".$listImgs[$i]['basename'])) // réalise l'upload.

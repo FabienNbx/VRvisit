@@ -8,16 +8,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/tourCreator.css" />
 </head>
-<body onload="load()">
+<body >
 <?php
 var_dump($_FILES);
 if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
-    $target_dir = "uploads/";
+    $target_dir = "download/";
     $target_file = $target_dir . $_FILES["fileUpload"]["name"];
     $parseOK = 1;
     $imageFileType = strtolower(pathinfo($_FILES["fileUpload"]["name"],PATHINFO_EXTENSION));
-    if($imageFileType != "php" && $imageFileType != "html") {
-        echo "Seuls les fichiers php et html sont acceptés</br>";
+    if($imageFileType != "xml") {
+        echo "Seuls les fichiers xml sont acceptés</br>";
         $parseOK = 0;
     }
 
@@ -54,7 +54,7 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
             echo "Erreur inconnue au bataillon</br>";
         }
     }
-    echo "<form action=\"createXML.php\">
+    echo "<form action=\"accueil.php\">
           <input type=\"submit\" value=\"Terminer\" />
           </form>";
 }

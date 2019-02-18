@@ -53,6 +53,10 @@
 	<?php 
 		if(isset($_POST['nomPiece'])){
 			$dom = new DomDocument();
+			$dom->load('download/save.xml');
+			/*if(!$dom->load('download/save.xml')){
+				header('Location: erreur.php');
+			}*/
 			$dom->preserveWhiteSpace = false;
 			$dom->formatOutput = true;
 			$dom->load('download/save.xml');
@@ -142,6 +146,9 @@
 			$dom->save("download/save.xml");
 
 
+		}
+		else{
+			//require "erreur.php";
 		}
 
 	?>

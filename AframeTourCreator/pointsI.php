@@ -95,16 +95,11 @@
 		</a-scene>
 		<form id="pointsForm" action="accueil.php" method="POST">
 			<?php 
-				/*foreach ($_POST as $tableaux => $contenuTab) {
-					foreach ($contenuTab as $piece => $contenu) {
-						foreach ($contenu as $key) {
-							echo "<input type='text' name='".$tableaux."[".$piece."][]' hidden value='".$key."'/>";
-						}
-					}
-				}*/
 				$dom = new DomDocument();
 				$dom->load('download/save.xml');
-				//$visit = $dom->getElementsByTagName("visit")->item(0);
+				/*if(!$dom->load('download/save.xml')){
+					header('Location: erreur.php');
+				}*/
 				$piece = $dom->getElementById($im['filename']);
 				echo "<input type='text' name='nomPiece' hidden value='".$im['filename']."'/>";
 				$positions = $piece->getElementsByTagName("positions")->item(0)->getElementsByTagName("value");
