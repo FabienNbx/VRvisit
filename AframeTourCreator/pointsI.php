@@ -14,18 +14,47 @@
 <body class="a-body">
 		<a-scene >
 			<a-assets>
+				<script id="templateHud" type="text/html">
+					<a-entity 
+					geometry="primitive: plane; width: 2; height: 1" material="color: #202020"
+					text="align: center; wrapCount: 20; value: ${text}"
+					look-at="#camera"
+					>
+					</a-entity>
+				</script>
+
+
 				<script id="template" type="text/html">
 					<a-entity 
-					geometry="primitive: octahedron; radius: 0.5" 
+					template="src: #templateArrow"
+					data-target="${target}"
+					rotation="${childrotation}"
 					material="color: #5a92ae"
 					move="on: click; target: ${target}"
-					animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
-					animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
-					animation__rotationReturn="property: rotation; to: 0 0 0; dur: 1000; easing: easeOutElastic; startEvents: mouseleave"
+					animation__scale="property: scale; from: 1 1 1; to: 1.25 1.25 2; loop: true; dur: 1250; dir: alternate; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 					>
-						<a-text 
-						value="--> ${target}\n\n\n"
-						width="18"
+				</a-entity>
+				</script>
+				<script id="templateArrow" type="text/html">
+				<a-entity scale="0.5 0.5 0.5""
+					>
+					<a-entity
+						geometry="primitive: cylinder; radius: 0.5; height: 2"
+						material="transparent: true; opacity: 0.6; color: white"
+						rotation="90 0 0"
+					>
+					</a-entity>
+					<a-entity
+						geometry="primitive: cone; height: 2"
+						material="transparent: true; opacity: 0.75; color: white"
+						position="0 0 -2"
+						rotation="-90 0 0"
+					>
+					</a-entity>
+					<a-text 
+						value="${target}\n\n\n\n"
+						width="20"
 						align="center"
 						baseline="center"
 						color="red"
@@ -33,24 +62,36 @@
 						>
 							
 						</a-text>
-					</a-entity>
-				</script>
-				<script id="templateUpdate" type="text/html">
+				</a-entity>
+			</script>
+				<script id="templateMap" type="text/html">
 					<a-entity 
-					geometry="primitive: octahedron; radius: 0.5" 
-					material="color: #5a92ae"
+					geometry="primitive: plane; height: 1; width: 1" 
+					material="color: #202020"
 					move="on: click; target: ${target}"
-					animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
-					animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
-					animation__rotationReturn="property: rotation; to: 0 0 0; dur: 1000; easing: easeOutElastic; startEvents: mouseleave"
+					look-at="#camera"
+					text="align: center; wrapCount: 10; value: ${target}"
+				    animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 					>
 					</a-entity>
 				</script>
-				<script id="templateHud" type="text/html">
-					<a-entity 
-					geometry="primitive: plane; width: 2; height: 1" material="color: #202020"
-					text="align: center; wrapCount: 20; value: ${text}"
-					look-at="#camera"
+				<script id="templateMapIcon" type="text/html">
+					<a-entity
+						display-label="${target}"
+						geometry="primitive: sphere; radius: 0.5" 
+						material="color: #202020"
+						position="0 0 -3"
+						animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+						animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+					>
+					</a-entity>
+					<a-entity
+						display-label="${target}"
+						geometry="primitive: sphere; radius: 1"
+						material="color: #5a92ae"
+						movetothismap="on: click; target: ${target}"
+						animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+						animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 					>
 					</a-entity>
 				</script>
@@ -104,16 +145,19 @@
 				echo "<input type='text' name='nomPiece' hidden value='".$im['filename']."'/>";
 				$positions = $piece->getElementsByTagName("positions")->item(0)->getElementsByTagName("value");
 				$targets = $piece->getElementsByTagName("targets")->item(0)->getElementsByTagName("value");
+				$rotations = $piece->getElementsByTagName("rotations")->item(0)->getElementsByTagName("value");
 				$panns = $piece->getElementsByTagName("panns")->item(0)->getElementsByTagName("value");
 
 				$nbP = $positions->count();
 				for($i = 0;$i<$nbP;$i++){
 					$pos = $positions->item($i)->nodeValue;
 					$tar = $targets->item($i)->nodeValue;
+					$rot = $rotations->item($i)->nodeValue;
 					echo "<input type='text' name='pointsPos[".$im['filename']."][]' hidden value='".$pos."'/>";
 					echo "<input type='text' name='pointsTarget[".$im['filename']."][]' hidden value='".$tar."'/>";
+					echo "<input type='text' name='pointsRot[".$im['filename']."][]' hidden value='".$rot."'/>";
 
-					echo "<script>ajouterPointInteretDebut('".$pos."','".$tar."')</script>";
+					echo "<script>ajouterPointInteretDebut('".$pos."','".$tar."','".$rot."')</script>";
 				}
 
 				foreach ($panns as $key) {

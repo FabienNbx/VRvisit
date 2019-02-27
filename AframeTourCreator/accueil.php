@@ -66,10 +66,12 @@
 			if(isset($_POST['pointsPos'])){
 				$newPositions = $_POST['pointsPos'][$nomP];
 				$newTargets = $_POST['pointsTarget'][$nomP];
+				$newRotations = $_POST['pointsRot'][$nomP];
 			}
 			else{
 				$newPositions = [];
 				$newTargets = [];
+				$newRotations = [];
 			}
 			if(isset($_POST['listPanns'])){
 				$newPanns = $_POST['listPanns'][$nomP];
@@ -85,6 +87,8 @@
 			$positions = $posTag->getElementsByTagName("value");
 			$targetTag = $piece->getElementsByTagName("targets")->item(0);
 			$targets = $targetTag->getElementsByTagName("value");
+			$rotationTag = $piece->getElementsByTagName("rotations")->item(0);
+			$rotations = $rotationTag->getElementsByTagName("value");
 			$pannTag = $piece->getElementsByTagName("panns")->item(0);
 			$panns = $pannTag->getElementsByTagName("value");
 			$nbP = $positions->count();
@@ -99,6 +103,10 @@
 						$tar->setAttribute("num",$key);
 						$tar->nodeValue = $newTargets[$key];
 						$targetTag->replaceChild($tar,$targets->item($key));
+						$rot = $dom->createElement("value");
+						$rot->setAttribute("num",$key);
+						$rot->nodeValue = $newRotations[$key];
+						$rotationTag->replaceChild($rot,$rotations->item($key));
 					}
 				}
 				else{
@@ -110,12 +118,17 @@
 					$tar->setAttribute("num",$key);
 					$tar->nodeValue = $newTargets[$key];
 					$targetTag->appendChild($tar);
+					$rot = $dom->createElement("value");
+					$rot->setAttribute("num",$key);
+					$rot->nodeValue = $newRotations[$key];
+					$rotationTag->appendChild($rot);
 				}
 			}
 			if($key<$nbP-1){
 				for($i=$key+1;$i<$nbP;$i++){
 					$posTag->removeChild($positions->item($i));
 					$targetTag->removeChild($targets->item($i));
+					$rotationTag->removeChild($rotations->item($i));
 				}
 			}
 

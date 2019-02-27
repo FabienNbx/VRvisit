@@ -9,7 +9,8 @@
 
 <body>
 	<section>
-		<h1> Sauvegarde effectuée </h1>
+		<h1> Création du tour terminée : </h1>
+		<a href="visite.zip" class="btn btn-success" download> Télécharger </a>
 		<a href="index.php" class="btn btn-primary">Accueil</a>
 	</section>
 </body>

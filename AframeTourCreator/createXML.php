@@ -22,11 +22,13 @@ if($dossier = opendir('./uploads')){
 			$piece = $dom->createElement("piece");
 			$positions = $dom->createElement("positions");
 			$targets = $dom->createElement("targets");
+			$rotations = $dom->createElement("rotations");
 			$panns = $dom->createElement("panns");
 			$piece->setAttribute("xml:id",$fic['filename']);
 			//$piece->setIdAttribute("name", true);
 			$piece->appendChild($positions);
 			$piece->appendChild($targets);
+			$piece->appendChild($rotations);
 			$piece->appendChild($panns);
 			$visit->appendChild($piece);
 
