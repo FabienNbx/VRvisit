@@ -4,7 +4,8 @@ $$ = (el) => document.querySelectorAll(el);
 var mapPosPoints = new Map();
 var addEnCours=false;
 var lieu="";
-var imgdispo=new Array();
+var imgdispo = new Array();
+var dejaUse = new Array();
 
 function placementPoint(point){
   if(lieu=="point"){
@@ -161,7 +162,12 @@ function ajouterPointInteret(pos){
       return;
     }
     while(imgdispo.includes(target)==false){
-      alert("Destination incorrect");
+      if(dejaUse.includes(target)){
+        alert("Destination déjà utilisée précédemment")
+      }
+      else{
+        alert("Destination incorrecte");
+      }
       var target = window.prompt("Destination ( nom de l'image (sans l'extension))?");
       if(target==null){
         return;
@@ -176,6 +182,7 @@ function ajouterPointInteret(pos){
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     currentPlace.appendChild(point);
+    dejaUse.push(target);
     imgdispo.splice(imgdispo.indexOf(target),1);
 
 
@@ -206,9 +213,10 @@ function ajouterPointInteretDebut(pos,target){
 }
 
 function supprimer(el){
-  elmt = el.parentNode;
-  imgdispo.push(elmt.getAttribute("data-target"));
-
+  var elmt = el.parentNode;
+  var targ = elmt.getAttribute("data-target");
+  imgdispo.push(targ);
+  dejaUse.splice(dejaUse.indexOf(targ),1);
   var currentPlace = $(".imsky");
   var posP = elmt.getAttribute("position");
   var form = $("#pointsForm");
