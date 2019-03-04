@@ -2,6 +2,7 @@ $ = (el) => document.querySelector(el);
 $$ = (el) => document.querySelectorAll(el);
 
 var mapPosPoints = new Map();
+var mapRotPoints = new Map();
 
 window.onload = function(){
 	var layout = document.createElement("a-entity");
@@ -21,7 +22,41 @@ window.onload = function(){
 		layout.appendChild(entityToAdd);
 	});
 
+	$('a-scene').addEventListener('enter-vr',()=>{
+	    if(AFRAME.utils.device.checkHeadsetConnected()) {
+	        switchToController();
+	    } else {
+	        switchToGaze();
+	    }
+	});
+
+	$('a-scene').addEventListener('exit-vr',switchToGaze);
 }
+
+
+
+function switchToController(){
+	var cursorGaze = $("a-cursor.cursor");
+	var cursorController = $("a-entity.cursor");
+	cursorGaze.setAttribute("visible", "false");
+	cursorGaze.setAttribute("class", "cursor");
+	cursorController.setAttribute("class", "cursor active");
+	cursorController.setAttribute("visible", "true");
+	cursorController.setAttribute("raycaster", cursorGaze.getAttribute("raycaster"));
+	cursorGaze.removeAttribute("raycaster");
+}
+
+function switchToGaze(){
+	var cursorGaze = $("a-cursor.cursor");
+	var cursorController = $("a-entity.cursor");
+	cursorController.setAttribute("visible", "false");
+	cursorController.setAttribute("class", "cursor");
+	cursorGaze.setAttribute("class", "cursor active");
+	cursorGaze.setAttribute("visible", "true");
+	cursorGaze.setAttribute("raycaster", cursorGaze.getAttribute("raycaster"));
+	cursorController.removeAttribute("raycaster");
+}
+
 
 function elementInWithTarget(place, target){
 	return $$(`#${place} [data-target="${target}"]`)[0];
@@ -45,14 +80,14 @@ document.addEventListener('keypress', (event) => {
   	var zPos = -dist*Math.cos(angle);
   	var angleX = ($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180;
   	var yPos = dist*Math.tan(angleX);
-  	ajouterPointInteret(`${xPos} ${yPos} ${zPos}`);
+  	ajouterPointInteret(`${xPos} ${yPos} ${zPos}`, `0 ${angle*(180/Math.PI)} 0`);
   }
 });
 
 document.addEventListener('keypress', (event) => {
   const Touche = event.key;
   if(Touche=='r'){
-  	var el = $("#cursor").components.raycaster.intersectedEls[0];
+  	var el = $(".cursor.active").components.raycaster.intersectedEls[0];
   	if(el !== undefined){
   		if(el.getAttribute("id")!="map"){
 	  		if(confirm("supprimer?")){
@@ -86,6 +121,39 @@ AFRAME.registerComponent('display-label', {
 	}
 });
 
+function loadImageOf(point){
+	var image=$(`#${point.getAttribute("data-target")}Img`);
+	if(image.nodeName!="IMG"){
+		var source=image.innerHTML;
+		var parentImage=image.parentNode;
+		parentImage.removeChild(image);
+		image=document.createElement("img");
+		image.setAttribute("id", `${point.getAttribute("data-target")}Img`);
+		image.setAttribute("crossorigin", "anonymous");
+		image.setAttribute("src", source);
+		parentImage.appendChild(image);
+	}
+}
+
+function priorityLoadImageOf(point){
+	return new Promise(resolve => {
+		var image=$(`#${point.getAttribute("data-target")}Img`);
+		if(image.nodeName!="IMG"){
+			var source=image.innerHTML;
+			var parentImage=image.parentNode;
+			parentImage.removeChild(image);
+			image=document.createElement("img");
+			image.setAttribute("id", `${point.getAttribute("data-target")}Img`);
+			image.setAttribute("crossorigin", "anonymous");
+			image.setAttribute("src", source);
+			parentImage.appendChild(image);
+		}
+		image.addEventListener("load", function(){
+			resolve("loaded");
+		});
+	});
+}
+
 AFRAME.registerComponent('move', {
 	schema: {
 		on: {type: 'string'},
@@ -101,26 +169,21 @@ AFRAME.registerComponent('move', {
 				var originPlaceName = $(".piece[current]").getAttribute("id");
 				var points=$$(`#${data.target}>a-entity`);
 				var pointsArray = [];
-				points.forEach(function(el){
-					pointsArray.push(el);
-				});
 				var pieceActuelle = document.createElement("a-entity");
 				pieceActuelle.setAttribute("data-target", data.target);
 				pointsArray.push(pieceActuelle);
-				pointsArray.forEach(function(point){
-					var image=$(`#${point.getAttribute("data-target")}Img`);
-					if(image.nodeName!="IMG"){
-						var source=image.innerHTML;
-						var parentImage=image.parentNode;
-						parentImage.removeChild(image);
-						image=document.createElement("img");
-						image.setAttribute("id", `${point.getAttribute("data-target")}Img`);
-						image.setAttribute("crossorigin", "anonymous");
-						image.setAttribute("src", source);
-						parentImage.appendChild(image);
+				points.forEach(function(el){
+					pointsArray.push(el);
+				});
+				pointsArray.forEach(async function(point, index){
+					if(index==0){
+						await priorityLoadImageOf(point);
+					}
+					else{
+						loadImageOf(point);
 					}
 				});
-				
+								
 				$("#background").setAttribute('src', `#${data.target}Img`);
 
 				var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
@@ -141,7 +204,7 @@ AFRAME.registerComponent('move', {
 					$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
 				}
 				$("#layoutMapCircle").setAttribute('visible', 'false');
-				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
+				$(".cursor.active").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
 			}
 		);
 	}
@@ -178,7 +241,7 @@ AFRAME.registerComponent('movetothismap', {
 				$(`#${data.target}`).setAttribute("current","");
 				$("#hud").setAttribute('visible', 'false');
 				
-				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#layoutMapCircle`);
+				$(".cursor.active").setAttribute('raycaster', `objects: #${data.target},#layoutMapCircle`);
 			}
 		);
 	}
@@ -232,7 +295,7 @@ AFRAME.registerComponent('movetomap', {
 				$("#hud").setAttribute('visible', 'false');
 				$("#layoutMapCircle").setAttribute('visible', 'true');
 
-				$("#cursor").setAttribute('raycaster', `objects: #${map},#layoutMapCircle`);
+				$(".cursor.active").setAttribute('raycaster', `objects: #${map},#layoutMapCircle`);
 			}
 		);
 	}
@@ -257,7 +320,7 @@ AFRAME.registerComponent('default', {
 		$("#hud").setAttribute('text','value', el.getAttribute('description'));
 		el.setAttribute('visible', 'true');
 		el.setAttribute("current","");
-		$("#cursor").setAttribute('raycaster', `objects: #${el.id},#mapButton`);
+		$(".cursor.active").setAttribute('raycaster', `objects: #${el.id},#mapButton`);
 	}
 });
 
@@ -274,7 +337,7 @@ AFRAME.registerComponent('sourceimage', {
 });
 
 
-function ajouterPointInteret(pos){
+function ajouterPointInteret(pos, rot){
 	var currentPlace = $(".piece[current]");
 	var point = document.createElement("a-entity");
 	point.setAttribute("template", "src: #template");
@@ -292,15 +355,26 @@ function ajouterPointInteret(pos){
 	}
 	point.setAttribute("data-target", target);
 	point.setAttribute("position", pos);
+	point.setAttribute("data-childrotation", rot);
 	currentPlace.appendChild(point);
 	var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
 	if(lieuPresent === undefined){
 		mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
 		lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
 	}
+	var lieuPresentRot = mapRotPoints.get(point.parentNode.getAttribute("id"));
+	if(lieuPresentRot === undefined){
+		mapRotPoints.set(point.parentNode.getAttribute("id"), new Map());
+		lieuPresentRot = mapRotPoints.get(point.parentNode.getAttribute("id"));
+	}
 	lieuDest = lieuPresent.get(point.getAttribute("data-target"));
 	if(lieuDest === undefined){
 		lieuPresent.set(point.getAttribute("data-target"), pos);
+	}
+
+	lieuDest = lieuPresentRot.get(point.getAttribute("data-target"));
+	if(lieuDest === undefined){
+		lieuPresentRot.set(point.getAttribute("data-target"), rot);
 	}
 }
 
@@ -308,6 +382,10 @@ function supprimer(el){
 	var lieuPresent = mapPosPoints.get(el.parentNode.parentNode.getAttribute("id"));
 	if(lieuPresent !== undefined){
 		lieuPresent.delete(el.parentNode.getAttribute("data-target"));
+	}
+	var lieuPresentRot = mapRotPoints.get(el.parentNode.parentNode.getAttribute("id"));
+	if(lieuPresentRot !== undefined){
+		lieuPresentRot.delete(el.parentNode.getAttribute("data-target"));
 	}
 	el.parentNode.parentNode.removeChild(el.parentNode);
 }
@@ -361,7 +439,7 @@ function sauvegarder(){
 	try{
 		docSave.querySelector("#camera").removeChild(docSave.querySelector("#labelMap"));
 	}
-	catch{}
+	catch(e){}
 
  
 	var metas = docSave.querySelectorAll("meta[aframe-injected]");
@@ -385,13 +463,20 @@ function sauvegarder(){
 		});
 	});
 
+	mapRotPoints.forEach(function(value, key, map){
+		value.forEach(function(value2, key2, map2){
+			docSave.querySelector(`#${key} > a-entity[data-target=${key2}]`).setAttribute("data-childrotation",value2);
+		});
+	});
+
 	var pieces = docSave.querySelectorAll(".piece");
 	pieces.forEach(function(el){
 		el.setAttribute("visible", "false");
 	});
 
-	docSave.querySelector("#cursor").setAttribute("color", "black");
-	docSave.querySelector("#cursor").setAttribute("fuse-timeout", 2500);
+	docSave.querySelector("a-cursor").setAttribute("color", "black");
+	docSave.querySelector("a-cursor").setAttribute("fuse-timeout", 2500);
+	docSave.querySelector("a-entity.cursor").removeAttribute("raycaster");
 
 	docSave.querySelector("[current]").removeAttribute("current");
 
