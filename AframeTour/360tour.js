@@ -6,7 +6,6 @@ var mapPosPoints = new Map();
 window.onload = function(){
 	var layout = document.createElement("a-entity");
 	layout.setAttribute("id", "layoutMapCircle");
-	//layout.setAttribute("visible", "false");
 	layout.setAttribute("layout", "type", "circle");
 	layout.setAttribute("position", "0 -9 0");
 	layout.setAttribute("rotation", "90 0 0");
@@ -22,6 +21,7 @@ window.onload = function(){
 
 }
 
+	
 function elementInWithTarget(place, target){
 	return $$(`#${place} [data-target="${target}"]`)[0];
 }
@@ -45,6 +45,7 @@ document.addEventListener('keypress', (event) => {
   	var angleX = ($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180;
   	var yPos = dist*Math.tan(angleX);
   	ajouterPointInteret(`${xPos} ${yPos} ${zPos}`);
+
   }
 });
 
@@ -61,6 +62,7 @@ document.addEventListener('keypress', (event) => {
 	  }
   }
 });
+
 
 AFRAME.registerComponent('move', {
 	schema: {
@@ -139,7 +141,7 @@ AFRAME.registerComponent('movetothismap', {
 				$(`#${data.target}`).setAttribute('visible', 'true');
 				$(`#${data.target}`).setAttribute("current","");
 				$("#hud").setAttribute('visible', 'false');
-				
+			
 				$("#cursor").setAttribute('raycaster', `objects: #${data.target},#layoutMapCircle`);
 			}
 		);
@@ -192,7 +194,6 @@ AFRAME.registerComponent('movetomap', {
 				$(`#${map}`).setAttribute('visible', 'true');
 				$(`#${map}`).setAttribute("current","");
 				$("#hud").setAttribute('visible', 'false');
-				
 				$("#cursor").setAttribute('raycaster', `objects: #${map},#layoutMapCircle`);
 			}
 		);
@@ -222,10 +223,165 @@ AFRAME.registerComponent('default', {
 	}
 });
 
-AFRAME.registerComponent('description', {
-	schema: {type: 'string'}
+
+AFRAME.registerComponent('sourceimage', {
+	schema: {type: 'string'},
+
+	init: function(){
+		var div = document.createElement("div");
+		div.setAttribute("id", this.el.getAttribute("id")+"Img");
+		div.innerHTML=this.data;
+		$("a-assets").appendChild(div);
 	}
-);
+});
+
+
+function ajouterPointInteret(pos, rot){
+	var currentPlace = $(".piece[current]");
+	var point = document.createElement("a-entity");
+	point.setAttribute("template", "src: #template");
+	if(($(".map[current]")!=null)){
+		point.setAttribute("template", "src: #templateMap");
+	}
+	var target = window.prompt("Vers ou?", "lieu");
+	if(target == currentPlace.getAttribute("id")){
+		alert("impossible de mettre un point là ou on est déjà");
+		return;
+	}
+	if($(`.piece[id=${target}]`) === null){
+		alert("piece inexistante");
+		return;
+	}
+	point.setAttribute("data-target", target);
+	point.setAttribute("position", pos);
+	point.setAttribute("data-childrotation", rot);
+	currentPlace.appendChild(point);
+	var lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
+	if(lieuPresent === undefined){
+		mapPosPoints.set(point.parentNode.getAttribute("id"), new Map());
+		lieuPresent = mapPosPoints.get(point.parentNode.getAttribute("id"));
+	}
+	var lieuPresentRot = mapRotPoints.get(point.parentNode.getAttribute("id"));
+	if(lieuPresentRot === undefined){
+		mapRotPoints.set(point.parentNode.getAttribute("id"), new Map());
+		lieuPresentRot = mapRotPoints.get(point.parentNode.getAttribute("id"));
+	}
+	lieuDest = lieuPresent.get(point.getAttribute("data-target"));
+	if(lieuDest === undefined){
+		lieuPresent.set(point.getAttribute("data-target"), pos);
+	}
+
+	lieuDest = lieuPresentRot.get(point.getAttribute("data-target"));
+	if(lieuDest === undefined){
+		lieuPresentRot.set(point.getAttribute("data-target"), rot);
+	}
+}
+
+function supprimer(el){
+	var lieuPresent = mapPosPoints.get(el.parentNode.parentNode.getAttribute("id"));
+	if(lieuPresent !== undefined){
+		lieuPresent.delete(el.parentNode.getAttribute("data-target"));
+	}
+	var lieuPresentRot = mapRotPoints.get(el.parentNode.parentNode.getAttribute("id"));
+	if(lieuPresentRot !== undefined){
+		lieuPresentRot.delete(el.parentNode.getAttribute("data-target"));
+	}
+	el.parentNode.parentNode.removeChild(el.parentNode);
+}
+
+function sauvegarder(){
+	var docSave = document;
+
+	docSave.querySelector("a-scene").setAttribute("debug", "");
+
+	var imgs = docSave.querySelectorAll("img");
+	imgs.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	var divs = docSave.querySelectorAll("div");
+	divs.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	docSave.querySelector("canvas").parentNode.removeChild(docSave.querySelector("canvas"));
+
+	var templateAEnlever = docSave.querySelectorAll(".piece:not(.map) a-entity[template]");
+	templateAEnlever.forEach(function(el){
+		el.setAttribute("template", "src: #template");
+		el.removeChild(el.firstChild);
+	});
+
+	templateAEnlever = docSave.querySelectorAll(".map a-entity[template]");
+	templateAEnlever.forEach(function(el){
+		el.setAttribute("template", "src: #templateMap");
+		el.removeChild(el.firstChild);
+	});
+
+	docSave.querySelector("a-scene").removeChild(docSave.querySelector("#layoutMapCircle"));
+
+	docSave.querySelector("a-scene").removeChild(docSave.querySelector("a-sky"));
+	var sky = docSave.createElement("a-sky");
+	sky.setAttribute("id", "background");
+	docSave.querySelector("a-scene").appendChild(sky);
+
+
+	docSave.querySelector("a-cursor").removeAttribute("material");
+	docSave.querySelector("a-cursor").removeAttribute("raycaster");
+	docSave.querySelector("a-cursor").removeAttribute("geometry");
+	docSave.querySelector("a-cursor").removeAttribute("position");
+	docSave.querySelector("a-cursor").removeAttribute("cursor");
+
+	docSave.querySelector("#camera").removeAttribute("position");
+	docSave.querySelector("#camera").removeAttribute("rotation");
+	docSave.querySelector("#cameraRotation").removeAttribute("rotation");
+	try{
+		docSave.querySelector("#camera").removeChild(docSave.querySelector("#labelMap"));
+	}
+	catch(e){}
+
+ 
+	var metas = docSave.querySelectorAll("meta[aframe-injected]");
+	metas.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	var lights = docSave.querySelectorAll("[light][aframe-injected]");
+	lights.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	var styles = docSave.querySelectorAll("style");
+	styles.forEach(function(el){
+		el.parentNode.removeChild(el);
+	});
+
+	mapPosPoints.forEach(function(value, key, map){
+		value.forEach(function(value2, key2, map2){
+			docSave.querySelector(`#${key} > a-entity[data-target=${key2}]`).setAttribute("position",value2);
+		});
+	});
+
+	mapRotPoints.forEach(function(value, key, map){
+		value.forEach(function(value2, key2, map2){
+			docSave.querySelector(`#${key} > a-entity[data-target=${key2}]`).setAttribute("data-childrotation",value2);
+		});
+	});
+
+	var pieces = docSave.querySelectorAll(".piece");
+	pieces.forEach(function(el){
+		el.setAttribute("visible", "false");
+	});
+
+	docSave.querySelector("a-cursor").setAttribute("color", "black");
+	docSave.querySelector("a-cursor").setAttribute("fuse-timeout", 2500);
+	docSave.querySelector("a-entity.cursor").removeAttribute("raycaster");
+
+	docSave.querySelector("[current]").removeAttribute("current");
+
+	docSave.querySelector("a-scene").removeAttribute("debug");
+
+
 
 AFRAME.registerComponent('sourceimage', {
 	schema: {type: 'string'},
@@ -346,9 +502,6 @@ function sauvegarder(){
 	docSave.querySelector("[current]").removeAttribute("current");
 
 	docSave.querySelector("a-scene").removeAttribute("debug", "");
-
-
-
 	var element = document.createElement('a');
   	element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(docSave.documentElement.outerHTML));
   	element.setAttribute('download', "page.html");

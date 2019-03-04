@@ -1,0 +1,139 @@
+<html class="a-html"><head>
+	<meta charset="utf-8">
+	<title>Visite</title>
+    <script src="latotale.js"></script>
+    <script src="360tour.js"></script>   
+</head>
+<body class="a-body">
+	<a-scene class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
+		<a-assets>
+			<script id="template" type="text/html">
+				<a-entity 
+				template="src: #templateArrow"
+				rotation="${childrotation}"
+				material="color: #5a92ae"
+				move="on: click; target: ${target}"
+				animation__scale="property: scale; from: 1 1 1; to: 1.25 1.25 2; loop: true; dur: 1250; dir: alternate; startEvents: mouseenter; pauseEvents: mouseleave"
+				animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+			</script>
+			<script id="templateArrow" type="text/html">
+				<a-entity scale="0.5 0.5 0.5""
+					>
+					<a-entity
+						geometry="primitive: cylinder; radius: 0.5; height: 2"
+						material="transparent: true; opacity: 0.6; color: white"
+						rotation="90 0 0"
+					>
+					</a-entity>
+					<a-entity
+						geometry="primitive: cone; height: 2"
+						material="transparent: true; opacity: 0.75; color: white"
+						position="0 0 -2"
+						rotation="-90 0 0"
+					>
+					</a-entity>
+				</a-entity>
+			</script>
+			<script id="templateMap" type="text/html">
+				<a-entity 
+				geometry="primitive: plane; height: 1; width: 1" 
+				material="color: #202020"
+				move="on: click; target: ${target}"
+				look-at="#camera"
+				text="align: center; wrapCount: 10; value: ${target}"
+			    animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+			</script>
+			<script id="templateMapIcon" type="text/html">
+				<a-entity
+					display-label="${target}"
+					geometry="primitive: sphere; radius: 0.5" 
+					material="color: #202020"
+					position="0 0 -3"
+					animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+				<a-entity
+					display-label="${target}"
+					geometry="primitive: sphere; radius: 1"
+					material="color: #5a92ae"
+					movetothismap="on: click; target: ${target}"
+					animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+			</script>
+			<script id="templateHud" type="text/html">
+					<a-entity 
+					geometry="primitive: plane; width: 2; height: 1" material="color: #202020"
+					text="align: center; wrapCount: 20; value: ${text}"
+					look-at="#camera"
+					>
+					</a-entity>
+				</script>
+		</a-assets>
+		<a-entity id="A12" class="piece" sourceimage="imgs/A12.JPG" description="A12" visible="false" default="">			
+			<a-entity template="src:#template" data-target="A18" position="-4.982034726094146 0.06000288016589769 -0.4234737158219247" data-childrotation ="0 85.14152835644038 0"></a-entity>
+			<a-entity template="src:#template" data-target="A19" position="-3.544720810093462 0.0100000133333546 -3.5263230677988586" data-childrotation ="0 45.14907425630887 0"></a-entity>
+		</a-entity>
+		<a-entity id="A18" class="piece" sourceimage="imgs/A18.JPG" description="A18" visible="false" >		</a-entity>
+		<a-entity id="A19" class="piece" sourceimage="imgs/A19.JPG" description="A19" visible="false" >		</a-entity>
+		<a-entity id="A21" class="piece" sourceimage="imgs/A21.JPG" description="A21" visible="false" >		</a-entity>
+		<a-entity id="A22" class="piece" sourceimage="imgs/A22.JPG" description="A22" visible="false" >		</a-entity>
+		<a-entity id="A23" class="piece" sourceimage="imgs/A23.JPG" description="A23" visible="false" >		</a-entity>
+		<a-entity id="B10" class="piece" sourceimage="imgs/B10.JPG" description="B10" visible="false" >		</a-entity>
+		<a-entity id="B12" class="piece" sourceimage="imgs/B12.JPG" description="B12" visible="false" >		</a-entity>
+		<a-entity id="B14" class="piece" sourceimage="imgs/B14.JPG" description="B14" visible="false" >		</a-entity>
+		<a-entity id="B17" class="piece" sourceimage="imgs/B17.JPG" description="B17" visible="false" >		</a-entity>
+		<a-entity id="B18" class="piece" sourceimage="imgs/B18.JPG" description="B18" visible="false" >		</a-entity>
+		<a-entity id="B19" class="piece" sourceimage="imgs/B19.JPG" description="B19" visible="false" >		</a-entity>
+		<a-entity id="B20" class="piece" sourceimage="imgs/B20.JPG" description="B20" visible="false" >		</a-entity>
+		<a-entity id="B21" class="piece" sourceimage="imgs/B21.JPG" description="B21" visible="false" >		</a-entity>
+		<a-entity id="B22" class="piece" sourceimage="imgs/B22.JPG" description="B22" visible="false" >		</a-entity>
+		<a-entity id="B23" class="piece" sourceimage="imgs/B23.JPG" description="B23" visible="false" >		</a-entity>
+		<a-entity id="coinGauche" class="piece" sourceimage="imgs/coinGauche.JPG" description="coinGauche" visible="false" >		</a-entity>
+		<a-entity id="couloirA12" class="piece" sourceimage="imgs/couloirA12.JPG" description="couloirA12" visible="false" >		</a-entity>
+		<a-entity id="couloirA18A19" class="piece" sourceimage="imgs/couloirA18A19.JPG" description="couloirA18A19" visible="false" >		</a-entity>
+		<a-entity id="couloirA21A22" class="piece" sourceimage="imgs/couloirA21A22.JPG" description="couloirA21A22" visible="false" >		</a-entity>
+		<a-entity id="couloirA23" class="piece" sourceimage="imgs/couloirA23.JPG" description="couloirA23" visible="false" >		</a-entity>
+		<a-entity id="couloirB12" class="piece" sourceimage="imgs/couloirB12.JPG" description="couloirB12" visible="false" >		</a-entity>
+		<a-entity id="couloirB14B17" class="piece" sourceimage="imgs/couloirB14B17.JPG" description="couloirB14B17" visible="false" >		</a-entity>
+		<a-entity id="couloirB18B19" class="piece" sourceimage="imgs/couloirB18B19.JPG" description="couloirB18B19" visible="false" >		</a-entity>
+		<a-entity id="couloirB20B21B22B23" class="piece" sourceimage="imgs/couloirB20B21B22B23.JPG" description="couloirB20B21B22B23" visible="false" >		</a-entity>
+		<a-entity id="croisementChemin" class="piece" sourceimage="imgs/croisementChemin.JPG" description="croisementChemin" visible="false" >		</a-entity>
+		<a-entity id="escalierGaucheA" class="piece" sourceimage="imgs/escalierGaucheA.JPG" description="escalierGaucheA" visible="false" >		</a-entity>
+		<a-entity id="escalierGaucheB" class="piece" sourceimage="imgs/escalierGaucheB.JPG" description="escalierGaucheB" visible="false" >		</a-entity>
+		<a-entity id="escalierMilieuA" class="piece" sourceimage="imgs/escalierMilieuA.JPG" description="escalierMilieuA" visible="false" >		</a-entity>
+		<a-entity id="escalierMilieuB" class="piece" sourceimage="imgs/escalierMilieuB.JPG" description="escalierMilieuB" visible="false" >		</a-entity>
+		<a-entity id="exterieurGauche" class="piece" sourceimage="imgs/exterieurGauche.JPG" description="exterieurGauche" visible="false" >		</a-entity>
+		<a-entity id="exterieurMilieu" class="piece" sourceimage="imgs/exterieurMilieu.JPG" description="exterieurMilieu" visible="false" >		</a-entity>
+		<a-entity id="gaucheA" class="piece" sourceimage="imgs/gaucheA.JPG" description="gaucheA" visible="false" >		</a-entity>
+		<a-entity id="gaucheB" class="piece" sourceimage="imgs/gaucheB.JPG" description="gaucheB" visible="false" >		</a-entity>
+		<a-entity id="milieuA" class="piece" sourceimage="imgs/milieuA.JPG" description="milieuA" visible="false" >		</a-entity>
+		<a-entity id="milieuB" class="piece" sourceimage="imgs/milieuB.JPG" description="milieuB" visible="false" >		</a-entity>
+		<a-entity id="secretariat" class="piece" sourceimage="imgs/secretariat.JPG" description="secretariat" visible="false" >		</a-entity>
+		<a-entity id="map1" class="piece map" sourceimage="imgs/map1.jpg" visible="false" defaultmap>			
+			<a-entity template="src:#templateMap" data-target="A18" position="-1.8303518186606613 2.4104018376022145 -5.714001419314281"></a-entity>
+		</a-entity>
+		<a-entity id="map2" class="piece map" sourceimage="imgs/map2.jpg" visible="false" >		</a-entity>
+
+
+		<a-entity id="mapButton" geometry="primitive: plane; width: 1; height: 1" material="src: imgs/map_icon.png" position="0 -2 0" text="align: center; wrapCount: 20" look-at="#camera" animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave" animation__scalereturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave" movetomap="on: click">
+		</a-entity>
+
+		<a-entity id="cameraRotation">
+			<a-entity id="camera" camera="" look-controls="">
+				<a-cursor class="cursor active" scale="2 2 2" color="black" event-set__1="_event: mouseenter; color: springgreen" event-set__2="_event: mouseleave; color: black" fuse-timeout="2500" animation__scale="property: scale; from: 2 2 2; to: 0.1 0.1 0.1; dur: 2500; easing: easeInCubic; startEvents: fusing; pauseEvents: mouseleave" animation__scalereturn="property: scale; to: 2 2 2; dur: 500; easing: easeOutElastic; startEvents: mouseleave"></a-cursor>
+			</a-entity>
+		</a-entity>
+
+		<a-entity class="cursor" laser-controls="hand: right" daydream-controls="" gearvr-controls="" oculus-touch-controls="" vive-controls="" windows-motion-controls="">
+        </a-entity>
+		<a-sky id="background"></a-sky>
+	</a-scene>
+
+</body></html>

@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<visit>
+  <piece xml:id="A12">
+    <positions>
+      <value num="0">-4.982034726094146 0.06000288016589769 -0.4234737158219247</value>
+      <value num="1">-3.544720810093462 0.0100000133333546 -3.5263230677988586</value>
+    </positions>
+    <targets>
+      <value num="0">A18</value>
+      <value num="1">A19</value>
+    </targets>
+    <rotations>
+      <value num="0">0 85.14152835644038 0</value>
+      <value num="1">0 45.14907425630887 0</value>
+    </rotations>
+    <panns/>
+  </piece>
+  <piece xml:id="A18">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="A19">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="A21">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="A22">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="A23">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B10">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B12">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B14">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B17">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B18">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B19">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B20">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B21">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B22">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="B23">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="coinGauche">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirA12">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirA18A19">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirA21A22">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirA23">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirB12">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirB14B17">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirB18B19">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="couloirB20B21B22B23">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="croisementChemin">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="escalierGaucheA">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="escalierGaucheB">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="escalierMilieuA">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="escalierMilieuB">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="exterieurGauche">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="exterieurMilieu">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="gaucheA">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="gaucheB">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="milieuA">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="milieuB">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <piece xml:id="secretariat">
+    <positions/>
+    <targets/>
+    <rotations/>
+    <panns/>
+  </piece>
+  <map xml:id="map1">
+    <positions><value num="0">-1.8303518186606613 2.4104018376022145 -5.714001419314281</value></positions>
+    <targets><value num="0">A18</value></targets>
+  </map>
+  <map xml:id="map2">
+    <positions/>
+    <targets/>
+  </map>
+</visit>

@@ -14,18 +14,47 @@
 <body class="a-body">
 		<a-scene >
 			<a-assets>
+				<script id="templateHud" type="text/html">
+					<a-entity 
+					geometry="primitive: plane; width: 2; height: 1" material="color: #202020"
+					text="align: center; wrapCount: 20; value: ${text}"
+					look-at="#camera"
+					>
+					</a-entity>
+				</script>
+
+
 				<script id="template" type="text/html">
 					<a-entity 
-					geometry="primitive: octahedron; radius: 0.5" 
+					template="src: #templateArrow"
+					data-target="${target}"
+					rotation="${childrotation}"
 					material="color: #5a92ae"
 					move="on: click; target: ${target}"
-					animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
-					animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
-					animation__rotationReturn="property: rotation; to: 0 0 0; dur: 1000; easing: easeOutElastic; startEvents: mouseleave"
+					animation__scale="property: scale; from: 1 1 1; to: 1.25 1.25 2; loop: true; dur: 1250; dir: alternate; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 					>
-						<a-text 
-						value="--> ${target}\n\n\n"
-						width="18"
+				</a-entity>
+				</script>
+				<script id="templateArrow" type="text/html">
+				<a-entity scale="0.5 0.5 0.5""
+					>
+					<a-entity
+						geometry="primitive: cylinder; radius: 0.5; height: 2"
+						material="transparent: true; opacity: 0.6; color: white"
+						rotation="90 0 0"
+					>
+					</a-entity>
+					<a-entity
+						geometry="primitive: cone; height: 2"
+						material="transparent: true; opacity: 0.75; color: white"
+						position="0 0 -2"
+						rotation="-90 0 0"
+					>
+					</a-entity>
+					<a-text 
+						value="${target}\n\n\n\n"
+						width="20"
 						align="center"
 						baseline="center"
 						color="red"
@@ -33,55 +62,53 @@
 						>
 							
 						</a-text>
+				</a-entity>
+			</script>
+				<script id="templateMap" type="text/html">
+					<a-entity 
+					geometry="primitive: plane; height: 1; width: 1" 
+					material="color: #202020"
+					move="on: click; target: ${target}"
+					look-at="#camera"
+					text="align: center; wrapCount: 10; value: ${target}"
+				    animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+					>
 					</a-entity>
 				</script>
-				<script id="templateUpdate" type="text/html">
-					<a-entity 
-					geometry="primitive: octahedron; radius: 0.5" 
-					material="color: #5a92ae"
-					move="on: click; target: ${target}"
-					animation__scale="property: scale; from: 1 1 1; to: 1.5 2.5 1.5; loop: true; dur: 1250; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
-					animation__rotation="property: rotation; from: 0 0 0; to: 180 360 0; loop: true; dur: 2500; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
-					animation__rotationReturn="property: rotation; to: 0 0 0; dur: 1000; easing: easeOutElastic; startEvents: mouseleave"
+				<script id="templateMapIcon" type="text/html">
+					<a-entity
+						display-label="${target}"
+						geometry="primitive: sphere; radius: 0.5" 
+						material="color: #202020"
+						position="0 0 -3"
+						animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+						animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+					>
+					</a-entity>
+					<a-entity
+						display-label="${target}"
+						geometry="primitive: sphere; radius: 1"
+						material="color: #5a92ae"
+						movetothismap="on: click; target: ${target}"
+						animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+						animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 					>
 					</a-entity>
 				</script>
 			</a-assets>
 
 			<?php 
-			
+				if(!isset($_REQUEST['img']) || !isset($_REQUEST['li']))
+					header("Location: erreur.php");
+
 				$img=filter_var($_REQUEST['img'],FILTER_SANITIZE_STRING);
 				$im = pathinfo($img);
 				$l=filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING);
-				?>
-<!-- 					<input type="texte" id=listeIm value=<?php $l ?>/>;
--->					
-					<script> var listImgs = '<?php echo $l; ?>'; var idHud = '<?php echo "hud".$im['filename'].""; ?>'; </script>
-					<?php
-				//$listImgs=array();	
-				// $l=str_replace("'","\"",$_REQUEST['li']);
+			?>	
 
-				// //$l=filter_var($l,FILTER_SANITIZE_STRING);
-				// $listImgs = unserialize(json_decode($l));
-				// echo gettype($listImgs);
-/*					$cpt=0;
-*//*					setcookie("listImgs","", time()-3600);
-*//*					foreach ($listImgs as $val) {
-					if(isset($_COOKIE["listImgs"])==true){
-					$cpt++;
-						echo "<p>".$val."</p><br/>";
-						echo "<p>".$cpt."</p><br/>";
-						$cook=filter_var($_COOKIE["listImgs"],FILTER_SANITIZE_STRING);
-						echo "<p>".$val."</p><br/>";
-						echo "<p>".$cook."</p><br/>";
-						setcookie("listImgs",$cook."+".$val,time()+3600);
-					}
-					else{
-						setcookie("listImgs", $val, time()+3600);
-						echo "coucou";
-						echo "<p>".$_COOKIE["listImgs"]."</p><br/>";
-					}
-				}*/					
+			<script> var listImgs = '<?php echo $l; ?>'; var idHud = '<?php echo "hud".$im['filename'].""; ?>'; </script>
+
+			<?php
 				echo "
 						<a-sky id=\"background\"></a-sky>
 						<a-entity id=\"".$im['filename']."\" class=\"imsky\" sourceimage=\"uploads/".$img."\" description=\"".$im['filename']."\" visible=\"false\" default=\"\">
@@ -89,9 +116,7 @@
 			?>
 
 			<a-entity id="cameraRotation">
-			<a-entity id=<?php echo"\"hud".$im['filename']."\"";?> geometry="primitive: plane; width: 2; height: 1" material="color: #202020" position="0 -2 -1"
-				text="align: center; wrapCount: 20"
-				look-at="#camera"
+			<a-entity id="hudDef" class=<?php echo "\"hud".$im['filename']."\"";?> template="src: #templateHud" position="0 -2 -1" data-text=<?php echo $im['filename']; ?>
 				>
 			</a-entity>
 			<a-entity id="camera" camera look-controls>
@@ -113,21 +138,37 @@
 		</a-scene>
 		<form id="pointsForm" action="accueil.php" method="POST">
 			<?php 
-			foreach ($_POST as $tableaux => $contenuTab) {
-				foreach ($contenuTab as $piece => $contenu) {
-					foreach ($contenu as $key) {
-						echo "<input type='text' name='".$tableaux."[".$piece."][]' hidden value='".$key."'/>";
-					}
+				$dom = new DomDocument();
+				if(!$dom->load('download/save.xml'))
+					header("Location: erreur.php");
+				$piece = $dom->getElementById($im['filename']);
+				echo "<input type='text' name='nomPiece' hidden value='".$im['filename']."'/>";
+				$positions = $piece->getElementsByTagName("positions")->item(0)->getElementsByTagName("value");
+				$targets = $piece->getElementsByTagName("targets")->item(0)->getElementsByTagName("value");
+				$rotations = $piece->getElementsByTagName("rotations")->item(0)->getElementsByTagName("value");
+				$panns = $piece->getElementsByTagName("panns")->item(0)->getElementsByTagName("value");
+
+				$nbP = $positions->count();
+				for($i = 0;$i<$nbP;$i++){
+					$pos = $positions->item($i)->nodeValue;
+					$tar = $targets->item($i)->nodeValue;
+					$rot = $rotations->item($i)->nodeValue;
+					echo "<input type='text' name='pointsPos[".$im['filename']."][]' hidden value='".$pos."'/>";
+					echo "<input type='text' name='pointsTarget[".$im['filename']."][]' hidden value='".$tar."'/>";
+					echo "<input type='text' name='pointsRot[".$im['filename']."][]' hidden value='".$rot."'/>";
+
+					echo "<script>ajouterPointInteretDebut('".$pos."','".$tar."','".$rot."')</script>";
 				}
-			}
-		?>
+
+				foreach ($panns as $key) {
+					echo "<input type='text' name='listPanns[".$im['filename']."][]' hidden value='".$key->nodeValue."'/>";
+					echo "<input type='text' name='listTextPanns[".$im['filename']."][]' hidden value='".$key->getAttribute("text")."'/>";
+
+					echo "<script>placerPannDebut('".$key->nodeValue."','".$key->getAttribute('text')."')</script>";
+				}
+
+			?>
 		</form>
-		<?php
-		foreach ($_POST['pointsPos'][$im['filename']] as $num => $pos) {
-				echo "<script>ajouterPointInteretDebut('".$pos."','".$_POST['pointsTarget'][$im['filename']][$num]."')</script>";
-		}
-		
-		?>
 <!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/java.js"></script> -->
