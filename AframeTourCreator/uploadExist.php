@@ -10,7 +10,6 @@
 </head>
 <body >
 <?php
-var_dump($_FILES);
 if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
     $target_dir = "download/";
     $target_file = $target_dir . $_FILES["fileUpload"]["name"];
@@ -54,9 +53,16 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
             echo "Erreur inconnue au bataillon</br>";
         }
     }
-    echo "<form action=\"accueil.php\">
+    if($parseOK==1){
+        echo "<form action=\"images.php?new=false\" method=\"post\">
           <input type=\"submit\" value=\"Terminer\" />
           </form>";
+    }
+    else{
+        echo "<form action=\"existant.php\">
+          <input type=\"submit\" value=\"Retour\" />
+          </form>";
+    }
 }
 else{
     echo "<p>Il faut sélectionner un fichier ...</p>";

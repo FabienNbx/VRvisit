@@ -14,7 +14,7 @@
     </header>
     <section>
         <h2 class="text-center">Ajouter les photos</h2>
-    	<form action="upload.php?new=<?php echo $_GET['new'];?>" method="post" enctype="multipart/form-data">
+    	<form action="upload.php?new=<?php echo $_GET['new'];if (isset($_GET['ajout'])) {echo"&ajout=true";}?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <h4>Images :</h4>
                 <input type="file" class="form-control-file" multiple name="filesUpload[]"><br/>

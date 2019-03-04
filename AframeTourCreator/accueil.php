@@ -165,14 +165,11 @@
 		}
 
 	?>
-	<footer>
-		<div class="d-flex justify-content-center">
-			<a class="btn btn-danger" href='default.php' >Suivant</a>
-		</div>
-		<div class="d-flex justify-content-center">
-			<a class="btn btn-success" href="ajouterMap.php?li=<?php echo $nomIm; ?>" >Ajouter une map</a>
-		</div>	
-	</footer>
+	<footer class="d-flex justify-content-center">
+		<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >Ajouter une map</a>
+ 		<a class="btn btn-primary" href="images.php?new=<?php echo $_GET['new']; ?>&ajout=true" >Ajouter d'autres images</a>
+		<a class="btn btn-danger" href='default.php' >Suivant</a>		
+ 	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/java.js"></script>
