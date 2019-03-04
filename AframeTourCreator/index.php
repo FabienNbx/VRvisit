@@ -14,7 +14,7 @@
     </header>
     <section>
         <a class="btn btn-primary" href="images.php?new=true"><h2 class="text-center">Nouveau projet</h2></a><br/>
-        <a class="btn btn-primary" href="askxmlfile.php?new=false"><h2 class="text-center">Projet existant</h2></a>
+        <a class="btn btn-primary" href="existant.php?new=false"><h2 class="text-center">Projet existant</h2></a>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

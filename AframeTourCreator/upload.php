@@ -15,7 +15,7 @@ $xml = simplexml_load_file($fichier);*/
 $doc = new DomDocument;
 // Nous devons valider notre document avant de nous référer à l'ID
 $doc->validateOnParse = true;
-$doc->Load('download/save.xml');
+$doc->load('download/save.xml');
 //print_r($xml);
 if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
     $c=count($_FILES["filesUpload"]["name"]);
@@ -44,12 +44,11 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             echo "Seuls les formats jpg, jpeg et png sont acceptés</br>";
             $uploadOk = 0;
         }
-        //print_r($doc->getElementById("A12"));
         if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0){
-            foreach($doc as $piece){
-                $t = $piece['ID'];
-                echo $t."<br/>";
-                if($piece->id==$target_file){
+            $pieces = $doc->getElementsByTagName("piece");
+            foreach($pieces as $piece){
+                $t = $piece->getAttribute("xml:id");
+                if($t==pathinfo($target_file)['filename']){
                     echo "L'image existe déjà dans le projet existant</br>";
                     $uploadOk = 0;
                 }
