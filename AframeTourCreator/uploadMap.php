@@ -55,7 +55,8 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
     $dom = new DomDocument();
     $dom->preserveWhiteSpace = false;
     $dom->formatOutput = true;
-    $dom->load("download/save.xml");
+    if(!$dom->load("download/save.xml"))
+        header('Location: erreur.php');
     $visit = $dom->getElementsByTagName("visit")->item(0);
     if($dossier = opendir('./maps')){
         while(false !== ($fichier = readdir($dossier)))

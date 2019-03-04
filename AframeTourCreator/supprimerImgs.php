@@ -4,13 +4,12 @@
 	 <meta charset="utf-8">			
     <title>Aframe Tour Creator</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/default.css" />
-    <script src="js/accueil.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/supp.css" />
+    <script src="js/supp.js"></script>
 </head>
 <body class="bg-info">
-	<div><h1>Choisissez quel endroit sera le point de départ :</h1></div>
+	<div><h1>Choisissez quelles images doivent être supprimées :</h1></div>
 	<section id="listeImg" class="text-center">
-		<p id="err">Il faut choisir un point de départ !</p>
 		<?php
 			if($dossier = opendir('./uploads')){
 				while(false !== ($fichier = readdir($dossier)))
@@ -28,7 +27,7 @@
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php\")"?>' >Créer</a>
+		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"supprimerI.php\")"?>' >Suivant</a>
 	</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

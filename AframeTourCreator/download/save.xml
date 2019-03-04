@@ -225,15 +225,14 @@
     <rotations/>
     <panns/>
   </piece>
-  <piece xml:id="secretariat">
+  
+  <map xml:id="map2">
     <positions/>
     <targets/>
-    <rotations/>
-    <panns/>
-  </piece>
+  </map>
   <map xml:id="map1">
-    <positions><value num="0">-1.8303518186606613 2.4104018376022145 -5.714001419314281</value></positions>
-    <targets><value num="0">A18</value></targets>
+    <positions/>
+    <targets/>
   </map>
   <map xml:id="map2">
     <positions/>

@@ -5,8 +5,7 @@
     <title>Aframe Tour Creator</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/accueil.css" />
-<!--     <script src="js/accueil.js"></script>
- --></head>
+</head>
 <body class="bg-info">
 	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
 	<section id="listeImg" class="text-center">
@@ -28,35 +27,32 @@
 				}
 				$tabImgs=explode(":",$nomIm);
 				$cpt=0;
-				if($dossier = opendir('./uploads'))
+				rewinddir();
+				while(false !== ($fichier = readdir($dossier)))
 				{
-					while(false !== ($fichier = readdir($dossier)))
+					$fic=pathinfo($fichier);
+					$ext=strtolower($fic['extension']);
+					if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
 					{
-						$fic=pathinfo($fichier);
-						$ext=strtolower($fic['extension']);
-						if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
-						{
-							echo "
-							<figure class=\"photos\">
-							<a href='pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
-							<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
-							</figure>
-							";
-							$cpt+=1;
-							
-						}
+						echo "
+						<figure class=\"photos\">
+						<a href='pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
+						<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
+						</figure>
+						";
+						$cpt+=1;
+						
 					}
 				}
+			}
+			else{
+				header('Location: erreur.php');
 			}
 		?>
 	</section>
 	<?php 
 		if(isset($_POST['nomPiece'])){
 			$dom = new DomDocument();
-			$dom->load('download/save.xml');
-			/*if(!$dom->load('download/save.xml')){
-				header('Location: erreur.php');
-			}*/
 			$dom->preserveWhiteSpace = false;
 			$dom->formatOutput = true;
 			$dom->load('download/save.xml');
@@ -160,9 +156,7 @@
 
 
 		}
-		else{
-			//require "erreur.php";
-		}
+
 
 	?>
 	<footer>
@@ -171,6 +165,9 @@
 		</div>
 		<div class="d-flex justify-content-center">
 			<a class="btn btn-success" href="ajouterMap.php?li=<?php echo $nomIm; ?>" >Ajouter une map</a>
+		</div>	
+		<div class="d-flex justify-content-center">
+			<a class="btn btn-secondary" href="supprimerImgs.php?li=<?php echo $nomIm; ?>" >Supprimer des images</a>
 		</div>	
 	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

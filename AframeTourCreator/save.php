@@ -31,7 +31,8 @@ if($dossier = opendir('./maps')){
 
 
 $dom = new DomDocument();
-$dom->load('download/save.xml');
+if(!$dom->load('download/ave.xml'))
+	header('Location: erreur.php');
 $visit = $dom->getElementsByTagName("visit")->item(0);
 $pieces = $visit->getElementsByTagName("piece");
 $maps = $visit->getElementsByTagName("map");

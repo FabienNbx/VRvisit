@@ -4,20 +4,20 @@
 	 <meta charset="utf-8">			
     <title>Aframe Tour Creator</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/default.css" />
-    <script src="js/accueil.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/supp.css" />
+    <script src="js/supp.js"></script>
 </head>
 <body class="bg-info">
-	<div><h1>Choisissez quel endroit sera le point de départ :</h1></div>
+	<div><h1>Choisissez quelles cartes doivent être supprimées :</h1></div>
 	<section id="listeImg" class="text-center">
-		<p id="err">Il faut choisir un point de départ !</p>
 		<?php
-			if($dossier = opendir('./uploads')){
+			$nomIm = $_REQUEST['nomIm'];
+			if($dossier = opendir('./maps')){
 				while(false !== ($fichier = readdir($dossier)))
 				{
 					if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
 					{
-						echo "<a class=\"clickable\" onClick='choiceDef(this,\"".pathinfo($fichier)['filename']."\")'><img id=\"".basename($fichier)."\" class=\"photosDefault rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
+						echo "<a class=\"clickable\" onClick='choiceDef(this,\"".pathinfo($fichier)['filename']."\")'><img id=\"".basename($fichier)."\" class=\"photosDefault rounded img-fluid\" src=\"./maps/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
 						
 					}
 				}
@@ -28,7 +28,7 @@
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php\")"?>' >Créer</a>
+		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"supprimerM.php?li="+$nomIm+")"?>' >Suivant</a>
 	</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

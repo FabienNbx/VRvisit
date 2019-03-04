@@ -9,7 +9,10 @@
 </head>
 <body class="bg-info">
 	<?php 
-	$nomIm=filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING); 
+        if(isset($_REQUEST['li']))
+    	    $nomIm=filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING); 
+        else
+            header('Location: erreur.php');
 	?>
 
 	<header>

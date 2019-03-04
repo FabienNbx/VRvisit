@@ -1,0 +1,17 @@
+h1{
+	text-align: center;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+h2{
+	margin-top: 50px;
+	text-align: center;
+}
+
+.btn{
+	margin: auto;
+	margin-top: 50px;
+    width: 10%;
+    display: block;
+}

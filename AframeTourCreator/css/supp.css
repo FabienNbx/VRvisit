@@ -1,0 +1,28 @@
+.photosDefault{
+	width: 15%;
+  	margin: 5px;
+}
+
+h1{
+	text-align: center;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.btn{
+	width:130px;
+	margin: 20px;
+	font-size: 30px;
+	color: white;
+}
+
+.clickable{
+	cursor: pointer;
+}
+
+.add img{
+	border-width: 4px;
+	border-color: red;
+	border-style: solid;
+	border-radius: 4px;
+}

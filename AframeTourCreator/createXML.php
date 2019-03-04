@@ -35,6 +35,9 @@ if($dossier = opendir('./uploads')){
 		}
 	}
 }
+else{
+	header("Location: erreur.php");
+}
 $dom->appendChild($visit);
 $dom->save('download/save.xml');
 header('Location: accueil.php');

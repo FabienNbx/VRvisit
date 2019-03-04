@@ -98,11 +98,13 @@
 			</a-assets>
 
 			<?php 
-			
+				if(!isset($_REQUEST['img']) || !isset($_REQUEST['li']))
+					header("Location: erreur.php");
+
 				$img=filter_var($_REQUEST['img'],FILTER_SANITIZE_STRING);
 				$im = pathinfo($img);
 				$l=filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING);
-				?>	
+			?>	
 
 			<script> var listImgs = '<?php echo $l; ?>'; var idHud = '<?php echo "hud".$im['filename'].""; ?>'; </script>
 
@@ -137,10 +139,8 @@
 		<form id="pointsForm" action="accueil.php" method="POST">
 			<?php 
 				$dom = new DomDocument();
-				$dom->load('download/save.xml');
-				/*if(!$dom->load('download/save.xml')){
-					header('Location: erreur.php');
-				}*/
+				if(!$dom->load('download/save.xml'))
+					header("Location: erreur.php");
 				$piece = $dom->getElementById($im['filename']);
 				echo "<input type='text' name='nomPiece' hidden value='".$im['filename']."'/>";
 				$positions = $piece->getElementsByTagName("positions")->item(0)->getElementsByTagName("value");

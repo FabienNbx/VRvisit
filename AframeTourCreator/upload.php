@@ -10,13 +10,10 @@
 </head>
 <body>
 <?php
-/*$fichier = 'download/save.xml';
-$xml = simplexml_load_file($fichier);*/
 $doc = new DomDocument;
-// Nous devons valider notre document avant de nous référer à l'ID
 $doc->validateOnParse = true;
-$doc->load('download/save.xml');
-//print_r($xml);
+if(!$doc->load('download/save.xml'))
+    header("Location: erreur.php");
 if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
     $c=count($_FILES["filesUpload"]["name"]);
     for($i=0;$i<$c;$i++){

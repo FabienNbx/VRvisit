@@ -5,11 +5,6 @@ var mapPosPoints = new Map();
 var mapRotPoints = new Map();
 
 var hudDefON = false;
-var hudDef = document.createElement("a-entity");
-hudDef.setAttribute("id","hudDef");
-hudDef.setAttribute("template","src: #templateHud");
-hudDef.setAttribute("position","0 -2 -1");
-hudDef.setAttribute("data-text","");
 
 window.onload = function(){
 	var layout = document.createElement("a-entity");
@@ -203,14 +198,14 @@ AFRAME.registerComponent('move', {
 				$(`#${originPlaceName}`).removeAttribute("current");
 				targetElement.setAttribute('visible', 'true');
 				targetElement.setAttribute("current","");
-				if(targetElement.getAttribute('description') == null){
+				/*if(targetElement.getAttribute('description') == null){
 					//$("#hud").setAttribute('visible', 'false');
 				}
 				else{
 					//$("#hud").setAttribute('visible', 'true');
 					//$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
-				}
-				HudVerif(el.id);
+				}*/
+				HudVerif(targetElement.getAttribute('id'));
 				$("#layoutMapCircle").setAttribute('visible', 'false');
 				$(".cursor.active").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
 			}
@@ -503,14 +498,27 @@ function sauvegarder(){
 }
 
 function HudVerif(id){
-	var huds = $("#"+id).getElementsByClassName("hud"+id);
+	var huds = $$(`.hud${id}`);
 	if(!hudDefON && huds.length==0){
-		hudDef.setAttribute("data-text",$("#"+id).getAttribute("description"));
+		var hudDef = document.createElement("a-entity");
+		hudDef.setAttribute("id","hudDef");
+		hudDef.setAttribute("template","src: #templateHud");
+		hudDef.setAttribute("position","0 -2 -1");
+		hudDef.setAttribute("data-text",$(`#${id}`).getAttribute("description"));
 		$("#cameraRotation").appendChild(hudDef);
 		hudDefON = true;
 	}
 	else if(hudDefON && huds.length!=0){
-		$("#cameraRotation").removeChild(hudDef);
+		$("#cameraRotation").removeChild($(`#hudDef`));
 		hudDefON = false;
+	}
+	else if(hudDefON && huds.length==0){
+		$("#cameraRotation").removeChild($(`#hudDef`));
+		var hudDef = document.createElement("a-entity");
+		hudDef.setAttribute("id","hudDef");
+		hudDef.setAttribute("template","src: #templateHud");
+		hudDef.setAttribute("position","0 -2 -1");
+		hudDef.setAttribute("data-text",$(`#${id}`).getAttribute("description"));
+		$("#cameraRotation").appendChild(hudDef);
 	}
 }
