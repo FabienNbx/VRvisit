@@ -10,6 +10,13 @@
 </head>
 <body>
 <?php
+/*$fichier = 'download/save.xml';
+$xml = simplexml_load_file($fichier);*/
+$doc = new DomDocument;
+// Nous devons valider notre document avant de nous référer à l'ID
+$doc->validateOnParse = true;
+$doc->Load('download/save.xml');
+//print_r($xml);
 if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
     $c=count($_FILES["filesUpload"]["name"]);
     for($i=0;$i<$c;$i++){
@@ -33,9 +40,20 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             $uploadOk = 0;
         } 
 
-           if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
             echo "Seuls les formats jpg, jpeg et png sont acceptés</br>";
             $uploadOk = 0;
+        }
+        //print_r($doc->getElementById("A12"));
+        if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0){
+            foreach($doc as $piece){
+                $t = $piece['ID'];
+                echo $t."<br/>";
+                if($piece->id==$target_file){
+                    echo "L'image existe déjà dans le projet existant</br>";
+                    $uploadOk = 0;
+                }
+            }
         }
 
         if ($uploadOk == 0) {

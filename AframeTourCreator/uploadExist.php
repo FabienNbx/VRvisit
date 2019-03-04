@@ -10,7 +10,6 @@
 </head>
 <body >
 <?php
-var_dump($_FILES);
 if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
     $target_dir = "download/";
     $target_file = $target_dir . $_FILES["fileUpload"]["name"];
@@ -20,11 +19,11 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
         echo "Seuls les fichiers xml sont acceptés</br>";
         $parseOK = 0;
     }
-
     if ($parseOK == 0) {
         echo "Fichier incorrect !</br>";
-    } else {
-        if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) // réalise l'upload.
+    }
+    else {
+      if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) // réalise l'upload.
         {
             echo "Importation du fichier effectué</br>";
             //$s = file_get_contents("index.html");
@@ -50,11 +49,14 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
                 //$result[$i++] = $exemple->nodeValue;
                 //echo $exemple->nodeValue;
             }*/
-        } else {
+        } 
+        else {
             echo "Erreur inconnue au bataillon</br>";
         }
     }
-    echo "<form action=\"accueil.php\">
+    echo "<a class=\"btn btn-primary\" href=\"images.php?new=".filter_var($_GET['new'],FILTER_SANITIZE_STRING)."\">Ajouter des photos</a><br/>";
+
+    echo "<form action=\"accueil.php?new=".filter_var($_GET['new'],FILTER_SANITIZE_STRING)."\">
           <input type=\"submit\" value=\"Terminer\" />
           </form>";
 }

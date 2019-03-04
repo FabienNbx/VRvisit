@@ -1,0 +1,38 @@
+body{
+	background-color: lightgrey;
+}
+
+header{
+	margin: 10px;
+	text-align: center;
+}
+
+img{
+	width: 200px;
+}
+
+h1{
+	text-align: center;
+}
+
+section{
+	margin: 10%;
+	margin-top: 10px;
+}
+
+form{
+	margin-top: 50px;
+	text-align: center;
+}
+
+h2{
+	text-decoration: underline;
+}
+input{
+	margin: 10px;
+}
+
+.form-control-file{
+	display: inline; 
+	width: 50%;
+}
