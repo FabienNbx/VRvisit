@@ -21,7 +21,7 @@
 
     <section>
         <h2 class="text-center">Ajouter la(les) map(s)</h2>
-    	<form action="uploadMap.php?li=<?php echo $nomIm;?>" method="post" enctype="multipart/form-data">
+    	<form action="uploadMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm;?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <h4>Map(s) :</h4>
                 <input type="file" class="form-control-file" multiple name="filesUpload[]"><br/>

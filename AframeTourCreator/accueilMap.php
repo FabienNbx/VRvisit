@@ -35,14 +35,15 @@
 					$ext=strtolower($fic['extension']);
 					if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
 					{
+
 						echo "
-						<figure class=\"photos\">
-						<a class=\"clickable\" href=ajoutPointsMaps.php?img=".$fic['basename']."&li=".filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING)."\"><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./maps/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
-						<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
-						</figure>
-						";
-						$cpt+=1;
-						
+							<figure class=\"photos\">
+							<a class=\"clickable\" href=ajoutPointsMaps.php?new=".$_GET['new']."&img=".$fic['basename']."&li=".filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING)."\"><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./maps/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
+							<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
+							</figure>
+							";
+							$cpt+=1;
+							
 					}
 				}
 			}
@@ -119,6 +120,9 @@
 	<footer>
 		<div class="d-flex justify-content-center">
 			<a class="btn btn-danger clickable" href="default.php">Suivant</a>
+		</div>
+		<div class="d-flex justify-content-center">
+			<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $_GET['li']; ?>" >Ajouter une autre map</a>
 		</div>	
 		<div class="d-flex justify-content-center">
 			<a class="btn btn-secondary" href="supprimerMaps.php?li=<?php echo $nomIm; ?>">Supprimer des maps</a>

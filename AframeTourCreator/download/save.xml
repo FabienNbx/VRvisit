@@ -21,7 +21,7 @@
     <rotations/>
     <panns/>
   </piece>
-  <piece ID="A19">
+  <piece xml:id="A19">
     <positions/>
     <targets/>
     <rotations/>
@@ -214,8 +214,12 @@
     <panns/>
   </piece>
   <piece xml:id="milieuA">
-    <positions/>
-    <targets/>
+    <positions>
+      <value num="0">-2.706573851490108 -3.0931118255068912 -4.204100139914606</value>
+    </positions>
+    <targets>
+      <value num="0">A12</value>
+    </targets>
     <rotations/>
     <panns/>
   </piece>
@@ -225,17 +229,39 @@
     <rotations/>
     <panns/>
   </piece>
-  
-  <map xml:id="map2">
+  <piece xml:id="secretariat">
     <positions/>
     <targets/>
-  </map>
+    <rotations/>
+    <panns/>
+  </piece>
   <map xml:id="map1">
-    <positions/>
-    <targets/>
+    <positions>
+      <value num="0">-1.8303518186606613 2.4104018376022145 -5.714001419314281</value>
+      <value num="1">1.6995236026962557 2.5793028935880558 -5.754269677715699</value>
+    </positions>
+    <targets>
+      <value num="0">A18</value>
+      <value num="1">A19</value>
+    </targets>
   </map>
   <map xml:id="map2">
+    <positions>
+      <value num="0">-2.945723789711349 -0.8995202608746764 -4.0401375415607585</value>
+      <value num="1">0.8557658946105853 -0.9098476452009928 -4.926222156340632</value>
+    </positions>
+    <targets>
+      <value num="0">A12</value>
+      <value num="1">A19</value>
+    </targets>
+  </map>
+  <piece xml:id="map_icon">
     <positions/>
     <targets/>
+    <rotations/>
+  </piece>
+  <map xml:id="fondecran">
+    <positions><value num="0">-0.6679967127307206 -0.22014208336370464 -4.955177130212497</value></positions>
+    <targets><value num="0">A19</value></targets>
   </map>
 </visit>

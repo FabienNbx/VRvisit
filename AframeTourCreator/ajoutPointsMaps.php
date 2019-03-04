@@ -81,7 +81,7 @@
 			</a-entity>
 			</a-entity>
 		</a-scene>
-		<form id="pointsForm" action="accueilMap.php?li=<?php echo $l; ?>" method="POST">
+		<form id="pointsForm" action="accueilMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $l; ?>" method="POST">
 			<?php 
 				$dom = new DomDocument();
 				if(!$dom->load('download/save.xml'))
@@ -97,7 +97,6 @@
 					$tar = $targets->item($i)->nodeValue;
 					echo "<input type='text' name='pointsPos[".$im['filename']."][]' hidden value='".$pos."'/>";
 					echo "<input type='text' name='pointsTarget[".$im['filename']."][]' hidden value='".$tar."'/>";
-
 					echo "<script>ajouterPointInteretDebut('".$pos."','".$tar."')</script>";
 				}
 

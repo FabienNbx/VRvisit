@@ -31,11 +31,16 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
             echo "Erreur inconnue au bataillon</br>";
         }
     }
-    echo "<a class=\"btn btn-primary\" href=\"images.php?new=".filter_var($_GET['new'],FILTER_SANITIZE_STRING)."\">Ajouter des photos</a><br/>";
-
-    echo "<form action=\"accueil.php?new=".filter_var($_GET['new'],FILTER_SANITIZE_STRING)."\">
+    if($parseOK==1){
+        echo "<form action=\"images.php?new=false\" method=\"post\">
           <input type=\"submit\" value=\"Terminer\" />
           </form>";
+    }
+    else{
+        echo "<form action=\"existant.php\">
+          <input type=\"submit\" value=\"Retour\" />
+          </form>";
+    }
 }
 else{
     echo "<p>Il faut sélectionner un fichier ...</p>";
