@@ -13,7 +13,9 @@
       <value num="0">0 85.14152835644038 0</value>
       <value num="1">0 45.14907425630887 0</value>
     </rotations>
-    <panns/>
+    <panns>
+      <value text="COUCOU">-8.982034726094146 0.06000288016589769 -0.4234737158219247</value>
+    </panns>
   </piece>
   <piece xml:id="A18">
     <positions/>
