@@ -64,42 +64,6 @@ function elementInWithTarget(place, target){
 	return $$(`#${place} [data-target="${target}"]`)[0];
 }
 
-document.addEventListener('keypress', (event) => {
-  const Touche = event.key;
-  if(Touche=='s'){
-  	if(confirm("sauvegarder?")){
-  		sauvegarder();
-  	}
-  }
-});
-
-document.addEventListener('keypress', (event) => {
-  const Touche = event.key;
-  if(Touche=='p'){
-  	var dist = 5;
-  	var angle = ($("#camera").getAttribute("rotation").y+$("#cameraRotation").getAttribute("rotation").y) * Math.PI / 180;
-  	var xPos = -dist*Math.sin(angle);
-  	var zPos = -dist*Math.cos(angle);
-  	var angleX = ($("#camera").getAttribute("rotation").x+$("#cameraRotation").getAttribute("rotation").x) * Math.PI / 180;
-  	var yPos = dist*Math.tan(angleX);
-  	ajouterPointInteret(`${xPos} ${yPos} ${zPos}`, `0 ${angle*(180/Math.PI)} 0`);
-  }
-});
-
-document.addEventListener('keypress', (event) => {
-  const Touche = event.key;
-  if(Touche=='r'){
-  	var el = $(".cursor.active").components.raycaster.intersectedEls[0];
-  	if(el !== undefined){
-  		if(el.getAttribute("id")!="map"){
-	  		if(confirm("supprimer?")){
-	  			supprimer(el);
-	  		}
-	  	}
-	  }
-  }
-});
-
 AFRAME.registerComponent('display-label', {
 	schema: { type: 'string' },
 
@@ -198,13 +162,6 @@ AFRAME.registerComponent('move', {
 				$(`#${originPlaceName}`).removeAttribute("current");
 				targetElement.setAttribute('visible', 'true');
 				targetElement.setAttribute("current","");
-				/*if(targetElement.getAttribute('description') == null){
-					//$("#hud").setAttribute('visible', 'false');
-				}
-				else{
-					//$("#hud").setAttribute('visible', 'true');
-					//$("#hud").setAttribute('text','value', targetElement.getAttribute('description'));
-				}*/
 				HudVerif(targetElement.getAttribute('id'));
 				$("#layoutMapCircle").setAttribute('visible', 'false');
 				$(".cursor.active").setAttribute('raycaster', `objects: #${data.target},#mapButton`);				
