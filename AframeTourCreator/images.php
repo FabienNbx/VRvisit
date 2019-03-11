@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <img src="images/utils/fondecran.png">
+        <img src="fondecran.png">
     </header>
     <section>
         <h2 class="text-center">Ajouter les photos</h2>

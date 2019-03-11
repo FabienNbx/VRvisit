@@ -31,7 +31,7 @@ if($dossier = opendir('./maps')){
 
 
 $dom = new DomDocument();
-if(!$dom->load('download/ave.xml'))
+if(!$dom->load('download/save.xml'))
 	header('Location: erreur.php');
 $visit = $dom->getElementsByTagName("visit")->item(0);
 $pieces = $visit->getElementsByTagName("piece");
@@ -239,7 +239,7 @@ $current .= '
 
 </body></html>
 ';
-// Écrit le résultat dans le fichier
+
 file_put_contents($file, $current);
 
 
@@ -249,8 +249,8 @@ file_put_contents($file, $current);
 $c=count($listImgs);
 for($i=0;$i<$c;$i++){
     $target_dir = "download/imgs/";
-    $target_file = $target_dir . $listImgs[$i]['basename']; // nom sans extension
-    if (copy("uploads/".$listImgs[$i]['basename'], $target_file)) // réalise l'upload.
+    $target_file = $target_dir . $listImgs[$i]['basename'];
+    if (copy("uploads/".$listImgs[$i]['basename'], $target_file)) 
     {
         echo "SUCCES</br>";
     } else {
@@ -258,10 +258,17 @@ for($i=0;$i<$c;$i++){
     }
 }
 
+if (copy("map_icon.png"), "download/imgs/map_icon.png")) 
+{
+    echo "SUCCES</br>";
+} else {
+    echo "Erreur inconnue au bataillon</br>";
+}
 
 
-$archive_name = "visite.zip"; // name of zip file
-$archive_folder = "download"; // the folder which you archivate
+
+$archive_name = "visite.zip";
+$archive_folder = "download";
 
 $zip = new ZipArchive; 
 if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE) 
@@ -292,7 +299,6 @@ if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE)
         } 
         closedir($dh); 
         array_shift($dirs); 
-        echo "COUZIP<br/><br/>";
         var_dump($zip);
     } 
     
@@ -304,7 +310,13 @@ if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE)
     unlink('download/save.xml');
     $c=count($listImgs);
 	for($i=0;$i<$c;$i++){
-	    if (unlink("download/imgs/".$listImgs[$i]['basename'])) // réalise l'upload.
+	    if (unlink("download/imgs/".$listImgs[$i]['basename']))
+	    {
+	        echo "SUCCES</br>";
+	    } else {
+	        echo "Erreur inconnue au bataillon</br>";
+	    }
+	    if (unlink("uploads/".$listImgs[$i]['basename']))
 	    {
 	        echo "SUCCES</br>";
 	    } else {
@@ -313,7 +325,13 @@ if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE)
 	}
 	$c=count($listMaps);
 	for($i=0;$i<$c;$i++){
-	    if (unlink("download/imgs/".$listMaps[$i]['basename'])) // réalise l'upload.
+	    if (unlink("download/imgs/".$listMaps[$i]['basename']))
+	    {
+	        echo "SUCCES</br>";
+	    } else {
+	        echo "Erreur inconnue au bataillon</br>";
+	    }
+	    if (unlink("maps/".$listImgs[$i]['basename']))
 	    {
 	        echo "SUCCES</br>";
 	    } else {

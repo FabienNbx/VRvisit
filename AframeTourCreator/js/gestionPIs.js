@@ -2,7 +2,6 @@ $ = (el) => document.querySelector(el);
 $$ = (el) => document.querySelectorAll(el);
 
 var mapPosPoints = new Map();
-
 var addEnCours=false;
 var lieu="";
 var defhud = true;
@@ -106,7 +105,6 @@ document.addEventListener('keypress', (event) => {
 });
 
 
-AFRAME.registerComponent('move', {
 function addPann(event, dist, panneau){
     if(event.keyCode==13 && lieu=="pann"){
         var dist = -panneau.getAttribute("position").z;
@@ -131,6 +129,50 @@ function addPann(event, dist, panneau){
     }
 }
 
+/*AFRAME.registerComponent('move', {
+  schema: {
+    on: {type: 'string'},
+    target: {type: 'string'}
+  },
+
+  init: function(){
+    var data=this.data;
+    var el=this.el;
+    var originPlaceName = el.parentNode.parentNode.getAttribute('id');
+    var targetElement=$(`#${data.target}`);
+    var targetWorldPos = new THREE.Vector3();
+    el.addEventListener(data.on, function(){
+        var image=$(`#${data.target}Img`);
+        if(image.nodeName!="IMG"){
+          var source=image.innerHTML;
+          var parentImage=image.parentNode;
+          parentImage.removeChild(image);
+          image=document.createElement("img");
+          image.setAttribute("id", `${data.target}Img`);
+          image.setAttribute("crossorigin", "anonymous");
+          image.setAttribute("src", source);
+          parentImage.appendChild(image);
+        }
+        $("#background").setAttribute('src', `#${data.target}Img`);
+
+        var elementToHaveInTheBack=elementInWithTarget(data.target, originPlaceName);
+        if (typeof elementToHaveInTheBack !== 'undefined') {
+          targetWorldPos.setFromMatrixPosition(elementToHaveInTheBack.object3D.matrixWorld);
+          $("#cameraRotation").setAttribute("rotation", `0 ${Math.atan2(targetWorldPos.x, targetWorldPos.z)*(180/Math.PI)-$("#camera").getAttribute("rotation").y} 0`);
+        }
+        
+        
+        el.parentNode.parentNode.setAttribute('visible','false');       
+        el.parentNode.parentNode.removeAttribute("current");
+        targetElement.setAttribute('visible', 'true');
+        targetElement.setAttribute("current","");
+        //$("#"+idHud).setAttribute('text','value', targetElement.getAttribute('description'));
+        $("#cursor").setAttribute('raycaster', `objects: #${data.target}`);
+      }
+    );
+  }
+});*/
+
 AFRAME.registerComponent('default', {
   schema: {
   },
@@ -147,7 +189,7 @@ AFRAME.registerComponent('default', {
     image.setAttribute("src", source);
     parentImage.appendChild(image);
     $("#background").setAttribute('src', `#${el.id}Img`);
-    $("#"+idHud).setAttribute('text','value', el.getAttribute('description'));
+    //$("#"+idHud).setAttribute('text','value', el.getAttribute('description'));
     el.setAttribute('visible', 'true');
     el.setAttribute("current","");
     $("#cursor").setAttribute('raycaster', `objects: #${el.id}`);
@@ -216,10 +258,6 @@ function ajouterPointInteret(pos, rot){
       }
     }
 
-    if(target == currentPlace.getAttribute("id")){
-      alert("impossible de mettre un point là ou on est déjà");
-      return;
-    }
     point.setAttribute("data-target", target);
     point.setAttribute("position", pos);
     point.setAttribute("data-childrotation", rot);
@@ -274,6 +312,7 @@ function placerPannDebut(pos,text){
     $(".imsky").appendChild(pann);
     nbHud++;
 }
+
 
 function supprimer(el){
     elmt = el.parentNode;
@@ -330,9 +369,11 @@ function supprimer(el){
 
     }
 }
+
 function sauvegarder(){
     document.getElementById("pointsForm").submit();
 }
+
 
 function creerHud(pos,text){
     var pann = document.createElement("a-entity");
