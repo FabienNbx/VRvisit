@@ -9,15 +9,14 @@ figcaption{
 	margin-bottom: 50px;
 }
 
-/*.photoSeule{
-	width: 80%;
-  	margin: 5px;
+header{
+	margin: 10px;
+	text-align: center;
 }
 
-.photosDefault{
-	width: 15%;
-  	margin: 5px;
-}*/
+.logo{
+	width: 130px;
+}
 
 h1{
 	text-align: center;
@@ -38,10 +37,3 @@ h1{
 footer{
 	display: inline;
 }
-
-/*#def img{
-	border-width: 4px;
-	border-color: red;
-	border-style: solid;
-	border-radius: 4px;
-}*/

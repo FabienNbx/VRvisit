@@ -40,5 +40,5 @@ else{
 }
 $dom->appendChild($visit);
 $dom->save('download/save.xml');
-header('Location: accueil.php');
+header('Location: accueil.php?new=true');
 ?>

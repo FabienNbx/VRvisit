@@ -27,7 +27,7 @@
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"supprimerI.php\")"?>' >Suivant</a>
+		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"supprimerI.php?new=".filter_var($_GET['new'])."\")"?>' >Suivant</a>
 	</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

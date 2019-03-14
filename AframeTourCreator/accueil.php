@@ -7,6 +7,9 @@
     <link type="text/css" rel="stylesheet" href="css/accueil.css" />
 </head>
 <body class="bg-info">
+	<header>
+		<a href="clean.php"><img class="logo" src="fondecran.png"></a>
+	</header>
 	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
@@ -25,6 +28,8 @@
 						}
 					}
 				}
+				if(!isset($nomIm))
+					header("Location: erreur.php");
 				$tabImgs=explode(":",$nomIm);
 				$cpt=0;
 				rewinddir();
@@ -36,12 +41,27 @@
 					{
 						echo "
 						<figure class=\"photos\">
-						<a href='pointsI.php?img=".$fic['basename']."&li=".$nomIm."\")'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
+						<a href='pointsI.php?new=".filter_var($_GET['new'])."&img=".$fic['basename']."&li=".$nomIm."'><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./uploads/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
 						<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
 						</figure>
 						";
 						$cpt+=1;
 						
+					}
+				}
+			}
+			else{
+				header('Location: erreur.php');
+			}
+			$nbMaps = 0;
+			if($dossier = opendir('./maps')){
+				while(false !== ($fichier = readdir($dossier)))
+				{
+					$fic=pathinfo($fichier);
+					$ext=strtolower($fic['extension']);
+					if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
+					{
+						$nbMaps++;
 					}
 				}
 			}
@@ -88,6 +108,7 @@
 			$pannTag = $piece->getElementsByTagName("panns")->item(0);
 			$panns = $pannTag->getElementsByTagName("value");
 			$nbP = $positions->count();
+			$key=0;
 			foreach ($newPositions as $key => $value) {
 				if($key < $nbP){
 					if($value != $positions->item($key)->nodeValue){
@@ -120,7 +141,7 @@
 					$rotationTag->appendChild($rot);
 				}
 			}
-			if($key<$nbP-1){
+			if($key<=$nbP-1){
 				for($i=$key+1;$i<$nbP;$i++){
 					$posTag->removeChild($positions->item($i));
 					$targetTag->removeChild($targets->item($i));
@@ -159,13 +180,20 @@
 
 
 	?>
-<<<<<<< HEAD
 	<footer>
 		<div class="d-flex justify-content-center">
-			<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >Ajouter des maps</a>
+			<a class="btn btn-success" href="accueilMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >Voir les maps</a>
 			<a class="btn btn-primary" href="images.php?new=<?php echo $_GET['new']; ?>&ajout=true" >Ajouter d'autres images</a>
 			<a class="btn btn-secondary" href="supprimerImgs.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >Supprimer des images</a>
-			<a class="btn btn-danger" href='default.php' >Suivant</a>
+			<?php
+			$dom = new DomDocument();
+			$dom->preserveWhiteSpace = false;
+			$dom->formatOutput = true;
+			$dom->load('download/save.xml');
+			$maps = $dom->getElementsByTagName("map");
+			if(count($maps)==$nbMaps)
+				echo "<a class=\"btn btn-danger\" href='default.php?new=".$_GET['new']."'>Suivant</a>";
+			?>
 		</div>	
 	</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

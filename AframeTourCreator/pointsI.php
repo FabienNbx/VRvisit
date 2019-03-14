@@ -136,7 +136,7 @@
 			</a-entity>
 			</a-entity>
 		</a-scene>
-		<form id="pointsForm" action="accueil.php" method="POST">
+		<form id="pointsForm" action="accueil.php?new=<?php echo filter_var($_GET['new'])?>" method="POST">
 			<?php 
 				$dom = new DomDocument();
 				if(!$dom->load('download/save.xml'))

@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <img src="images/utils/fondecran.png">
+        <img src="fondecran.png">
     </header>
     <section>
         <a class="btn btn-primary" href="images.php?new=true"><h2 class="text-center">Nouveau projet</h2></a><br/>

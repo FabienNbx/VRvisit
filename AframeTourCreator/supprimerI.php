@@ -27,4 +27,4 @@ if($dossier = opendir('./uploads')){
 
 $doc->save("download/save.xml");
 
-header("Location: accueil.php");
+header("Location: accueil.php?new=".filter_var($_GET['new']));

@@ -11,6 +11,7 @@
 	<div><h1>Voici la liste des maps de votre tour 360° :</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
+		$li = filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING);
 			if($dossier = opendir('./maps')){
 				while(false !== ($fichier = readdir($dossier)))
 				{
@@ -26,6 +27,8 @@
 						}
 					}
 				}
+				if(!isset($nomIm))
+					header('Location: ajouterMap.php?new='.$_GET['new'].'&li='.$_GET['li']);
 				$tabImgs=explode(":",$nomIm);
 				$cpt=0;
 				rewinddir();
@@ -38,7 +41,7 @@
 
 						echo "
 							<figure class=\"photos\">
-							<a class=\"clickable\" href=ajoutPointsMaps.php?new=".$_GET['new']."&img=".$fic['basename']."&li=".filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING)."\"><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./maps/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
+							<a class=\"clickable\" href=ajoutPointsMaps.php?new=".$_GET['new']."&img=".$fic['basename']."&li=".$li."><img id=\"".$fic['basename']."\" class=\"rounded img-fluid\" src=\"./maps/".$fic['basename']."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>
 							<figcaption><strong>".$tabImgs[$cpt]."</strong></figcaption>
 							</figure>
 							";
@@ -55,13 +58,13 @@
 	<?php
 		if(isset($_POST['nomMap'])){
 			$dom = new DomDocument();
+			$dom->preserveWhiteSpace = false;
+			$dom->formatOutput = true;
 			if(!$dom->load('download/save.xml'))
 					header("Location: erreur.php");
 			/*if(!$dom->load('download/save.xml')){
 				header('Location: erreur.php');
 			}*/
-			$dom->preserveWhiteSpace = false;
-			$dom->formatOutput = true;
 			$nomM = $_POST['nomMap'];
 			$map = $dom->getElementById($nomM);
 
@@ -80,6 +83,7 @@
 			$targetTag = $map->getElementsByTagName("targets")->item(0);
 			$targets = $targetTag->getElementsByTagName("value");
 			$nbP = $positions->count();
+			$key = 0;
 			foreach ($newPositions as $key => $value) {
 				if($key < $nbP){
 					if($value != $positions->item($key)->nodeValue){
@@ -119,13 +123,10 @@
 
 	<footer>
 		<div class="d-flex justify-content-center">
+			<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $_GET['li']; ?>">Ajouter une autre map</a>
+			<a class="btn btn-secondary" href="supprimerMaps.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $li; ?>">Supprimer des maps</a>
+			<a class="btn btn-primary" href="accueil.php?new=<?php echo $_GET['new']; ?>">Retour images</a>
 			<a class="btn btn-danger clickable" href="default.php">Suivant</a>
-		</div>
-		<div class="d-flex justify-content-center">
-			<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $_GET['li']; ?>" >Ajouter une autre map</a>
-		</div>	
-		<div class="d-flex justify-content-center">
-			<a class="btn btn-secondary" href="supprimerMaps.php?li=<?php echo $nomIm; ?>">Supprimer des maps</a>
 		</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
