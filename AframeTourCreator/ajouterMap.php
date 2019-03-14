@@ -9,14 +9,14 @@
 </head>
 <body class="bg-info">
 	<?php 
-        if(isset($_REQUEST['li']))
+        if(isset($_REQUEST['li']))  
     	    $nomIm=filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING); 
         else
             header('Location: erreur.php');
 	?>
 
 	<header>
-       <img src="images/utils/map.png">
+       <img src="map.png">
     </header>
 
     <section>

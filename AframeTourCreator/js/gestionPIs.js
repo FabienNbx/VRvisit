@@ -26,7 +26,6 @@ function placementPann(pann){
     scrollDown = scroll > 0;
     scrollUp = scroll < 0;
     posPan = pann.getAttribute("position");
-    //alert(pos.z);
     if((posPan.z>=-2 && scrollUp) || (posPan.z<=-15 && scrollDown) || (posPan.z<-2 && posPan.z>-15)){
       //dist = dist+scroll;
       posPan.z=posPan.z+scroll;
@@ -317,8 +316,6 @@ function placerPannDebut(pos,text){
 function supprimer(el){
     elmt = el.parentNode;
     var currentPlace = $(".imsky");
-    /*alert(posP);
-    alert(posP.x+" "+posP.y+" "+posP.z);*/
     var form = $("#pointsForm");
     if(elmt.getAttribute("class")==null){
         var p = document.getElementsByName("pointsPos["+currentPlace.getAttribute('id')+"][]");
@@ -326,7 +323,6 @@ function supprimer(el){
         var r = document.getElementsByName("pointsRot["+currentPlace.getAttribute('id')+"][]");
         i=0;
         var posP = elmt.parentNode.parentNode.getAttribute("position");
-        alert(posP.x+" "+posP.y+" "+posP.z);
         p.forEach(function(pF, index){
             var point = pF.getAttribute("value");
             if(point==posP.x+" "+posP.y+" "+posP.z){

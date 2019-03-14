@@ -33,21 +33,16 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
     }
     if($parseOK==1){
         echo "<form action=\"images.php?new=false\" method=\"post\">
-          <input type=\"submit\" value=\"Terminer\" />
-          </form>";
-    }
-    else{
-        echo "<form action=\"existant.php\">
-          <input type=\"submit\" value=\"Retour\" />
+          <input class=\"btn btn-success\" type=\"submit\" value=\"Terminer\" />
           </form>";
     }
 }
 else{
     echo "<p>Il faut sélectionner un fichier ...</p>";
-    echo "<form action=\"existant.php\">
-          <input type=\"submit\" value=\"Retour\" />
-          </form>";
 }
+echo "<form class=\"double\" action=\"existant.php\">
+      <input class=\"btn btn-primary\" type=\"submit\" value=\"Retour\" />
+      </form>";
 ?>
 
 </body>

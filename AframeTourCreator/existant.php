@@ -21,6 +21,9 @@
                 <input class="btn btn-success" type="submit" value="Upload" name="submit">
             </div>
         </form>
+        <form class="double" action="index.php" method="post">
+            <input class="btn btn-primary" type="submit" value="Retour" />
+        </form>
     </section>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-$nomIm = $_REQUEST['nomIm'];
+$nomIm = $_REQUEST['li'];
 
 $doc = new DomDocument;
 $doc->validateOnParse = true;
@@ -29,4 +29,4 @@ if($dossier = opendir('./maps')){
 
 $doc->save("download/save.xml");
 
-header("Location: accueilMap.php?li="+$nomIm);
+header("Location: accueilMap.php?new=".$_GET['new']."&li=".$nomIm);

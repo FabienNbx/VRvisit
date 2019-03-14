@@ -25,6 +25,10 @@ form{
 	text-align: center;
 }
 
+.double{
+	margin-top: 0px;
+}
+
 h2{
 	text-decoration: underline;
 }

@@ -10,11 +10,15 @@
 </head>
 <body>
 <?php
-$doc = new DomDocument;
-$doc->validateOnParse = true;
-if(!$doc->load('download/save.xml'))
-    header("Location: erreur.php");
-$visit=$doc->getElementsByTagName("visit")[0];
+if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0 || isset($_GET['ajout'])){
+    $doc = new DomDocument;
+    $doc->validateOnParse = true;
+    $doc->preserveWhiteSpace = false;
+    $doc->formatOutput = true;
+    if(!$doc->load('download/save.xml'))
+        header("Location: erreur.php");
+    $visit=$doc->getElementsByTagName("visit")[0];
+}
 if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
     $c=count($_FILES["filesUpload"]["name"]);
     for($i=0;$i<$c;$i++){
@@ -42,18 +46,8 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             echo "Seuls les formats jpg, jpeg et png sont acceptés</br>";
             $uploadOk = 0;
         }
-        if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0){
-            $pieces = $doc->getElementsByTagName("piece");
-            foreach($pieces as $piece){
-                $t = $piece->getAttribute("xml:id");
-                if($t==pathinfo($target_file)['filename']){
-                    echo "L'image existe déjà dans le projet existant</br>";
-                    $uploadOk = 0;
-                }
-            }
-        }
 
-        if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0){
+        if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0 && !isset($_GET['ajout'])){
             $test = 1;
             $pieces = $doc->getElementsByTagName("piece");
             foreach($pieces as $piece){
@@ -68,10 +62,12 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
                 $positions = $doc->createElement("positions");
                 $targets = $doc->createElement("targets");
                 $rotations = $doc->createElement("rotations");
+                $panns = $doc->createElement("panns");
                 $piece->setAttribute("xml:id",pathinfo($target_file)['filename']);
                 $piece->appendChild($positions);
                 $piece->appendChild($targets);
                 $piece->appendChild($rotations);
+                $piece->appendChild($panns);
                 $visit->appendChild($piece);
                 echo "Image ajoutée au xml.<br/>"; 
             }
@@ -86,70 +82,84 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             if (move_uploaded_file($_FILES["filesUpload"]["tmp_name"][$i], $target_file)) // réalise l'upload.
             {
                 echo "Le fichier ". basename( $_FILES["filesUpload"]["name"][$i]). " a été upload avec SUCCES</br>";
+                if(isset($_GET['ajout'])){
+                    $piece = $doc->createElement("piece");
+                    $positions = $doc->createElement("positions");
+                    $targets = $doc->createElement("targets");
+                    $rotations = $doc->createElement("rotations");
+                    $panns = $doc->createElement("panns");
+                    $piece->setAttribute("xml:id",pathinfo($target_file)['filename']);
+                    $piece->appendChild($positions);
+                    $piece->appendChild($targets);
+                    $piece->appendChild($rotations);
+                    $piece->appendChild($panns);
+                    $visit->appendChild($piece);
+                }
             }
             else {
                 echo "Erreur inconnue au bataillon</br>";
             }
         }
     }
-    if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0){
-        $tab=array();
-        $pieces = $doc->getElementsByTagName("piece");
-        foreach($pieces as $piece){
-            $t = $piece->getAttribute("xml:id");
-            array_push($tab, $t);
-        }
-        if($dossier = opendir('./uploads'))
-        {
-            while(false !== ($fichier = readdir($dossier)))
+    if(!isset($_GET['ajout'])){
+        if(strcmp(filter_var($_GET['new'],FILTER_SANITIZE_STRING),"false")==0){
+            $tab=array();
+            $pieces = $doc->getElementsByTagName("piece");
+            foreach($pieces as $piece){
+                $t = $piece->getAttribute("xml:id");
+                array_push($tab, $t);
+            }
+            if($dossier = opendir('./uploads'))
             {
-                $fic=pathinfo($fichier);
-                $ext=strtolower($fic['extension']);
-                $nom=$fic['filename'];
-                if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
+                while(false !== ($fichier = readdir($dossier)))
                 {
-                    if (($key = array_search($nom, $tab)) !== false) {
-                        unset($tab[$key]);
+                    $fic=pathinfo($fichier);
+                    $ext=strtolower($fic['extension']);
+                    $nom=$fic['filename'];
+                    if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
+                    {
+                        if (($key = array_search($nom, $tab)) !== false) {
+                            unset($tab[$key]);
+                        }
                     }
                 }
             }
-        }
-        $test=1;
-        if(!empty($tab)){
-            echo "Impossible de continuer, il manque des images ...<br/>";
-            echo "Les images suivantes sont manquantes :<br/>";
-            foreach ($tab as $key => $value) {
-                echo $value."<br/>";
-            }
+            $test=1;
+            if(!empty($tab)){
+                echo "Impossible de continuer, il manque des images ...<br/>
+                    Les images suivantes sont manquantes :<br/>";
+                foreach ($tab as $key => $value) {
+                    echo $value."<br/>";
+                }
 
-            $test=0;
+                $test=0;
+            }
+            if ($test==1){
+                $doc->save('download/save.xml');
+                echo "<form method=\"post\" action=\"accueil.php?new=".$_GET['new']."\">
+                <input class=\"btn btn-success\" type=\"submit\" value=\"Suivant\" />
+                </form>";
+            }
         }
-    }
-    if ($test==1){
-        $doc->save('download/save.xml');
-        echo "<form method=\"post\" action=\"";
-        if(isset($_GET['ajout']))
-            echo "accueil.php?new=".$_GET['new']."";
-        else if($_GET['new']=='true')
-             echo "createXML.php?new=".$_GET['new']."";
-        else if($_GET['new']=='false') 
-            echo "accueil.php?new=".$_GET['new']."";
-        echo "\">
-        <input type=\"submit\" value=\"Suivant\" />
-        </form>";
+        else{
+            echo "<form method=\"post\" action=\"createXML.php?new=".$_GET['new']."\">
+            <input class=\"btn btn-primary\" type=\"submit\" value=\"Suivant\" />
+            </form>";
+        }
     }
     else{
-        echo "<form action=\"images.php?new=".$_GET['new']."\" method=\"post\">
-        <input type=\"submit\" value=\"Retour\" />
-        </form>";
+        $doc->save('download/save.xml');
+        echo "<form method=\"post\" action=\"accueil.php?new=".$_GET['new']."\">
+            <input class=\"btn btn-success\" type=\"submit\" value=\"Suivant\" />
+            </form>";
     }
 }
 else{
     echo "<p>Il faut sélectionner au minimum une image ...</p>";
-    echo "<form action=\"images.php?new=".$_GET['new']."\" method=\"post\">
-          <input type=\"submit\" value=\"Retour\" />
-          </form>";
 }
+echo "<form class=\"double\" action=\"images.php?new=".$_GET['new']."\" method=\"post\">
+      <input class=\"btn btn-primary\" type=\"submit\" value=\"Retour\" />
+      </form>";
 ?>
 
 </body>

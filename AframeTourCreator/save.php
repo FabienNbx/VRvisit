@@ -258,7 +258,19 @@ for($i=0;$i<$c;$i++){
     }
 }
 
-if (copy("map_icon.png"), "download/imgs/map_icon.png")) 
+$c=count($listMaps);
+for($i=0;$i<$c;$i++){
+    $target_dir = "download/imgs/";
+    $target_file = $target_dir . $listMaps[$i]['basename'];
+    if (copy("maps/".$listMaps[$i]['basename'], $target_file)) 
+    {
+        echo "SUCCES</br>";
+    } else {
+        echo "Erreur inconnue au bataillon</br>";
+    }
+}
+
+if (copy("map_icon.png", "download/imgs/map_icon.png") )
 {
     echo "SUCCES</br>";
 } else {
@@ -266,6 +278,8 @@ if (copy("map_icon.png"), "download/imgs/map_icon.png"))
 }
 
 
+if(file_exists('visite.zip'))
+	unlink('visite.zip');
 
 $archive_name = "visite.zip";
 $archive_folder = "download";
@@ -276,7 +290,6 @@ if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE)
     $dir = preg_replace('/[\/]{2,}/', '/', $archive_folder."/"); 
     var_dump($dir);
     $dirs = array($dir); 
-    echo "COUCOU<br/><br/>";
     var_dump($dirs);
 
     while (count($dirs)) 
@@ -331,7 +344,7 @@ if ($zip -> open($archive_name, ZipArchive::CREATE) === TRUE)
 	    } else {
 	        echo "Erreur inconnue au bataillon</br>";
 	    }
-	    if (unlink("maps/".$listImgs[$i]['basename']))
+	    if (unlink("maps/".$listMaps[$i]['basename']))
 	    {
 	        echo "SUCCES</br>";
 	    } else {
