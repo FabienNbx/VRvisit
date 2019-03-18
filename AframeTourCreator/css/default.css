@@ -1,15 +1,22 @@
+
+figure{
+	display: inline-block;
+	width: 15%;
+  	margin: 5px;
+}
+
+figcaption{
+	font-size: 20px;
+	margin-bottom: 50px;
+}
+
 .photos{
-  	width: 30%;
+  	width: 15%;
   	margin: 5px;
 }
 
 .photoSeule{
 	width: 80%;
-  	margin: 5px;
-}
-
-.photosDefault{
-	width: 15%;
   	margin: 5px;
 }
 

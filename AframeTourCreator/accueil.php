@@ -10,7 +10,7 @@
 	<header>
 		<a href="clean.php"><img class="logo" src="fondecran.png"></a>
 	</header>
-	<div><h1>Here is the list of photos of your 360 ° tour:</h1></div>
+	<div><h1>List of your 360° tour's photos :</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
 			if($dossier = opendir('./uploads')){
@@ -185,7 +185,7 @@
 			<a class="btn btn-success" href="accueilMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >
 			See maps</a>
 			<a class="btn btn-primary" href="images.php?new=<?php echo $_GET['new']; ?>&ajout=true" >
-			Add more images</a>
+			Add images</a>
 			<a class="btn btn-secondary" href="supprimerImgs.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >
 			Delete images</a>
 			<?php

@@ -15,9 +15,12 @@
 			if($dossier = opendir('./uploads')){
 				while(false !== ($fichier = readdir($dossier)))
 				{
-					if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
+					$ext=strtolower(pathinfo($fichier)['extension']);
+					if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
 					{
-						echo "<a class=\"clickable\" onClick='choiceDef(this,\"".pathinfo($fichier)['filename']."\")'><img id=\"".basename($fichier)."\" class=\"photosDefault rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
+						echo "<figure class=\"photos\">
+						<a class=\"clickable\" onClick='choiceDef(this,\"".pathinfo($fichier)['filename']."\")'><img id=\"".basename($fichier)."\" class=\"rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a><figcaption><strong>".pathinfo($fichier)['filename']."</strong></figcaption>
+						</figure>";
 						
 					}
 				}
@@ -28,7 +31,7 @@
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" href="accueil.php?new=<?php echo $_GET['new']; ?>" >Return</a>
+		<a class="btn btn-danger clickable" href="accueil.php?new=<?php echo $_GET['new']; ?>" >Back</a>
 		<p class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php\")"?>' >Create</p>
 	</div>	
 	</footer>

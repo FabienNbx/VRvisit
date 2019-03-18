@@ -22,7 +22,7 @@
             </div>
         </form>
         <form class="double" action="index.php" method="post">
-            <input class="btn btn-primary" type="submit" value="Retour" />
+            <input class="btn btn-primary" type="submit" value="Back" />
         </form>
     </section>
 </body>

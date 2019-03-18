@@ -14,7 +14,7 @@
     </header>
     <section>
         <h2 class="text-center">Add the existing tour</h2>
-    	<form action="uploadExist.php?new=<?php echo filter_var($_GET['new'],FILTER_SANITIZE_STRING);?>" method="post" enctype="multipart/form-data">
+    	<form action="uploadExist.php?new=false" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <h4>Project's XML file :</h4>
                 <input type="file" class="form-control-file" name="fileUpload"><br/>

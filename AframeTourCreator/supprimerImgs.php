@@ -14,7 +14,8 @@
 			if($dossier = opendir('./uploads')){
 				while(false !== ($fichier = readdir($dossier)))
 				{
-					if($fichier != '.' && $fichier != '..' && $fichier != 'ajout.jpeg' && $fichier != 'validation.png')
+					$ext=strtolower(pathinfo($fichier)['extension']);
+					if($fichier != '.' && $fichier != '..' && ($ext=="png" || $ext=="jpg" || $ext=="jpeg"))
 					{
 						echo "<a class=\"clickable\" onClick='choiceDef(this,\"".pathinfo($fichier)['filename']."\")'><img id=\"".basename($fichier)."\" class=\"photosDefault rounded img-fluid\" src=\"./uploads/".basename($fichier)."\" alt=\"Désolé notre image a rencontré des problèmes\"></a>";
 						

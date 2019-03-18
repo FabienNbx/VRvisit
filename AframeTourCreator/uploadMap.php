@@ -46,12 +46,12 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
         }
 
         if ($uploadOk == 0) {
-            echo "Fichier non upload !</br>";
+            echo "File not uploaded !</br>";
 
         } else {
             if (move_uploaded_file($_FILES["filesUpload"]["tmp_name"][$i], $target_file)) // réalise l'upload.
             {
-                echo "File ". basename( $_FILES["filesUpload"]["name"][$i]). " uploaded with success</br>";
+                echo "File ". basename( $_FILES["filesUpload"]["name"][$i]). " uploaded successfully</br>";
 
             } else {
                 echo "Unknown Error</br>";

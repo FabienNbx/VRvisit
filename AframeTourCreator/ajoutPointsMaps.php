@@ -75,7 +75,7 @@
 					  	animation__scaleReturn="property: scale; to: 2 2 2; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
 				></a-cursor>
 				<a-entity geometry="primitive: plane; width: 2; height: 1" material="color: #202020; opacity : 0.7" position="0 2.9 -4"
-				text="color : red; align: center; wrapCount: 20; value : - a : ajouter balise\n- r : supprimer balise\n- s : sauvegarder"
+				text="color : red; align: center; wrapCount: 20; value : - a : add marker\n- r : remove object\n- s : save"
 				>
 			</a-entity>
 			</a-entity>

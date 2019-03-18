@@ -38,5 +38,5 @@ input{
 
 .form-control-file{
 	display: inline; 
-	width: 50%;
+	width: inherit;
 }

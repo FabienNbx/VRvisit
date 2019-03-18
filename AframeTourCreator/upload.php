@@ -81,7 +81,7 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
         else {
             if (move_uploaded_file($_FILES["filesUpload"]["tmp_name"][$i], $target_file)) // réalise l'upload.
             {
-                echo "File ". basename( $_FILES["filesUpload"]["name"][$i]). " uploaded with succes</br>";
+                echo "File ". basename( $_FILES["filesUpload"]["name"][$i]). " uploaded successfully</br>";
                 if(isset($_GET['ajout'])){
                     $piece = $doc->createElement("piece");
                     $positions = $doc->createElement("positions");
@@ -158,7 +158,7 @@ else{
     echo "<p>Il faut sélectionner au minimum une image ...</p>";
 }
 echo "<form class=\"double\" action=\"images.php?new=".$_GET['new']."\" method=\"post\">
-      <input class=\"btn btn-primary\" type=\"submit\" value=\"Return\" />
+      <input class=\"btn btn-primary\" type=\"submit\" value=\"Back\" />
       </form>";
 ?>
 
