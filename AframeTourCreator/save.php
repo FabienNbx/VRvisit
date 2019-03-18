@@ -88,8 +88,10 @@ else
 
 if(isset($_POST['defaultMap']))
 	$defMap = $_POST['defaultMap'];
-else
+else if(count($listMaps)>0)
 	$defMap = $listMaps[0]['filename'];
+else
+	$defMap = "";
 
 
 $file = 'download/index.html';
@@ -250,8 +252,8 @@ $c=count($listImgs);
 for($i=0;$i<$c;$i++){
     $target_dir = "download/imgs/";
     $target_file = $target_dir . $listImgs[$i]['basename'];
-    if (copy("uploads/".$listImgs[$i]['basename'], $target_file)) 
-    {
+    if 
+    {(copy("uploads/".$listImgs[$i]['basename'], $target_file)) 
         echo "SUCCES</br>";
     } else {
         echo "Erreur inconnue au bataillon</br>";
