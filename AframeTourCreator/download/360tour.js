@@ -221,6 +221,7 @@ AFRAME.registerComponent('movetomap', {
 				var map = $(`.map a-entity[data-target=${originPlaceName}]`);
 				if(map == null){
 					map = $(".map[defaultmap]").getAttribute("id");
+					if(map == null) return;
 					$$(`#${map} a-entity a-entity`).forEach(function(el){
 						el.setAttribute("material", "color", "#202020");
 					});
