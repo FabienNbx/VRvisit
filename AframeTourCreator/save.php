@@ -148,6 +148,15 @@ $current = '<html class="a-html"><head>
 			<script id="templateMapIcon" type="text/html">
 				<a-entity
 					display-label="${target}"
+					geometry="primitive: sphere; radius: 0.5" 
+					material="color: #202020"
+					position="0 0 -3"
+					animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave"
+					animation__scaleReturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave"
+				>
+				</a-entity>
+				<a-entity
+					display-label="${target}"
 					geometry="primitive: sphere; radius: 1"
 					material="color: #5a92ae"
 					movetothismap="on: click; target: ${target}"

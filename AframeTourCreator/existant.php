@@ -13,10 +13,10 @@
         <img src="fondecran.png">
     </header>
     <section>
-        <h2 class="text-center">Ajouter le tour existant</h2>
+        <h2 class="text-center">Add the existing tour</h2>
     	<form action="uploadExist.php?new=<?php echo filter_var($_GET['new'],FILTER_SANITIZE_STRING);?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <h4>Fichier XML du projet :</h4>
+                <h4>Project's XML file :</h4>
                 <input type="file" class="form-control-file" name="fileUpload"><br/>
                 <input class="btn btn-success" type="submit" value="Upload" name="submit">
             </div>

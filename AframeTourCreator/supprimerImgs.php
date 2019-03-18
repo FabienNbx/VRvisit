@@ -8,7 +8,7 @@
     <script src="js/supp.js"></script>
 </head>
 <body class="bg-info">
-	<div><h1>Choisissez quelles images doivent être supprimées :</h1></div>
+	<div><h1>Choose which photos will be deleted :</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
 			if($dossier = opendir('./uploads')){
@@ -27,7 +27,7 @@
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"supprimerI.php?new=".filter_var($_GET['new'])."\")"?>' >Suivant</a>
+		<a class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"supprimerI.php?new=".filter_var($_GET['new'])."\")"?>' >Next</a>
 	</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

@@ -20,7 +20,7 @@
     </header>
 
     <section>
-        <h2 class="text-center">Ajouter la(les) map(s)</h2>
+        <h2 class="text-center">Add map(s)</h2>
     	<form action="uploadMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm;?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <h4>Map(s) :</h4>

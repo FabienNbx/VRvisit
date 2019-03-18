@@ -8,7 +8,7 @@
     <script src="js/accueil.js"></script>
 </head>
 <body class="bg-info">
-	<div><h1>Voici la liste des maps de votre tour 360° :</h1></div>
+	<div><h1>Here is the list of maps of your 360 ° tour:</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
 		$li = filter_var($_REQUEST['li'],FILTER_SANITIZE_STRING);
@@ -123,10 +123,10 @@
 
 	<footer>
 		<div class="d-flex justify-content-center">
-			<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $_GET['li']; ?>">Ajouter une autre map</a>
-			<a class="btn btn-secondary" href="supprimerMaps.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $li; ?>">Supprimer des maps</a>
-			<a class="btn btn-primary" href="accueil.php?new=<?php echo $_GET['new']; ?>">Retour images</a>
-			<a class="btn btn-danger clickable" href="default.php?new=<?php echo $_GET['new']; ?>">Suivant</a>
+			<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $_GET['li']; ?>">Add more maps</a>
+			<a class="btn btn-secondary" href="supprimerMaps.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $li; ?>">Delete maps</a>
+			<a class="btn btn-primary" href="accueil.php?new=<?php echo $_GET['new']; ?>">Go to photos</a>
+			<a class="btn btn-danger clickable" href="default.php?new=<?php echo $_GET['new']; ?>">Next</a>
 		</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

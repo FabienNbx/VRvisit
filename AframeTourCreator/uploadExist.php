@@ -16,32 +16,32 @@ if(strcmp($_FILES["fileUpload"]["name"], "")!=0){
     $parseOK = 1;
     $imageFileType = strtolower(pathinfo($_FILES["fileUpload"]["name"],PATHINFO_EXTENSION));
     if($imageFileType != "xml") {
-        echo "Seuls les fichiers xml sont acceptés</br>";
+        echo "Only xml files are accepted</br>";
         $parseOK = 0;
     }
     if ($parseOK == 0) {
-        echo "Fichier incorrect !</br>";
+        echo "Incorrect file !</br>";
     }
     else {
       if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) // réalise l'upload.
         {
-            echo "Importation du fichier effectué</br>";
+            echo "Import completed</br>";
         } 
         else {
-            echo "Erreur inconnue au bataillon</br>";
+            echo "Unknown error</br>";
         }
     }
     if($parseOK==1){
         echo "<form action=\"images.php?new=false\" method=\"post\">
-          <input class=\"btn btn-success\" type=\"submit\" value=\"Terminer\" />
+          <input class=\"btn btn-success\" type=\"submit\" value=\"End\" />
           </form>";
     }
 }
 else{
-    echo "<p>Il faut sélectionner un fichier ...</p>";
+    echo "<p>You must select a file</p>";
 }
 echo "<form class=\"double\" action=\"existant.php\">
-      <input class=\"btn btn-primary\" type=\"submit\" value=\"Retour\" />
+      <input class=\"btn btn-primary\" type=\"submit\" value=\"Return\" />
       </form>";
 ?>
 

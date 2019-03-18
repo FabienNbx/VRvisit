@@ -32,18 +32,18 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             if($check !== false) {
                 $uploadOk = 1;
             } else {
-                echo "Seules les images sont acceptées !!</br>";
+                echo "Only photos are accepted !!</br>";
                 $uploadOk = 0;
             }
         }
 
         if (file_exists($target_file)) {
-            echo "L'image existe déjà !</br>";
+            echo "Photo still exist !</br>";
             $uploadOk = 0;
         } 
 
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
-            echo "Seuls les formats jpg, jpeg et png sont acceptés</br>";
+            echo "Only jpg, jpeg and png format are accepted</br>";
             $uploadOk = 0;
         }
 
@@ -69,19 +69,19 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
                 $piece->appendChild($rotations);
                 $piece->appendChild($panns);
                 $visit->appendChild($piece);
-                echo "Image ajoutée au xml.<br/>"; 
+                echo "Photo add to xml<br/>"; 
             }
         }
 
         if ($uploadOk == 0) {
-            echo "Fichier non upload !</br>";
+            echo "File not uploaded !</br>";
 
         }
 
         else {
             if (move_uploaded_file($_FILES["filesUpload"]["tmp_name"][$i], $target_file)) // réalise l'upload.
             {
-                echo "Le fichier ". basename( $_FILES["filesUpload"]["name"][$i]). " a été upload avec SUCCES</br>";
+                echo "File ". basename( $_FILES["filesUpload"]["name"][$i]). " uploaded with succes</br>";
                 if(isset($_GET['ajout'])){
                     $piece = $doc->createElement("piece");
                     $positions = $doc->createElement("positions");
@@ -97,7 +97,7 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
                 }
             }
             else {
-                echo "Erreur inconnue au bataillon</br>";
+                echo "Unknown error ...</br>";
             }
         }
     }
@@ -126,8 +126,8 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             }
             $test=1;
             if(!empty($tab)){
-                echo "Impossible de continuer, il manque des images ...<br/>
-                    Les images suivantes sont manquantes :<br/>";
+                echo "Impossible to continue, missing images ...<br/>
+                    The following images are missing:<br/>";
                 foreach ($tab as $key => $value) {
                     echo $value."<br/>";
                 }
@@ -137,20 +137,20 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             if ($test==1){
                 $doc->save('download/save.xml');
                 echo "<form method=\"post\" action=\"accueil.php?new=".$_GET['new']."\">
-                <input class=\"btn btn-success\" type=\"submit\" value=\"Suivant\" />
+                <input class=\"btn btn-success\" type=\"submit\" value=\"Next\" />
                 </form>";
             }
         }
         else{
             echo "<form method=\"post\" action=\"createXML.php?new=".$_GET['new']."\">
-            <input class=\"btn btn-primary\" type=\"submit\" value=\"Suivant\" />
+            <input class=\"btn btn-primary\" type=\"submit\" value=\"Next\" />
             </form>";
         }
     }
     else{
         $doc->save('download/save.xml');
         echo "<form method=\"post\" action=\"accueil.php?new=".$_GET['new']."\">
-            <input class=\"btn btn-success\" type=\"submit\" value=\"Suivant\" />
+            <input class=\"btn btn-success\" type=\"submit\" value=\"Next\" />
             </form>";
     }
 }
@@ -158,7 +158,7 @@ else{
     echo "<p>Il faut sélectionner au minimum une image ...</p>";
 }
 echo "<form class=\"double\" action=\"images.php?new=".$_GET['new']."\" method=\"post\">
-      <input class=\"btn btn-primary\" type=\"submit\" value=\"Retour\" />
+      <input class=\"btn btn-primary\" type=\"submit\" value=\"Return\" />
       </form>";
 ?>
 
