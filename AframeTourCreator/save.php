@@ -88,8 +88,10 @@ else
 
 if(isset($_POST['defaultMap']))
 	$defMap = $_POST['defaultMap'];
-else
+else if(count($listMaps)>0)
 	$defMap = $listMaps[0]['filename'];
+else
+	$defMap = "";
 
 
 $file = 'download/index.html';
