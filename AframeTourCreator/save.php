@@ -99,8 +99,8 @@ $file = 'download/index.html';
 $current = '<html class="a-html"><head>
 	<meta charset="utf-8">
 	<title>Visite</title>
-    <script src="latotale.js"></script>
-    <script src="360tour.js"></script>   
+    <script src="js/latotale.js"></script>
+    <script src="js/360tour.js"></script>   
 </head>
 <body class="a-body">
 	<a-scene class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
@@ -117,7 +117,7 @@ $current = '<html class="a-html"><head>
 				</a-entity>
 			</script>
 			<script id="templateArrow" type="text/html">
-				<a-entity scale="0.5 0.5 0.5""
+				<a-entity scale="0.5 0.5 0.5"
 					>
 					<a-entity
 						geometry="primitive: cylinder; radius: 0.5; height: 2"
@@ -243,8 +243,8 @@ $c=count($listImgs);
 for($i=0;$i<$c;$i++){
     $target_dir = "download/imgs/";
     $target_file = $target_dir . $listImgs[$i]['basename'];
-    if 
-    {(copy("uploads/".$listImgs[$i]['basename'], $target_file)) 
+    if (copy("uploads/".$listImgs[$i]['basename'], $target_file)) 
+    {
         echo "SUCCES</br>";
     } else {
         echo "Erreur inconnue au bataillon</br>";

@@ -1,8 +1,8 @@
 <html class="a-html"><head>
 	<meta charset="utf-8">
 	<title>Visite</title>
-    <script src="latotale.js"></script>
-    <script src="360tour.js"></script>   
+    <script src="js/latotale.js"></script>
+    <script src="js/360tour.js"></script>   
 </head>
 <body class="a-body">
 	<a-scene class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="">
@@ -19,7 +19,7 @@
 				</a-entity>
 			</script>
 			<script id="templateArrow" type="text/html">
-				<a-entity scale="0.5 0.5 0.5""
+				<a-entity scale="0.5 0.5 0.5"
 					>
 					<a-entity
 						geometry="primitive: cylinder; radius: 0.5; height: 2"
@@ -75,7 +75,23 @@
 					>
 					</a-entity>
 				</script>
-		</a-assets>		<a-entity id="croisementChemin" class="piece" sourceimage="imgs/croisementChemin.JPG" description="croisementChemin" visible="false" default>		</a-entity>		<a-entity id="escalierGaucheA" class="piece" sourceimage="imgs/escalierGaucheA.JPG" description="escalierGaucheA" visible="false" >		</a-entity>		<a-entity id="escalierGaucheB" class="piece" sourceimage="imgs/escalierGaucheB.JPG" description="escalierGaucheB" visible="false" >		</a-entity>		<a-entity id="escalierMilieuA" class="piece" sourceimage="imgs/escalierMilieuA.JPG" description="escalierMilieuA" visible="false" >		</a-entity>		<a-entity id="escalierMilieuB" class="piece" sourceimage="imgs/escalierMilieuB.JPG" description="escalierMilieuB" visible="false" >		</a-entity>		<a-entity id="exterieurGauche" class="piece" sourceimage="imgs/exterieurGauche.JPG" description="exterieurGauche" visible="false" >		</a-entity>		<a-entity id="exterieurMilieu" class="piece" sourceimage="imgs/exterieurMilieu.JPG" description="exterieurMilieu" visible="false" >		</a-entity>		<a-entity id="gaucheA" class="piece" sourceimage="imgs/gaucheA.JPG" description="gaucheA" visible="false" >		</a-entity>		<a-entity id="gaucheB" class="piece" sourceimage="imgs/gaucheB.JPG" description="gaucheB" visible="false" >		</a-entity>		<a-entity id="map1" class="piece map" sourceimage="imgs/map1.jpg" visible="false" defaultmap>		</a-entity>		<a-entity id="map2" class="piece map" sourceimage="imgs/map2.jpg" visible="false" >		</a-entity>
+		</a-assets>
+		<a-entity id="croisementChemin" class="piece" sourceimage="imgs/croisementChemin.JPG" description="croisementChemin" visible="false">
+				
+		</a-entity>
+		<a-entity id="escalierGaucheA" class="piece" sourceimage="imgs/escalierGaucheA.JPG" description="escalierGaucheA" visible="false" >		</a-entity>
+		<a-entity id="escalierGaucheB" class="piece" sourceimage="imgs/escalierGaucheB.JPG" description="escalierGaucheB" visible="false" >		</a-entity>
+		<a-entity id="escalierMilieuA" class="piece" sourceimage="imgs/escalierMilieuA.JPG" description="escalierMilieuA" visible="false" >		</a-entity>
+		<a-entity id="escalierMilieuB" class="piece" sourceimage="imgs/escalierMilieuB.JPG" description="escalierMilieuB" visible="false" >		</a-entity>
+		<a-entity id="exterieurGauche" class="piece" sourceimage="imgs/exterieurGauche.JPG" description="exterieurGauche" visible="false" >		</a-entity>
+		<a-entity id="exterieurMilieu" class="piece" sourceimage="imgs/exterieurMilieu.JPG" description="exterieurMilieu" visible="false" >		</a-entity>
+		<a-entity id="gaucheA" class="piece" sourceimage="imgs/gaucheA.JPG" description="gaucheA" visible="false" default>		
+			<a-entity class="hudgaucheA" template="src:#templateHud" position="1 1 1" data-text="COUCOU"></a-entity>
+		</a-entity>
+		<a-entity id="gaucheB" class="piece" sourceimage="imgs/gaucheB.JPG" description="gaucheB" visible="false" >		</a-entity>
+		<a-entity id="map1" class="piece map" sourceimage="imgs/map1.jpg" visible="false" defaultmap>		</a-entity>
+		<a-entity id="map2" class="piece map" sourceimage="imgs/map2.jpg" visible="false" >		</a-entity>
+
 
 		<a-entity id="mapButton" geometry="primitive: plane; width: 1; height: 1" material="src: imgs/map_icon.png" position="0 -2 0" text="align: center; wrapCount: 20" look-at="#camera" animation__scale="property: scale; from: 1 1 1; to: 1.5 1.5 1; dur: 750; dir: alternate; easing: easeInOutElastic; startEvents: mouseenter; pauseEvents: mouseleave" animation__scalereturn="property: scale; to: 1 1 1; dur: 500; easing: easeOutElastic; startEvents: mouseleave" movetomap="on: click">
 		</a-entity>
