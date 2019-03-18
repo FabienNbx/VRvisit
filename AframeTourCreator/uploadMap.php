@@ -24,24 +24,24 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
             if($check !== false) {
                 $uploadOk = 1;
             } else {
-                echo "Seules les images sont acceptées !!</br>";
+                echo "Only photos are accepted !!</br>";
                 $uploadOk = 0;
             }
         }
 
         if (file_exists($target_file)) {
-            echo "L'image existe déjà !</br>";
+            echo "Photo still exist !</br>";
             $uploadOk = 0;
         } 
 
            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" ) {
-            echo "Seuls les formats jpg, jpeg et png sont acceptés</br>";
+            echo "Only jpg, jpeg and png format are accepted</br>";
             $uploadOk = 0;
         }
         
         $tabImgs=explode(":",$nomIm);
         if(in_array(pathinfo($target_file)['filename'], $tabImgs)){
-            echo "La map sélectionnée est une image (pièce) ! </br>";
+            echo "This map is a room !</br>";
             $uploadOk = 0;
         }
 
@@ -51,10 +51,10 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
         } else {
             if (move_uploaded_file($_FILES["filesUpload"]["tmp_name"][$i], $target_file)) // réalise l'upload.
             {
-                echo "Le fichier ". basename( $_FILES["filesUpload"]["name"][$i]). " a été upload avec SUCCES</br>";
+                echo "File ". basename( $_FILES["filesUpload"]["name"][$i]). " uploaded with success</br>";
 
             } else {
-                echo "Erreur inconnue au bataillon</br>";
+                echo "Unknown Error</br>";
             }
         }
     }
@@ -94,14 +94,14 @@ if(strcmp($_FILES["filesUpload"]["name"][0], "")!=0){
         }
     }
     $dom->save('download/save.xml');
-    echo "<form action=\"accueilMap.php?new=".$_GET['new']."&li=".$nomIm."\" method=\"post\"><input class=\"btn btn-success\" type=\"submit\" value=\"Suivant\" /></form>";
+    echo "<form action=\"accueilMap.php?new=".$_GET['new']."&li=".$nomIm."\" method=\"post\"><input class=\"btn btn-success\" type=\"submit\" value=\"Next\" /></form>";
 }
 else{
-    echo "<p>Il faut sélectionner au minimum une map ...</p>";
+    echo "<p>You must select a map...</p>";
 }
 echo "
       <form class=\"double\" action=\"ajouterMap.php?new=".$_GET['new']."&li=".$nomIm."\" method=\"post\">
-      <input class=\"btn btn-primary\" type=\"submit\" value=\"Retour\" />
+      <input class=\"btn btn-primary\" type=\"submit\" value=\"Return\" />
       </form>";
 ?>
 

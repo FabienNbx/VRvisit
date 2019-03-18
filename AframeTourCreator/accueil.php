@@ -10,7 +10,7 @@
 	<header>
 		<a href="clean.php"><img class="logo" src="fondecran.png"></a>
 	</header>
-	<div><h1>Voici la liste des photos de votre tour 360° :</h1></div>
+	<div><h1>Here is the list of photos of your 360 ° tour:</h1></div>
 	<section id="listeImg" class="text-center">
 		<?php
 			if($dossier = opendir('./uploads')){
@@ -182,9 +182,12 @@
 	?>
 	<footer>
 		<div class="d-flex justify-content-center">
-			<a class="btn btn-success" href="accueilMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >Voir les maps</a>
-			<a class="btn btn-primary" href="images.php?new=<?php echo $_GET['new']; ?>&ajout=true" >Ajouter d'autres images</a>
-			<a class="btn btn-secondary" href="supprimerImgs.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >Supprimer des images</a>
+			<a class="btn btn-success" href="accueilMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >
+			See maps</a>
+			<a class="btn btn-primary" href="images.php?new=<?php echo $_GET['new']; ?>&ajout=true" >
+			Add more images</a>
+			<a class="btn btn-secondary" href="supprimerImgs.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $nomIm; ?>" >
+			Delete images</a>
 			<?php
 			$dom = new DomDocument();
 			$dom->preserveWhiteSpace = false;
@@ -192,7 +195,7 @@
 			$dom->load('download/save.xml');
 			$maps = $dom->getElementsByTagName("map");
 			if(count($maps)==$nbMaps)
-				echo "<a class=\"btn btn-danger\" href='default.php?new=".$_GET['new']."'>Suivant</a>";
+				echo "<a class=\"btn btn-danger\" href='default.php?new=".$_GET['new']."'>Next</a>";
 			?>
 		</div>	
 	</footer>

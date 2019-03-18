@@ -8,9 +8,9 @@
     <script src="js/accueil.js"></script>
 </head>
 <body class="bg-info">
-	<div><h1>Choisissez quel endroit sera le point de départ :</h1></div>
+	<div><h1>Choose wich place will be the start point</h1></div>
 	<section id="listeImg" class="text-center">
-		<p id="err">Il faut choisir un point de départ !</p>
+		<p id="err">You must choose a start point !</p>
 		<?php
 			if($dossier = opendir('./uploads')){
 				while(false !== ($fichier = readdir($dossier)))
@@ -28,8 +28,8 @@
 	</form>
 	<footer>
 	<div class="d-flex justify-content-center">
-		<a class="btn btn-danger clickable" href="accueil.php?new=<?php echo $_GET['new']; ?>" >Retour</a>
-		<p class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php\")"?>' >Créer</p>
+		<a class="btn btn-danger clickable" href="accueil.php?new=<?php echo $_GET['new']; ?>" >Return</a>
+		<p class="btn btn-danger clickable" onClick='<?php echo "sendData(this,\"save.php\")"?>' >Create</p>
 	</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
