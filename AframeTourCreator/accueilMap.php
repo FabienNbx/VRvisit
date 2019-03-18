@@ -126,7 +126,7 @@
 			<a class="btn btn-success" href="ajouterMap.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $_GET['li']; ?>">Ajouter une autre map</a>
 			<a class="btn btn-secondary" href="supprimerMaps.php?new=<?php echo $_GET['new']; ?>&li=<?php echo $li; ?>">Supprimer des maps</a>
 			<a class="btn btn-primary" href="accueil.php?new=<?php echo $_GET['new']; ?>">Retour images</a>
-			<a class="btn btn-danger clickable" href="default.php">Suivant</a>
+			<a class="btn btn-danger clickable" href="default.php?new=<?php echo $_GET['new']; ?>">Suivant</a>
 		</div>	
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
