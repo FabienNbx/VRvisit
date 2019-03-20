@@ -1,65 +1,746 @@
 <?xml version="1.0"?>
 <visit>
-  <piece xml:id="gaucheA">
-    <positions/>
-    <targets/>
-    <rotations/>
+  <piece xml:id="A12">
+    <positions>
+      <value num="0">-5.982315666508132 -1.4175239986644173 -0.46032517447057425</value>
+    </positions>
+    <targets>
+      <value num="0">couloirA12</value>
+    </targets>
+    <rotations>
+      <value num="0">0 85.59989459254497 0</value>
+    </rotations>
+    <panns>
+      <value text="A12">-5.689336680598283 0.012000016000022854 1.9056358872562495</value>
+    </panns>
+  </piece>
+  <piece xml:id="A18">
+    <positions>
+      <value num="0">6.940208437341805 -1.6833689668665817 -0.9129659611670172</value>
+    </positions>
+    <targets>
+      <value num="0">couloirA18A19</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -82.50592249883856 0</value>
+    </rotations>
+    <panns>
+      <value text="A18">5.911356731355977 0.37836784506043497 3.7491147748038305</value>
+    </panns>
+  </piece>
+  <piece xml:id="A19">
+    <positions>
+      <value num="0">4.3079845015537 -1.4811799122850553 2.5379656290763903</value>
+    </positions>
+    <targets>
+      <value num="0">couloirA18A19</value>
+    </targets>
+    <rotations>
+      <value num="0">0 239.49635836468406 0</value>
+    </rotations>
+    <panns>
+      <value text="A19">5.961319241405193 0.40863002932791004 -0.6802006336752459</value>
+    </panns>
+  </piece>
+  <piece xml:id="A21">
+    <positions>
+      <value num="0">5.476583641563126 -1.0794243130496082 -2.4509246453049442</value>
+      <value num="1">-1.9278539057312156 -1.3073731800445942 -9.812409455284513</value>
+    </positions>
+    <targets>
+      <value num="0">couloirA21A22</value>
+      <value num="1">A23</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -65.89014644004466 0</value>
+      <value num="1">0 11.115381225538009 0</value>
+    </rotations>
     <panns/>
   </piece>
-  <piece xml:id="gaucheB">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+  <piece xml:id="A22">
+    <positions>
+      <value num="0">-8.996476856606366 -1.2316026201832808 -0.2518018438098271</value>
+    </positions>
+    <targets>
+      <value num="0">couloirA21A22</value>
+    </targets>
+    <rotations>
+      <value num="0">0 448.3967704693816 0</value>
+    </rotations>
+    <panns>
+      <value text="A22">-3.9326984412886894 -0.012000016000024987 4.531432772301219</value>
+    </panns>
+  </piece>
+  <piece xml:id="A23">
+    <positions>
+      <value num="0">-10.861601687463379 -0.8154890831060421 -1.7394277170646364</value>
+      <value num="1">-5.270200113258145 -1.2866597165221247 7.2955459539512075</value>
+      <value num="2">4.272273671489243 -1.029940933020855 4.2127992684081</value>
+    </positions>
+    <targets>
+      <value num="0">A21</value>
+      <value num="1">couloirA23</value>
+      <value num="2">gaucheA</value>
+    </targets>
+    <rotations>
+      <value num="0">0 80.90164067247217 0</value>
+      <value num="1">0 144.15618125491508 0</value>
+      <value num="2">0 225.40159660446565 0</value>
+    </rotations>
+    <panns>
+      <value text="A23">-0.37760340805906156 -0.08000682736578907 4.985721178146867</value>
+    </panns>
+  </piece>
+  <piece xml:id="B10">
+    <positions>
+      <value num="0">1.8011971148432613 -0.7596378203848699 -2.3991016971942463</value>
+    </positions>
+    <targets>
+      <value num="0">milieuB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -36.89848200642501 0</value>
+    </rotations>
+    <panns>
+      <value text="B10">-2.42341186374412 0.08000682736579008 -4.373451147396556</value>
+    </panns>
+  </piece>
+  <piece xml:id="B12">
+    <positions>
+      <value num="0">-8.476365977515108 -1.2682970549876311 -3.02509831496835</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB12</value>
+    </targets>
+    <rotations>
+      <value num="0">0 70.35921724206509 0</value>
+    </rotations>
+    <panns>
+      <value text="B12">-6.911476877905015 -0.21006302268826746 1.1097240045093844</value>
+    </panns>
+  </piece>
+  <piece xml:id="B14">
+    <positions>
+      <value num="0">4.479510961172278 -1.5653359506307878 5.379031655301669</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB14B17</value>
+    </targets>
+    <rotations>
+      <value num="0">0 219.78661021218298 0</value>
+    </rotations>
+    <panns>
+      <value text="B14">5.11008814038709 0.012000016000027059 -3.1443599026630547</value>
+    </panns>
+  </piece>
+  <piece xml:id="B17">
+    <positions>
+      <value num="0">4.874928323327927 -1.6864158704584309 3.4978670418435236</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB14B17</value>
+    </targets>
+    <rotations>
+      <value num="0">0 234.33973820850704 0</value>
+    </rotations>
+    <panns>
+      <value text="B17">1.406676393305926 -0.38073332097806695 -4.798047678432951</value>
+    </panns>
+  </piece>
+  <piece xml:id="B18">
+    <positions>
+      <value num="0">6.553187578248525 -2.0504090405851536 6.168932854577785</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB18B19</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -133.26998314742937 0</value>
+    </rotations>
+    <panns>
+      <value text="B18">2.3513321700640306 0.010000013333354357 4.4126224658384245</value>
+    </panns>
+  </piece>
+  <piece xml:id="B19">
+    <positions>
+      <value num="0">5.881807774601988 -1.9238502478475228 -5.422576629484511</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB18B19</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -47.32631387780596 0</value>
+    </rotations>
+    <panns>
+      <value text="B19">5.999767875401485 0.3724773900483772 -0.052777280153020724</value>
+    </panns>
+  </piece>
+  <piece xml:id="B20">
+    <positions>
+      <value num="0">-6.963144163180974 -1.7218735860633143 -3.9388606681067975</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB20B21B22B23</value>
+    </targets>
+    <rotations>
+      <value num="0">0 60.50434316581492 0</value>
+    </rotations>
+    <panns>
+      <value text="B20">-1.3336571834441522 0.28029306095448503 -4.818854481829454</value>
+    </panns>
+  </piece>
+  <piece xml:id="B21">
+    <positions>
+      <value num="0">5.6466315289236 -1.176370406014381 5.667058529481227</value>
+      <value num="1">5.174957521076134 -1.4919971106785186 -4.7137898399332085</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB20B21B22B23</value>
+      <value num="1">B23</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -135.103448091848 0</value>
+      <value num="1">0 -47.67008855488436 0</value>
+    </rotations>
+    <panns>
+      <value text="B21">4.70233211426973 -0.11001775010309475 -1.6994330487275975</value>
+    </panns>
+  </piece>
+  <piece xml:id="B22">
+    <positions>
+      <value num="0">3.4431306430750515 -0.8171610633845574 3.6255829013715273</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB20B21B22B23</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -136.4785468001619 0</value>
+    </rotations>
+    <panns>
+      <value text="B22">2.9809357087901005 0.1320852500182226 -0.3376718822467469</value>
+    </panns>
+  </piece>
+  <piece xml:id="B23">
+    <positions>
+      <value num="0">8.682550048818943 -1.4708899140922032 2.3692455866275584</value>
+      <value num="1">6.64769559098797 -1.7577753780150789 -7.470484812216613</value>
+      <value num="2">-6.004026866977336 -1.6242429053891245 -3.598841672068156</value>
+    </positions>
+    <targets>
+      <value num="0">B21</value>
+      <value num="1">couloirB20B21B22B23</value>
+      <value num="2">gaucheB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 254.7370357151639 0</value>
+      <value num="1">0 318.33535097468524 0</value>
+      <value num="2">0 419.06133135868373 0</value>
+    </rotations>
+    <panns>
+      <value text="B23">5.4089019357981405 -0.24012808197308766 -2.5968788668166884</value>
+    </panns>
+  </piece>
+  <piece xml:id="coinGauche">
+    <positions>
+      <value num="0">8.892386580338277 -0.903012048769053 -1.3876097815379274</value>
+      <value num="1">2.200361881956347 -0.6604262500911098 14.837735932022564</value>
+    </positions>
+    <targets>
+      <value num="0">exterieurGauche</value>
+      <value num="1">croisementChemin</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -81.13082379052457 0</value>
+      <value num="1">0 548.4352014992237 0</value>
+    </rotations>
+    <panns>
+      <value text="Coin Gauche">-4.710440672892229 -0.37247739004837316 -3.7164161052232294</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirA12">
+    <positions>
+      <value num="0">-1.1796823420793838 -1.4392324173994806 -7.912543811681936</value>
+      <value num="1">-2.996005340813101 -1.289651446794027 -0.15476432993223044</value>
+      <value num="2">1.4835321584076353 -0.5948639934534241 8.876887536460647</value>
+    </positions>
+    <targets>
+      <value num="0">milieuA</value>
+      <value num="1">A12</value>
+      <value num="2">couloirA18A19</value>
+    </targets>
+    <rotations>
+      <value num="0">0 8.479775367936183 0</value>
+      <value num="1">0 -272.957093600324 0</value>
+      <value num="2">0 -170.51223983093317 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirA12">1.9666784433894147 -0.18855568676865264 -0.3635600367303708</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirA18A19">
+    <positions>
+      <value num="0">-0.8268324622115275 -1.2866597165221259 -8.961938857157708</value>
+      <value num="1">-2.8536773718222403 -1.1774162642898602 -0.925486605818643</value>
+      <value num="2">2.5126409691466924 -1.2542584130947048 1.6390958971840455</value>
+      <value num="3">0.44824974233711307 -1.1414799502699475 5.983232585191279</value>
+    </positions>
+    <targets>
+      <value num="0">couloirA12</value>
+      <value num="1">A18</value>
+      <value num="2">A19</value>
+      <value num="3">couloirA21A22</value>
+    </targets>
+    <rotations>
+      <value num="0">0 5.271211715203502 0</value>
+      <value num="1">0 -287.96858783275195 0</value>
+      <value num="2">0 -483.11801285431005 0</value>
+      <value num="3">0 -535.7155384473206 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirA18A19">2.7926404165413468 -0.2043150146639574 -1.0959742259285907</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirA21A22">
+    <positions>
+      <value num="0">-0.229918895248023 -0.9719730610114031 -4.994710932737542</value>
+      <value num="1">-2.5014736104359088 -1.325350102347148 -1.6560886981960654</value>
+      <value num="2">2.586593846083938 -1.6001644399116097 1.5197145374710015</value>
+      <value num="3">-0.0320365128449882 -1.2341875803414697 4.999897365131082</value>
+    </positions>
+    <targets>
+      <value num="0">couloirA18A19</value>
+      <value num="1">A22</value>
+      <value num="2">A21</value>
+      <value num="3">couloirA23</value>
+    </targets>
+    <rotations>
+      <value num="0">0 2.6356058576017642 0</value>
+      <value num="1">0 56.49363859989912 0</value>
+      <value num="2">0 -120.43572853649883 0</value>
+      <value num="3">0 -180.36711390718284 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirA21A22">1.933397437929481 -0.10008341675107736 -0.5118342964355933</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirA23">
+    <positions>
+      <value num="0">2.99581979296138 -1.5390248606893235 -0.1583154070229239</value>
+      <value num="1">0.3358244115345703 -1.455587786049848 -5.990594458367004</value>
+      <value num="2">-0.08203305137200098 -1.4811799122850529 4.99932701255705</value>
+    </positions>
+    <targets>
+      <value num="0">A23</value>
+      <value num="1">couloirA21A22</value>
+      <value num="2">gaucheA</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -86.97499330085934 0</value>
+      <value num="1">0 -3.208563652732969 0</value>
+      <value num="2">0 -180.94007170231433 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirA23">-2.6223185903905044 -0.03600172809953621 1.457204587726912</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirB12">
+    <positions>
+      <value num="0">-0.8405929476715911 -1.4788808779834002 -2.8798269906931537</value>
+      <value num="1">0.8968514555518002 -1.8641735452744799 2.8628058730334156</value>
+      <value num="2">-5.713289016097091 -1.4428876858856439 1.832574314603458</value>
+      <value num="3">4.761695862198986 -1.1918331636752126 -1.5252057290467582</value>
+    </positions>
+    <targets>
+      <value num="0">secretariat</value>
+      <value num="1">B12</value>
+      <value num="2">milieuB</value>
+      <value num="3">couloirB14B17</value>
+    </targets>
+    <rotations>
+      <value num="0">0 16.272001381715224 0</value>
+      <value num="1">0 -162.60542225812767 0</value>
+      <value num="2">0 -252.2160214165883 0</value>
+      <value num="3">0 -432.23936064669294 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirB12">3.6679604521039524 -0.1500450162059056 3.3979502824204726</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirB14B17">
+    <positions>
+      <value num="0">5.900035330168244 -1.6734751281990994 -1.0906801101911137</value>
+      <value num="1">1.6128112191981043 -1.4788808779833982 2.5295928469278857</value>
+      <value num="2">0.46610410040161976 -1.5314535538659881 -2.9635699700848632</value>
+      <value num="3">-6.855975544985667 -1.81724968788727 1.4126568325529294</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB12</value>
+      <value num="1">B17</value>
+      <value num="2">B14</value>
+      <value num="3">couloirB18B19</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -79.52654196415827 0</value>
+      <value num="1">0 -147.47933646667394 0</value>
+      <value num="2">0 -8.938141604040885 0</value>
+      <value num="3">0 101.64271285620787 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirB14B17">3.6787011118406197 -0.3243152957660881 -4.739953388984177</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirB18B19">
+    <positions>
+      <value num="0">0.6738065233775321 -1.4919971106785184 6.967494870400256</value>
+      <value num="1">-2.973586554096218 -1.5088318705444728 -0.39721908979577053</value>
+      <value num="2">2.8004431704517256 -1.9144514375307042 -1.0758801276491203</value>
+      <value num="3">-0.8240844634163307 -1.7278626124780596 -6.951322521445529</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB14B17</value>
+      <value num="1">B19</value>
+      <value num="2">B18</value>
+      <value num="3">couloirB20B21B22B23</value>
+    </targets>
+    <rotations>
+      <value num="0">0 185.52373406336042 0</value>
+      <value num="1">0 82.39133093981222 0</value>
+      <value num="2">0 -68.98411853375129 0</value>
+      <value num="3">0 6.760901982543554 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirB18B19">4.0152840508261205 -0.2802930609544877 2.9795123747320433</value>
+    </panns>
+  </piece>
+  <piece xml:id="couloirB20B21B22B23">
+    <positions>
+      <value num="0">-1.6207039783989066 -1.505400450119182 -7.834112496920245</value>
+      <value num="1">-3.802231215380931 -1.8934396656231218 -3.2470044325166625</value>
+      <value num="2">-2.2530345031561985 -1.5466117200631486 1.9808673674902368</value>
+      <value num="3">2.9868650615279875 -1.4639940348752718 -0.28042308076085676</value>
+      <value num="4">3.212227240660909 -1.3344420726724164 2.383609899785618</value>
+      <value num="5">2.142884499589943 -1.470889914092203 8.741169602599939</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB18B19</value>
+      <value num="1">B20</value>
+      <value num="2">B22</value>
+      <value num="3">B21</value>
+      <value num="4">B23</value>
+      <value num="5">gaucheB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 11.688339020668764 0</value>
+      <value num="1">0 49.503553499303116 0</value>
+      <value num="2">0 131.32192664398448 0</value>
+      <value num="3">0 275.3635163398734 0</value>
+      <value num="4">0 233.42300573629706 0</value>
+      <value num="5">0 193.77432631324436 0</value>
+    </rotations>
+    <panns>
+      <value text="couloirB20B21B22B23">2.816486303546104 -0.2483182600322518 -2.8403177466503995</value>
+    </panns>
   </piece>
   <piece xml:id="croisementChemin">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+    <positions>
+      <value num="0">-0.32547168067801246 -1.438110498049061 10.995183863177397</value>
+      <value num="1">0.7227189256314648 -1.3794023645766462 -15.983669082990117</value>
+    </positions>
+    <targets>
+      <value num="0">exterieurMilieu</value>
+      <value num="1">coinGauche</value>
+    </targets>
+    <rotations>
+      <value num="0">0 178.30446584471224 0</value>
+      <value num="1">0 357.4110726026075 0</value>
+    </rotations>
+    <panns>
+      <value text="croisementChemin">-2.6935398832778996 -2.4086060868447245 2.9571680535930454</value>
+    </panns>
   </piece>
   <piece xml:id="escalierGaucheA">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+    <positions>
+      <value num="0">0.7373014637996154 -2.0319335062551964 -4.9453398823012105</value>
+      <value num="1">-6.51407541758204 0.3924102853362801 -2.5625810141444068</value>
+    </positions>
+    <targets>
+      <value num="0">gaucheA</value>
+      <value num="1">escalierGaucheB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -8.479775367936188 0</value>
+      <value num="1">0 68.52575229764645 0</value>
+    </rotations>
+    <panns>
+      <value text="escalierGaucheA">2.9643170268080663 -0.042002744215144716 0.46132912825420663</value>
+    </panns>
   </piece>
   <piece xml:id="escalierGaucheB">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+    <positions>
+      <value num="0">6.718032278940748 -4.045197513274686 -1.9667339167030646</value>
+      <value num="1">0.8143196822818195 -1.6016375253896198 4.933242691683477</value>
+    </positions>
+    <targets>
+      <value num="0">escalierGaucheA</value>
+      <value num="1">gaucheB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -73.68237245382389 0</value>
+      <value num="1">0 -170.62683138995908 0</value>
+    </rotations>
+    <panns>
+      <value text="escalierGaucheB">-2.9486962957889347 -0.060008001280205225 0.552440182463781</value>
+    </panns>
   </piece>
   <piece xml:id="escalierMilieuA">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+    <positions>
+      <value num="0">0.279853676278775 -1.128601876197142 -4.992162048639172</value>
+      <value num="1">-6.997097901021157 0.6317065293684938 -0.20154643019739923</value>
+    </positions>
+    <targets>
+      <value num="0">milieuA</value>
+      <value num="1">escalierMilieuB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -3.208563652732583 0</value>
+      <value num="1">0 88.35009200917303 0</value>
+    </rotations>
+    <panns>
+      <value text="escalierMilieuA">1.982391036064146 -0.16839625442608155 -0.26481272653050925</value>
+    </panns>
   </piece>
   <piece xml:id="escalierMilieuB">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+    <positions>
+      <value num="0">3.896896202131541 -4.045197513274682 5.814997849510588</value>
+      <value num="1">-5.440705160898415 -1.7513405153604855 2.5295705865172753</value>
+    </positions>
+    <targets>
+      <value num="0">escalierMilieuA</value>
+      <value num="1">milieuB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 213.82784914282396 0</value>
+      <value num="1">0 114.93533370324423 0</value>
+    </rotations>
+    <panns>
+      <value text="escalierMilieuB">-0.5811250856528475 -0.2208916491640797 -1.9137120041492583</value>
+    </panns>
   </piece>
   <piece xml:id="exterieurGauche">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+    <positions>
+      <value num="0">4.84306963185875 -0.8171610633845572 1.2428501683499698</value>
+      <value num="1">-2.8747098231675667 -1.3040581946260787 10.617723081366547</value>
+    </positions>
+    <targets>
+      <value num="0">gaucheA</value>
+      <value num="1">coinGauche</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -104.39291027283598 0</value>
+      <value num="1">0 -195.1494250215583 0</value>
+    </rotations>
+    <panns>
+      <value text="exterieurGauche">-0.2717904271257831 -0.36904177785197256 -3.9907555630134484</value>
+    </panns>
   </piece>
   <piece xml:id="exterieurMilieu">
-    <positions/>
-    <targets/>
-    <rotations/>
-    <panns/>
+    <positions>
+      <value num="0">-6.966956091097007 -0.9436548616203595 0.6793547120071476</value>
+      <value num="1">1.2595181758847223 -0.3782224209415344 8.911431645062201</value>
+    </positions>
+    <targets>
+      <value num="0">milieuA</value>
+      <value num="1">croisementChemin</value>
+    </targets>
+    <rotations>
+      <value num="0">0 95.56936022782132 0</value>
+      <value num="1">0 188.04474836193586 0</value>
+    </rotations>
+    <panns>
+      <value text="exterieurMilieu">-3.0797552875002325 -2.2328627314229754 3.938922107520579</value>
+    </panns>
+  </piece>
+  <piece xml:id="gaucheA">
+    <positions>
+      <value num="0">-2.613528213730386 -1.5618325325737747 1.4729121752620753</value>
+      <value num="1">2.8810407957756823 -1.571768006230482 7.463216728266453</value>
+      <value num="2">-1.014066850212742 -1.539024860689326 -2.823414320162666</value>
+      <value num="3">3.879955748846635 -2.3329342243794375 -0.9725962096327264</value>
+    </positions>
+    <targets>
+      <value num="0">A23</value>
+      <value num="1">couloirA23</value>
+      <value num="2">exterieurGauche</value>
+      <value num="3">escalierGaucheA</value>
+    </targets>
+    <rotations>
+      <value num="0">0 119.40440450526349 0</value>
+      <value num="1">0 201.10818609091845 0</value>
+      <value num="2">0 379.75642661270865 0</value>
+      <value num="3">0 284.0724748258611 0</value>
+    </rotations>
+    <panns>
+      <value text="gaucheA">4.723055088682132 -1.1812699988870143 1.640960276567906</value>
+    </panns>
+  </piece>
+  <piece xml:id="gaucheB">
+    <positions>
+      <value num="0">2.1909885729250376 -1.4053465587153586 4.494393070628325</value>
+      <value num="1">7.874723766210689 -1.0947578846073613 1.4102218286058883</value>
+      <value num="2">0.8163291533669109 -2.043594501059155 -4.932910572204128</value>
+    </positions>
+    <targets>
+      <value num="0">B23</value>
+      <value num="1">couloirB20B21B22B23</value>
+      <value num="2">escalierGaucheB</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -154.01105533116544 0</value>
+      <value num="1">0 -100.1530225888681 0</value>
+      <value num="2">0 -9.396507840145684 0</value>
+    </rotations>
+    <panns>
+      <value text="gaucheB">-3.23023240162045 -0.42559519114420236 -2.359152100124403</value>
+    </panns>
+  </piece>
+  <piece xml:id="milieuA">
+    <positions>
+      <value num="0">8.850052995252366 -1.2866597165221267 -1.6360201652866706</value>
+      <value num="1">7.395606138736821 -1.974700128546354 3.0504114215427163</value>
+      <value num="2">1.133485246365436 -1.368447355759205 9.935552888303292</value>
+    </positions>
+    <targets>
+      <value num="0">exterieurMilieu</value>
+      <value num="1">escalierMilieuA</value>
+      <value num="2">couloirA12</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -79.52654196415827 0</value>
+      <value num="1">0 -112.41431940466754 0</value>
+      <value num="2">0 -173.4916203656133 0</value>
+    </rotations>
+    <panns>
+      <value text="milieuA">-2.994163316276638 -0.04200274421514713 0.187045543820975</value>
+    </panns>
+  </piece>
+  <piece xml:id="milieuB">
+    <positions>
+      <value num="0">4.437584239526634 -1.5054004501191793 -6.656413908186962</value>
+      <value num="1">-4.949109585520662 -1.6791729852070925 -0.7115576649207679</value>
+      <value num="2">6.337608425066411 -1.5054004501191807 4.882081467010485</value>
+    </positions>
+    <targets>
+      <value num="0">escalierMilieuB</value>
+      <value num="1">B10</value>
+      <value num="2">couloirB12</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -33.68991835369241 0</value>
+      <value num="1">0 81.81837314468157 0</value>
+      <value num="2">0 232.3916817050617 0</value>
+    </rotations>
+    <panns>
+      <value text="milieuB">-1.0241394038853175 -0.05601463925755459 1.7178877965133308</value>
+    </panns>
+  </piece>
+  <piece xml:id="secretariat">
+    <positions>
+      <value num="0">5.203146941463685 -1.2882555690915984 -4.682655433142299</value>
+    </positions>
+    <targets>
+      <value num="0">couloirB12</value>
+    </targets>
+    <rotations>
+      <value num="0">0 -48.013863231963 0</value>
+    </rotations>
+    <panns>
+      <value text="secretariat">-2.562583989950152 -0.38611098764880303 -1.5598600239929088</value>
+    </panns>
   </piece>
   <map xml:id="map1">
-    <positions/>
-    <targets/>
+    <positions>
+      <value num="0">-5.734149040406564 -5.500582277247788 -1.7662204795564127</value>
+      <value num="1">-1.0008553030543237 -5.3050190742645595 5.915935146901802</value>
+      <value num="2">5.985974309938658 -4.753525048369542 0.41001409823858204</value>
+      <value num="3">7.995804182618269 0.7219503192782856 0.25906654207789015</value>
+      <value num="4">8.658423863940214 0.9757968515751407 2.4559511787392267</value>
+      <value num="5">7.806499907684523 2.387302292555457 1.7488736922149473</value>
+      <value num="6">-5.662909256247792 0.10801166551185663 -1.9827906484304108</value>
+      <value num="7">-6.950664076932324 -1.8471679991488688 -0.8296197259241878</value>
+      <value num="8">-7.483776981981203 0.9484059597280616 2.827203933919222</value>
+      <value num="9">6.0018266258393025 0.9971157971709459 5.289430702199096</value>
+      <value num="10">3.1227274906515126 0.8724763225245776 6.264868156563976</value>
+      <value num="11">-1.360435456256898 0.8724763225245776 6.866528625831183</value>
+      <value num="12">5.287236154969861 -0.9805932760614651 2.8363945144460283</value>
+      <value num="13">2.0040799916966265 -0.8892003056383704 4.5807928775356395</value>
+      <value num="14">2.9149638119262278 2.1731560229994504 4.06238673382539</value>
+      <value num="15">-0.863610571350919 -0.806897303676053 4.924852970500839</value>
+      <value num="16">-0.9128151000824752 2.3052195779047526 4.915970768125195</value>
+      <value num="17">-4.832971959166508 2.19697564672483 1.2815545411375395</value>
+    </positions>
+    <targets>
+      <value num="0">exterieurMilieu</value>
+      <value num="1">croisementChemin</value>
+      <value num="2">coinGauche</value>
+      <value num="3">exterieurGauche</value>
+      <value num="4">gaucheA</value>
+      <value num="5">escalierGaucheA</value>
+      <value num="6">milieuA</value>
+      <value num="7">escalierMilieuA</value>
+      <value num="8">couloirA12</value>
+      <value num="9">couloirA23</value>
+      <value num="10">couloirA21A22</value>
+      <value num="11">couloirA18A19</value>
+      <value num="12">A23</value>
+      <value num="13">A21</value>
+      <value num="14">A22</value>
+      <value num="15">A19</value>
+      <value num="16">A18</value>
+      <value num="17">A12</value>
+    </targets>
   </map>
   <map xml:id="map2">
-    <positions/>
-    <targets/>
+    <positions>
+      <value num="0">-5.948750089150118 -1.647636804253073 -0.7825422524288785</value>
+      <value num="1">-5.967083331199126 0.4206873472320194 -0.6276276910123877</value>
+      <value num="2">5.824604019949705 1.8691739217012588 1.4401347196653977</value>
+      <value num="3">6.771183989055238 0.8724763225245756 1.7751246115025232</value>
+      <value num="4">3.9913197176747905 -0.8788876890075377 3.0115389606147263</value>
+      <value num="5">3.0195887650562128 1.9739098649351485 3.985233203960127</value>
+      <value num="6">1.565271795514752 -0.9512332918916168 4.748676047717513</value>
+      <value num="7">1.2293025214230753 2.0552745757610706 4.846526107514832</value>
+      <value num="8">-4.275108425853322 -0.8479929695724278 2.5929612313333825</value>
+      <value num="9">-4.845545644402296 2.0786925277794834 1.233161549844112</value>
+      <value num="10">-3.332830177835617 2.137581239047873 3.7272299373272118</value>
+      <value num="11">-2.8132698522208415 -0.9201825493511389 4.13346256044316</value>
+      <value num="12">-0.8143196822818963 2.0669738708983836 4.933242691683464</value>
+      <value num="13">-0.79458024958761 -0.8068973036760512 4.9364604958376095</value>
+      <value num="14">-5.50939126574154 0.6141312859994458 2.3762592200706623</value>
+      <value num="15">-4.008333560498997 0.6748240266831727 4.464668192349509</value>
+      <value num="16">-1.6442475399329415 0.7234760232678353 5.770307619826214</value>
+      <value num="17">2.740867946211421 0.6262595040219315 5.33738165221776</value>
+      <value num="18">-4.865125447081345 2.0904306884911716 -1.1534965904420973</value>
+    </positions>
+    <targets>
+      <value num="0">escalierMilieuB</value>
+      <value num="1">milieuB</value>
+      <value num="2">escalierGaucheB</value>
+      <value num="3">gaucheB</value>
+      <value num="4">B23</value>
+      <value num="5">B22</value>
+      <value num="6">B21</value>
+      <value num="7">B20</value>
+      <value num="8">secretariat</value>
+      <value num="9">B12</value>
+      <value num="10">B14</value>
+      <value num="11">B17</value>
+      <value num="12">B18</value>
+      <value num="13">B19</value>
+      <value num="14">couloirB12</value>
+      <value num="15">couloirB14B17</value>
+      <value num="16">couloirB18B19</value>
+      <value num="17">couloirB20B21B22B23</value>
+      <value num="18">B10</value>
+    </targets>
   </map>
 </visit>
