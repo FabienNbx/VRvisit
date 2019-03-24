@@ -108,7 +108,7 @@
 			$pannTag = $piece->getElementsByTagName("panns")->item(0);
 			$panns = $pannTag->getElementsByTagName("value");
 			$nbP = $positions->count();
-			$key=0;
+			$key=-1;
 			foreach ($newPositions as $key => $value) {
 				if($key < $nbP){
 					if($value != $positions->item($key)->nodeValue){
@@ -141,14 +141,17 @@
 					$rotationTag->appendChild($rot);
 				}
 			}
-			if($key<=$nbP-1){
+			if($key<$nbP-1){
 				for($i=$key+1;$i<$nbP;$i++){
 					$posTag->removeChild($positions->item($i));
 					$targetTag->removeChild($targets->item($i));
 					$rotationTag->removeChild($rotations->item($i));
+					$nbP--;
+					$i--;
 				}
 			}
-
+			
+			$key = -1;
 			$nbP = $panns->count();
 			foreach ($newPanns as $key => $value) {
 				if($key < $nbP){
@@ -169,6 +172,8 @@
 			if($key<$nbP-1){
 				for($i=$key+1;$i<$nbP;$i++){
 					$pannTag->removeChild($panns->item($i));
+					$nbP--;
+					$i--;
 				}
 			}
 

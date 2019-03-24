@@ -83,7 +83,7 @@
 			$targetTag = $map->getElementsByTagName("targets")->item(0);
 			$targets = $targetTag->getElementsByTagName("value");
 			$nbP = $positions->count();
-			$key = 0;
+			$key = -1;
 			foreach ($newPositions as $key => $value) {
 				if($key < $nbP){
 					if($value != $positions->item($key)->nodeValue){
@@ -112,6 +112,8 @@
 				for($i=$key+1;$i<$nbP;$i++){
 					$posTag->removeChild($positions->item($i));
 					$targetTag->removeChild($targets->item($i));
+					$nbP--;
+					$i--;
 				}
 			}
 
