@@ -14,3 +14,7 @@ section{
 	width: 60%;
 	margin: auto;
 }
+
+.clickable{
+	cursor: pointer;
+}

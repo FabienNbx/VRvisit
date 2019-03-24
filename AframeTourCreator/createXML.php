@@ -25,7 +25,6 @@ if($dossier = opendir('./uploads')){
 			$rotations = $dom->createElement("rotations");
 			$panns = $dom->createElement("panns");
 			$piece->setAttribute("xml:id",$fic['filename']);
-			//$piece->setIdAttribute("name", true);
 			$piece->appendChild($positions);
 			$piece->appendChild($targets);
 			$piece->appendChild($rotations);
